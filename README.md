@@ -53,7 +53,7 @@ Portworx storage runs in a cluster of server nodes.
 See [*Deployment Requirements*](#deployment-requirements) for
 compatibility requirements.
 
-![](media/image01.png){width="3.625in" height="3.5520833333333335in"}
+![](images/deployment.png)
 
 Storage volumes are thinly provisioned, using capacity only as an
 application consumes it. Volumes are replicated across the nodes within
