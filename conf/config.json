@@ -1,0 +1,11 @@
+{
+ "base": {
+  "clusterid": "piglet-101",
+  "kvdb": "http://etcd.example.com:4001",
+  "storage": {
+   "devices": [
+    "/dev/xvdf"
+   ]
+  }
+ }
+}
