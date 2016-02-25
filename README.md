@@ -65,96 +65,69 @@ Find out your kernel version. For example:
 | Centos 7.0   	| 3.19.3 	| `http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm`             	|
 | Ubuntu 14.04 	| 3.13   	| `http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.debdpkg` 	|
 
+### Creating a configuration file
+`px-lite` needs a valid configuration file called config.json to start. In the above docker command, the config.json file is assumed to be in `/etc/pwx` on the host.
 
-##### Step 2: Install Docker
-
-PX-Lite requires
-[*Docker*](https://docs.docker.com/engine/installation/) version 1.10 or
-later. If you are using systemd, make sure that the Docker daemon is
-configured to let PX-Lite export storage.
-
-##### Step 3: Edit the JSON configuration
-
-The PX-Lite config.json specifies the key-value store for the cluster
-and lets you select which storage devices PX-Lite will use.
-
-To download the sample config.json file:
-
-  wget http://get.portworx.com/px-lite/config.json
-  --------------------------------------------------
-
-Create a directory for the configuration file and move the file to that
-directory. This directory later gets passed in on the Docker command
-line.
-
-  ---------------------------------
-  sudo mkdir -p /etc/pwx
-
-  sudo cp -p config.json /etc/pwx
-  ---------------------------------
-  ---------------------------------
-
-Here is a sample config.json file.
-
-  -----------------------------------------
-  {
-
-  "version": "0.4",
-
-  "base": {
-
-  "clusterid": "CLUSTERID",
-
+Here is an example `/etc/pwx/config.json`
+```
+{
+ "version": "0.3",
+ "base": {
+  "clusterid": "xxx-yyy-aaa-bbb-ccc",
   "mgtiface": "eth0",
-
-  "kvdb": "http://etcd.example.com:4001",
-
+  "dataiface": "",
+  "kvdb": "http://etcd.yourdomain.com:4001",
   "storage": {
-
-  "devices": \[
-
-  "/dev/DEVICE\_ID\_1",
-
-  "/dev/DEVICE\_ID\_2"
-
-  \],
-
+   "devices": [
+    "/dev/xvdf",
+    "/dev/xvdg"
+   ],
+   "raidlevel": "raid0"
   }
+ }
+}
+```
 
-  }
+The PX-Lite config.json specifies the key-value store for the cluster and lets you select which storage devices PX-Lite will use.  Create a directory for the configuration file and move the file to that directory. This directory later gets passed in on the Docker command line.
 
-  }
-  -----------------------------------------
-  -----------------------------------------
+#### To download the sample config.json file:
+```
+# wget http://get.portworx.com/px-lite/config.json
+# sudo mkdir -p /etc/pwx
+# sudo cp -p config.json /etc/pwx
+```
 
-In the configuration file, make the CLUSTERID unique among clusters in
-your key-value store. For example: px-lite-cluster-1. Point the
-DEVICE\_ID\_N to a local unused block device on your system, for example
-/dev/sdb. Any storage device that PX-Lite uses will be reformatted.
+#### Configuring the parameters of the config file:
+In the configuration file, make the CLUSTERID unique among clusters in your key-value store. For example: px-lite-cluster-1. Point the DEVICE\_ID\_N to a local unused block device on your system, for example /dev/sdb. Any storage device that PX-Lite uses will be reformatted.
 
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Field       Description                                                                                                      Example                           Required
-  ----------- ---------------------------------------------------------------------------------------------------------------- --------------------------------- ----------
-  version     Release version of PX-Lite.                                                                                      0.4                               required
+To find local drives that are available for use on your system, you can issue this bash command:
+```
+#!/bin/bash
+for d in `find /dev/disk/by-uuid/ -type l | \
+   xargs readlink -f | \
+   awk '{print $1}'`; do
+   is_mounted=0
+   for m in `find /dev/disk/by-uuid/ -type l | \
+       xargs readlink -f | \
+       xargs -i grep {} /proc/mounts | \
+       awk '{print $1}'`; do
 
-  clusterid   A unique identifier for your cluster. Be sure to use the same identifier on all the nodes you want to cluster.   px-lite-cluster-1                 required
+       if [ $d == $m ]; then
+           # echo "    Disk is mounted: $d"
+           is_mounted=1
+           break
+       fi
+       #echo "     $m"
+   done
+   if [ $is_mounted -eq 0 ]; then
+       echo "Disk is NOT mounted: $d"
+   fi
+   #echo $d
+done
+```
+Warning: Please ensure that disks are empty, to avoid data loss!
 
-  mgtiface    The network interface for management data.                                                                       eth0                              optional
-
-  dataiface   The network interface for data transfers.                                                                        eth1                              optional
-
-  kvdb        The URI to your etcd server.                                                                                     https://myetcd.example.com:4001   required
-
-  storage     Outer data structure for holding devices and future configuration.                                                                                 required
-
-  devices     The list of devices that PX-Lite will use. Any disks listed will be reformatted for PX use.                      /dev/xvda                         required
-                                                                                                                                                                 
-              Warning: Please ensure that disks are empty, to avoid data loss.                                                 /dev/xvdf                         
-                                                                                                                                                                 
-                                                                                                                               /dev/xvdg                         
-  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-##### Step 4: Download the PX-Lite container
+### Step 4: Download the PX-Lite container
 
 Download the PX-Lite container with the following command:
 
