@@ -25,7 +25,7 @@ Administrators and DevOps can alternatively pre-provision storage through the Po
 -   Servers join a cluster and share config through the key/value store, such as etcd.
 -   The PX-Lite container pools the capacity of the storage media residing on the server.  You easily select storage media through the config.json file.
 
-See [*Deployment Requirements*](#deployment-requirements) for compatibility requirements.
+See [*Deployment Requirements*](#Requirements-and-Limitations) for compatibility requirements.
 
 ![](http://i.imgur.com/OWOedkS.png)
 
@@ -97,7 +97,6 @@ Create a directory for the configuration file and move the file to that director
 Here is a sample config.json file.
 ```
 {
- "base": {
   "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
   "kvdb": "http://etcd.example.com:4001",
   "storage": {
@@ -106,7 +105,6 @@ Here is a sample config.json file.
     "/dev/xvdg"
    ]
   }
- }
 }
 ```  
   
@@ -315,6 +313,14 @@ Your Docker Registry is now available for Docker push and pull commands on port 
 
 ## Requirements and Limitations
 It is highly recommended that you run PX-Lite on a system with at least 4GB RAM.
+
+|Requirement | Notes |
+|---------------|---------|
+|Kernel Version|3.10 or higher|
+|Docker Version|1.10 or higher|
+|KV Database|Etcd.  See https://github.com/coreos/etcd or try a hosted version at https://compose.io/etcd/|
+|CPU|4 cores recommended|
+|Memory|4GB Minimum|
 
 Other limitations:
 
