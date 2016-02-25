@@ -1,119 +1,61 @@
-last update 22-Feb
+# PX-Lite alpha
 
-### PX-Lite alpha
+PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
-PX-Lite aggregates the storage capacity of hard drives on your server
-and it clusters multiple servers for high availability. As you develop
-and deploy your apps in containers, use PX-Lite for elastic storage
-capacity, managed performance, and high availability.
+### Quick-start guides on running PX-Lite for:
+    -   Hosting WordPress with persistent storage
+    -   Scaling a Cassandra database
+    -   Running the Docker registry with high availability
 
--   See our quick-start guides on running PX-Lite for scenarios such as:
+### CLI quick-start guide for tools to directly manage volumes, such as container granular snapshots and clones:
+    -   CLI quick-start
+    -   Example: Snapshotting a container’s storage. We will add docs to our
+    -   CLI RESTful interface
 
-    -   hosting WordPress with persistent storage
+PX-Lite improves the experience for DevOps teams. We want to develop this solution with the community. [*Contact*](#h.2wz3tlxiekfq)[*u*](#h.2wz3tlxiekfq)[*s*](#h.2wz3tlxiekfq) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release.
 
-    -   scaling a Cassandra database
 
-    -   running the Docker registry with high availability
+## Getting started
 
--   Use our command-line tools to directly manage volumes, such as
-    > snapshotting a container’s storage. We will add docs to our
-    > RESTful interface soon.
+PX-Lite aggregates the storage capacity on a server and it clusters servers for high availability. Containerized applications provision storage directly through the Docker volume plugin API command-line or admins can pre-provision storage through the Portworx CLI, called `pxctl`.  When the `px-lite` container is run, the CLI is automatically available at the host at `/opt/pwx/bin/pxctl`.
 
--   Refer to the FAQs as you use PX-Lite.
+PX-Lite runs as a Docker container, available on the DockerHub. This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on hosts.
 
-PX-Lite improves the experience for DevOps teams. We want to develop
-this solution with the community. [*Contact
-*](#h.2wz3tlxiekfq)[*u*](#h.2wz3tlxiekfq)[*s*](#h.2wz3tlxiekfq) to share
-your feedback, work with us, and to request features. Stay tuned for
-updates on PX-Lite and our PX-Enterprise release.
+The following guides walk through setting up and using PX-Lite and maintaining storage. See the Deployment Requirements for details on the configuration.
 
-### Architecture and Storage
+### Prerequisites
 
-Portworx storage is deployed as a container and runs on a cluster of
-servers. Application containers provision storage directly through the
-Docker [*volume
-plugins*](https://docs.docker.com/engine/extend/plugins_volume/#command-line-changes:be52bcf493d28afffae069f235814e9f)
-API or the Docker[
-*command-line*](https://docs.docker.com/engine/reference/commandline/volume_create/).
-Administrators and DevOps can alternatively pre-provision storage
-through the Portworx command-line tool (pxctl) and then set storage
-policies using the Portworx administrative interface.
+#### Docker
+Docker version 1.10 or greater is required and can be obtained [here](https://docs.docker.com/engine/installation/binaries/).
 
-Portworx storage runs in a cluster of server nodes.
+### Linux Kernel
+A 3.10 Linux kernel is the minimum requirement for px-lite.
 
--   Each server has the PX-Lite container and the Docker daemon.
+### Machine configuration
+A minimum machine configuration of 4GB RAM and 4 cores is highly recommended
 
--   Servers join a cluster and share config through the key/value store,
-    > such as etcd.
+### A key value database
+A key value database such as etcd or consul is required. To setup etcd, follow these instructions:
+1. https://github.com/coreos/etcd OR
+2. https://quay.io/repository/coreos/etcd
 
--   The PX-Lite container pools the capacity of the storage media
-    > residing on the server. You easily select storage media through
-    > the config.json file.
+### Portworx Driver
+Currently the portworx px storage driver requires a kernel module.
 
-See [*Deployment Requirements*](#deployment-requirements) for
-compatibility requirements.
+On `centos` for example, this module can be installed the following way:
 
-![](images/deployment.png)
+```
+# wget http://wilkins.portworx.com:8080/job/PX-FUSE/lastSuccessfulBuild/artifact/go/src/github.com/portworx/px-fuse/rpm/out/px-3.19.3-1.el7.elrepo.15.x86_64.rpm
+# rpm -ivh px-3.19.3-1.el7.elrepo.15.x86_64.rpm
+```
 
-Storage volumes are thinly provisioned, using capacity only as an
-application consumes it. Volumes are replicated across the nodes within
-the cluster, per a volume’s configuration, to ensure high availability.
-
-Using MySQL as an example, a PX-Lite storage cluster has the following
-characteristics:
-
--   MySQL is unchanged and continues to write its data
-    > to /var/lib/mysql.
-
--   This data gets stored in the container’s volume, managed by PX-Lite.
-
--   PX-Lite synchronously replicates writes to the volume across
-    > the cluster.
-
-Each volume specifies its request of resources (such as its max capacity
-and IOPS) and its individual requirements (such as ext4 as the file
-system and block size).
-
-Using IOPS as an example, a team can chose to set the MySQL container to
-have a higher IOPS than an offline batch processing container. Thus, a
-container scheduler can move containers, without losing storage and
-while protecting the user experience.
-
-### Guides and Tutorials
-
-PX-Lite aggregates the storage capacity on a server and it clusters
-servers for high availability. Containerized applications provision
-storage directly through the Docker volume plugin API command-line or
-admins can pre-provision storage through the Portworx CLI, called pxctl.
-
-The following guides walk through setting up and using PX-Lite and
-maintaining storage. See the Deployment Requirements for details on the
-configuration.
-
-### Installing and Using PX-Lite
-
-#### Installing PX-Lite
-
-PX-Lite runs as a Docker container, available on the DockerHub. This
-initial version of PX-Lite has a dependency on the
-[*lightweight*](http://github.com/portworx/px-fuse) kernel module, which
-must be installed on hosts.
-
-##### Step 1: Download and install the PX Kernel Module
-
-You can download and install pre-built packages for select Centos and
-Ubuntu Linux distributions. If your kernel version is not listed in the
-table below, you can build the kernel module by following the
-instructions here: http://github.com/portworx/px-fuse
+You can download and install pre-built packages for select Centos and Ubuntu Linux distributions. If your kernel version is not listed in the table below, you can build the kernel module by following the instructions here: http://github.com/portworx/px-fuse
 
 Find out your kernel version. For example:
-
-  -----------------------------
-  \# uname -r
-
-  3.19.3-1.el7.elrepo.x86\_64
-  -----------------------------
-  -----------------------------
+```
+# uname -r
+# 3.19.3-1.el7.elrepo.x86\_64
+```
 
 Install the kernel module on hosts using a command below.
 
