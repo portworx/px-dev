@@ -1,47 +1,73 @@
+![logo](http://i.imgur.com/l8JRhxg.jpg)
+
 # PX-Lite alpha
 
 PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
-### Quick-start guides on running PX-Lite for:
-    -   Hosting WordPress with persistent storage
-    -   Scaling a Cassandra database
-    -   Running the Docker registry with high availability
+### See our quick-start guides on running PX-Lite for scenarios such as:
+-	Hosting WordPress with persistent storage
+-	Scaling a Cassandra database
+-	Running the Docker registry with high availability
 
-### CLI quick-start guide for tools to directly manage volumes, such as container granular snapshots and clones:
-    -   CLI quick-start
-    -   Example: Snapshotting a container’s storage. We will add docs to our
-    -   CLI RESTful interface
+Use our command-line tools to directly manage volumes, such as snapshotting a container’s storage.  We will add docs to our RESTful interface soon.
 
-PX-Lite improves the experience for DevOps teams. We want to develop this solution with the community. [*Contact*](#h.2wz3tlxiekfq)[*u*](#h.2wz3tlxiekfq)[*s*](#h.2wz3tlxiekfq) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release.
+	Stay tuned for updates on PX-Lite and our PX-Enterprise release.
 
 
-## Getting started
 
-PX-Lite aggregates the storage capacity on a server and it clusters servers for high availability. Containerized applications provision storage directly through the Docker volume plugin API command-line or admins can pre-provision storage through the Portworx CLI, called `pxctl`.  When the `px-lite` container is run, the CLI is automatically available at the host at `/opt/pwx/bin/pxctl`.
+## Architecture and Storage
+Portworx storage is deployed as a container and runs on a cluster of servers. Application containers provision storage directly through the Docker [*volume plugins*](https://docs.docker.com/engine/extend/plugins_volume/#command-line-changes:be52bcf493d28afffae069f235814e9f)  API or the Docker [*command-line*](https://docs.docker.com/engine/reference/commandline/volume_create/). 
+
+Administrators and DevOps can alternatively pre-provision storage through the Portworx command-line tool (`pxctl`) and then set storage policies using the Portworx administrative interface.  Using `pxctl`, administrators can set container granular snapshot policies, create clones of volumes and set CoS parameters.
+
+### Portworx storage runs in a cluster of server nodes.
+-   Each server has the PX-Lite container and the Docker daemon.
+-   Servers join a cluster and share config through the key/value store, such as etcd.
+-   The PX-Lite container pools the capacity of the storage media residing on the server.  You easily select storage media through the config.json file.
+
+See [*Deployment Requirements*](#deployment-requirements) for compatibility requirements.
+
+![](http://get.portworx.com/images/deployment.png)
+
+Storage volumes are thinly provisioned, using capacity only as an application consumes it.  Volumes are replicated across the nodes within the cluster, per a volume’s configuration, to ensure high availability.
+
+Using MySQL as an example, a PX-Lite storage cluster has the following characteristics:
+
+-   MySQL is unchanged and continues to write its data to /var/lib/mysql.
+-   This data gets stored in the container’s volume, managed by PX-Lite.
+-   PX-Lite synchronously replicates writes to the volume across the cluster.
+
+Each volume specifies its request of resources (such as its max capacity and IOPS) and its individual requirements (such as ext4 as the file system and block size).
+
+Using IOPS as an example, a team can chose to set the MySQL container to have a higher IOPS than an offline batch processing container. Thus, a container scheduler can move containers, without losing storage and while protecting the user experience.
+
+
+
+## Installation and Tutorials
+The following guides walk through setting up and using PX-Lite and maintaining storage. See the Deployment Requirements for details on the configuration.
+
+### Step 1: Download and install the PX Kernel Module
 
 PX-Lite runs as a Docker container, available on the DockerHub. This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on hosts.
 
-The following guides walk through setting up and using PX-Lite and maintaining storage. See the Deployment Requirements for details on the configuration.
+You can download and install pre-built packages for select Centos and Ubuntu Linux distributions. If your kernel version is not listed in the table below, you can build the kernel module by following the instructions here: http://github.com/portworx/px-fuse
 
-### Prerequisites
+Find out your kernel version. For example:
 
-#### Docker
-Docker version 1.10 or greater is required and can be obtained [here](https://docs.docker.com/engine/installation/binaries/).
+```
+# uname -r
+3.19.3-1.el7.elrepo.x86_64
+```
 
-### Linux Kernel
-A 3.10 Linux kernel is the minimum requirement for px-lite.
+Install the kernel module on hosts using a command below.
 
-### Machine configuration
-A minimum machine configuration of 4GB RAM and 4 cores is highly recommended
-
-### A key value database
-A key value database such as etcd or consul is required. To setup etcd, follow these instructions:
-1. https://github.com/coreos/etcd OR
-2. https://quay.io/repository/coreos/etcd
-
-### Portworx Driver
-Currently the portworx px storage driver requires a kernel module.
-
+| **Distribution**   | **Kernel** | **Download URL and installation command**                                                                                                                                            |
+|  ----------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Centos 7.0         | 3.10       | [*http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86_64.rpm) rpm -ivh px-3.10.0-229.14.1.el7.x86\_64.rpm |
+| Centos 7.0         | 3.19.3     | [*http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm) rpm -ivh px-3.19.3-1.el7.elrepo.x86\_64.rpm |
+| Ubuntu 14.04       | 3.13       | [*http://get.portworx.com/builds/Linux/ubuntu/14.04/px\_3.13.0-74\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/14.04/px_3.13.0-74_amd64.deb)                     dpkg --install px\_3.13.0-74\_amd64.deb |
+| Ubuntu 15.04       | 3.19       | [*http://get.portworx.com/builds/Linux/ubuntu/15.04/px\_3.19.0-43\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.deb) dpkg --install px\_3.19.0-43\_amd64.deb |
+                                  
 On `centos` for example, this module can be installed the following way:
 
 ```
@@ -49,58 +75,54 @@ On `centos` for example, this module can be installed the following way:
 # rpm -ivh px-3.19.3-1.el7.elrepo.15.x86_64.rpm
 ```
 
-You can download and install pre-built packages for select Centos and Ubuntu Linux distributions. If your kernel version is not listed in the table below, you can build the kernel module by following the instructions here: http://github.com/portworx/px-fuse
+### Step 2: Install Docker
 
-Find out your kernel version. For example:
-```
-# uname -r
-# 3.19.3-1.el7.elrepo.x86\_64
-```
+PX-Lite requires [*Docker*](https://docs.docker.com/engine/installation/) version 1.10 or later. If you are using systemd, make sure that the Docker daemon is configured to let PX-Lite export storage.
 
-#### Finding the correct module for your kernel.
+### Step 3: Edit the JSON configuration
 
-| Distribution 	| Kernel 	| Download URL                                                                                                                                                        	|
-|--------------	|--------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| Centos 7.0   	| 3.10   	| `http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86_64.rpm`                           	|
-| Centos 7.0   	| 3.19.3 	| `http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm`             	|
-| Ubuntu 14.04 	| 3.13   	| `http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.debdpkg` 	|
+The PX-Lite `config.json` specifies the key-value store for the cluster and lets you select which storage devices PX-Lite will use.
 
-### Creating a configuration file
-`px-lite` needs a valid configuration file called config.json to start. In the above docker command, the config.json file is assumed to be in `/etc/pwx` on the host.
+To download the sample config.json file:
+https://github.com/portworx/px-lite/blob/master/conf/config.json
 
-Here is an example `/etc/pwx/config.json`
-```
-{
- "version": "0.3",
- "base": {
-  "clusterid": "xxx-yyy-aaa-bbb-ccc",
-  "mgtiface": "eth0",
-  "dataiface": "",
-  "kvdb": "http://etcd.yourdomain.com:4001",
-  "storage": {
-   "devices": [
-    "/dev/xvdf",
-    "/dev/xvdg"
-   ],
-   "raidlevel": "raid0"
-  }
- }
-}
-```
+Create a directory for the configuration file and move the file to that directory. This directory later gets passed in on the Docker command line.
 
-The PX-Lite config.json specifies the key-value store for the cluster and lets you select which storage devices PX-Lite will use.  Create a directory for the configuration file and move the file to that directory. This directory later gets passed in on the Docker command line.
-
-#### To download the sample config.json file:
 ```
 # wget http://get.portworx.com/px-lite/config.json
 # sudo mkdir -p /etc/pwx
 # sudo cp -p config.json /etc/pwx
 ```
 
-#### Configuring the parameters of the config file:
-In the configuration file, make the CLUSTERID unique among clusters in your key-value store. For example: `5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5`. 
+Here is a sample config.json file.
+```
+{
+ "base": {
+  "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
+  "kvdb": "http://etcd.example.com:4001",
+  "storage": {
+   "devices": [
+    "/dev/xvdf",
+    "/dev/xvdg"
+   ]
+  }
+ }
+}
+```  
+  
+In the configuration file, make the `clusterid` unique among clusters in your key-value store.  Point the `devices` to local unused block device on your system, for example /dev/sdb. 
 
-Point the `devices` section to  local unused block devices on your system, for example /dev/sdb. Any storage device that PX-Lite uses will be reformatted.
+      Warning!!!: Any storage device that PX-Lite uses will be reformatted.
+
+|  Field     |  Description                                                                                                    |  Example                          | Required
+|  ---------- ---------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------
+| clusterid  | A unique identifier for your cluster. Be sure to use the same identifier on all the nodes you want to cluster.  | 5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5                 | required
+| mgtiface   | The network interface for management data.                                                                      | eth0                              | optional
+| dataiface  | The network interface for data transfers.                                                                       | eth1                              | optional
+| kvdb       | The URI to your etcd server.                                                                                    | https://myetcd.example.com:4001   | required
+| required
+| devices    | The list of devices that PX-Lite will use. Any disks listed will be reformatted for PX use.                     | /dev/xvda                         | required
+
 
 To find local drives that are available for use on your system, you can issue this bash command:
 ```
@@ -127,34 +149,12 @@ for d in `find /dev/disk/by-uuid/ -type l | \
    #echo $d
 done
 ```
-Warning: Please ensure that disks are empty, to avoid data loss!
 
-### Step 4: Download the PX-Lite container
-
-Download the PX-Lite container with the following command:
-
-  docker pull portworx/px-lite:latest
-  -------------------------------------
-
-## Running PX-Lite
+*Warning: Please ensure that disks are empty, to avoid data loss!*                                                                                                                                                                 
+ 
+### Step 4: Running PX-Lite
 
 Start the PX-Lite container with the following run command:
-
-```
-# sudo docker run --name px-lite -d --net=host --privileged=true                  \
-                 -v /run/docker/plugins:/run/docker/plugins                       \
-                 -v /var/lib/osd:/var/lib/osd:shared                              \
-                 -v /dev:/dev                                                     \
-                 -v /etc/pwx:/etc/pwx                                             \
-                 -v /opt/pwx/bin:/export_bin:shared                               \
-                 -v /var/run/docker.sock:/var/run/docker.sock                     \
-                 -v /var/cores:/var/cores                                         \
-                 --ipc=host                                                       \
-                portworx/px-lite
-```
-
-
-OR... If you want the container to auto-restart via docker, set `--restart=always`:
 ```
 # sudo docker run --restart=always --name px-lite -d --net=host --privileged=true \
                  -v /run/docker/plugins:/run/docker/plugins                       \
@@ -168,7 +168,8 @@ OR... If you want the container to auto-restart via docker, set `--restart=alway
                 portworx/px-lite
 ```
 
-Runtime command options:
+     
+##### Explanation of the runtime command options:
 
     --privileged
         > Sets PX-Lite to be a privileged container. Required to export block  device and for other functions.
@@ -194,8 +195,10 @@ Runtime command options:
     -v /var/lib/osd:/var/lib/osd:shared
         > Location of the exported container mounts. This must be a shared mount.
         
-    -v /opt/pwx/bin:/export\_bin:shared
+    -v /opt/pwx/bin:/export\bin:shared
         > Exports the PX command line (pxctl) tool from the container to the host.
+
+
 
 ## Testing
 
@@ -234,7 +237,7 @@ OPTIONS:
    --fs "ext4"                  filesystem to be laid out: none|xfs|ext4
    --seed                       optional data that the volume should be seeded with
    --block_size, -b "32"        block size in Kbytes
-   --repl, -r "1"               replication factor [1..2]
+   --repl, -r "3"               replication factor [1..3]
    --cos "1"                    Class of Service: [1..9]
    --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
 
@@ -269,18 +272,18 @@ We will use the docker -v option to assign the volume we created with docker vol
 
 ####  Step 3: Start Docker on the other nodes 
 
-The only difference from the previous docker run command is the addition of the -e CASSANDRA\_SEEDS=10.0.0.1 parameter. This is a pointer to the IP address of the first Cassandra node.
+The only difference from the previous docker run command is the addition of the -e CASSANDRA_SEEDS=10.0.0.1 parameter. This is a pointer to the IP address of the first Cassandra node.
 
 On Cassandra node 2 run the following:
 
 ```
-# docker run --name cassandra2 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA\_BROADCAST\_ADDRESS=10.0.0.2 -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
+# docker run --name cassandra2 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA_BROADCAST_ADDRESS=10.0.0.2 -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
 ```
 
 On Cassandra node 3 run the following:
 
 ```
-# docker run --name cassandra3 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA_BROADCAST_ADDRESS=10.0.0.3  -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER\_CREATE\_VOLUME\_ID:/var/lib/cassandra cassandra:latest
+# docker run --name cassandra3 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA_BROADCAST_ADDRESS=10.0.0.3  -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
 ```
 
 Remember to change the IP addresses in our examples to the ones used by your instances. It can take up to 30 seconds for Cassandra to start up on each node. To determine when your cluster is ready for use, view the logs: You should see messages that each node is part of the cluster.
@@ -293,7 +296,7 @@ Registry version 2.3.0.
 To create a storage volume for the Docker registry, run the following command on each server and make a note of the returned volume ID. You will need the volume ID when you start the Cassandra container in the next step.
 
 ```
-# docker volume create -d pxd --opt name=registry\_volume --opt \\ size=20000 --opt block\_size=64 --opt repl=3 --opt fs =ext4
+# docker volume create -d pxd --opt name=registry_volume --opt size=20000 --opt block_size=64 --opt repl=3 --opt fs=ext4
 ```
 
 Now we have a volume to attach to our Docker Registry container. The Docker Registry stores its data in the /tmp/registry directory. We will use the Docker -v option to attach the Portworx volume to this directory.
@@ -301,11 +304,24 @@ Now we have a volume to attach to our Docker Registry container. The Docker Regi
 If you don't have the Registry image available locally, you can pull it with docker pull registry.
 
 #### Step 2: Start the Docker Registry
-To start the Docker Registry, run the following command. Substitute DOCKER\_CREATE\_VOLUME\_ID for the volume id from the docker volume
+To start the Docker Registry, run the following command. Substitute DOCKER_CREATE_VOLUME_ID for the volume id from the docker volume
 create command.
 
 ```
-# docker run -d -p 5000:5000 --name registry -v DOCKER\_CREATE\_VOLUME\_ID:/tmp/registry registry:2.3.0
+# docker run -d -p 5000:5000 --name registry -v DOCKER_CREATE_VOLUME_ID:/tmp/registry registry:2.3.0
 ```
 
 Your Docker Registry is now available for Docker push and pull commands on port 5000.
+
+## Requirements and Limitations
+It is highly recommended that you run PX-Lite on a system with at least 4GB RAM.
+
+Other limitations:
+
+| Resource | Limit |
+|------------|-------|
+| Cluster Size | 3 |
+| Per Volume Limit | 100GB |
+| Max Volumes | 256 |
+| Max local devices | 3 |
+
