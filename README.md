@@ -61,9 +61,9 @@ Find out your kernel version. For example:
 
 | Distribution 	| Kernel 	| Download URL and installation command                                                                                                                                                        	|
 |--------------	|--------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| Centos 7.0   	| 3.10   	| http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86_64.rpm                           	|
-| Centos 7.0   	| 3.19.3 	| http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm             	|
-| Ubuntu 14.04 	| 3.13   	| http://get.portworx.com/builds/Linux/ubuntu/15.04/px\_3.19.0-43\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.debdpkg --install px\_3.19.0-43\_amd64.deb 	|
+| Centos 7.0   	| 3.10   	| `http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7/px-3.10.0-229.14.1.el7.x86_64.rpm`                           	|
+| Centos 7.0   	| 3.19.3 	| `http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm`             	|
+| Ubuntu 14.04 	| 3.13   	| `http://get.portworx.com/builds/Linux/ubuntu/15.04/px\_3.19.0-43\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.debdpkg --install px\_3.19.0-43\_amd64.deb` 	|
 
 
 ##### Step 2: Install Docker
