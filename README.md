@@ -98,7 +98,9 @@ The PX-Lite config.json specifies the key-value store for the cluster and lets y
 ```
 
 #### Configuring the parameters of the config file:
-In the configuration file, make the CLUSTERID unique among clusters in your key-value store. For example: px-lite-cluster-1. Point the DEVICE\_ID\_N to a local unused block device on your system, for example /dev/sdb. Any storage device that PX-Lite uses will be reformatted.
+In the configuration file, make the CLUSTERID unique among clusters in your key-value store. For example: `5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5`. 
+
+Point the `devices` section to  local unused block devices on your system, for example /dev/sdb. Any storage device that PX-Lite uses will be reformatted.
 
 To find local drives that are available for use on your system, you can issue this bash command:
 ```
@@ -138,41 +140,45 @@ Download the PX-Lite container with the following command:
 
 Start the PX-Lite container with the following run command:
 
-  -------------------------------------------------------------------------------
-  docker run --restart=always --name px-lite -d --net=host --privileged=true \\
+```
+# sudo docker run --name px-lite -d --net=host --privileged=true                  \
+                 -v /run/docker/plugins:/run/docker/plugins                       \
+                 -v /var/lib/osd:/var/lib/osd:shared                              \
+                 -v /dev:/dev                                                     \
+                 -v /etc/pwx:/etc/pwx                                             \
+                 -v /opt/pwx/bin:/export_bin:shared                               \
+                 -v /var/run/docker.sock:/var/run/docker.sock                     \
+                 -v /var/cores:/var/cores                                         \
+                 --ipc=host                                                       \
+                gourao/px:dev
+```
 
-  -v /run/docker/plugins:/run/docker/plugins \\
 
-  -v /var/lib/osd:/var/lib/osd:shared \\
-
-  -v /dev:/dev \\
-
-  -v /etc/pwx:/etc/pwx \\
-
-  -v /opt/pwx/bin:/export\_bin:shared \\
-
-  -v /var/run/docker.sock:/var/run/docker.sock \\
-
-  --ipc=host portworx/px-lite:latest
-  -------------------------------------------------------------------------------
-  -------------------------------------------------------------------------------
+OR... If you want the container to auto-restart via docker, set `--restart=always`:
+```
+# sudo docker run --restart=always --name px-lite -d --net=host --privileged=true \
+                 -v /run/docker/plugins:/run/docker/plugins                       \
+                 -v /var/lib/osd:/var/lib/osd:shared                              \
+                 -v /dev:/dev                                                     \
+                 -v /etc/pwx:/etc/pwx                                             \
+                 -v /opt/pwx/bin:/export_bin:shared                               \
+                 -v /var/run/docker.sock:/var/run/docker.sock                     \
+                 -v /var/cores:/var/cores                                         \
+                 --ipc=host                                                       \
+                gourao/px:dev
+```
 
 run command options:
 
---privileged
-
-> Sets PX-Lite to be a privileged container. Required to export block
-> device and for other functions.
-
---net=host
-
-> Sets communication to be on the host IP address over ports 9001 -
-> 9003. Future versions will support separate IP addressing for PX-Lite.
-
---shm-size=384M
-
-> PX-Lite advertises support for asynchronous I/O. It uses shared memory
-> to sync across process restarts
+    --privileged
+        > Sets PX-Lite to be a privileged container. Required to export block  device and for other functions.
+        
+    --net=host
+        > Sets communication to be on the host IP address over ports 9001 -9003. Future versions will support separate IP addressing for PX-Lite.
+        
+    --shm-size=384M
+        > PX-Lite advertises support for asynchronous I/O. It uses shared memory
+        > to sync across process restarts
 
 Volume flags:
 
