@@ -317,9 +317,17 @@ It is highly recommended that you run PX-Lite on a system with at least 4GB RAM.
 |---------------|---------|
 |Kernel Version|3.10 or higher|
 |Docker Version|1.10 or higher|
-|KV Database|Etcd.  See https://github.com/coreos/etcd or try a hosted version at https://compose.io/etcd/|
+|KV Database|Etcd 2.0 or higher.  See https://github.com/coreos/etcd or try a hosted version at https://compose.io/etcd/|
 |CPU|4 cores recommended|
 |Memory|4GB Minimum|
+|Cloud|If running in the cloud, AWS Ubuntu 14.04 LTS (HVM) CentOS7 with Updates HVM|
+|systemd|If using systemd, Docker should NOT be set to MountFlags=slave.  PX-Lite exports mount points and requires shared mount flags.  Tracking (Docker issue 19625)[https://github.com/docker/docker/issues/19625].|
+
+MountFlag value is in: 
+/usr/lib/systemd/system/docker.service 
+
+
+
 
 Other limitations:
 
