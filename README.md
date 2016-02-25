@@ -321,7 +321,7 @@ It is highly recommended that you run PX-Lite on a system with at least 4GB RAM.
 |CPU|4 cores recommended|
 |Memory|4GB Minimum|
 |Cloud|If running in the cloud, AWS Ubuntu 14.04 LTS (HVM) CentOS7 with Updates HVM|
-|systemd|If using systemd, Docker should NOT be set to MountFlags=slave.  PX-Lite exports mount points and requires shared mount flags.  Tracking (Docker issue 19625)[https://github.com/docker/docker/issues/19625].|
+|systemd|If using systemd, Docker should NOT be set to MountFlags=slave.  PX-Lite exports mount points and requires shared mount flags.  Tracking [Docker issue 19625](https://github.com/docker/docker/issues/19625).|
 
 MountFlag value is in: 
 /usr/lib/systemd/system/docker.service 
