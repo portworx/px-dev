@@ -27,7 +27,7 @@ Administrators and DevOps can alternatively pre-provision storage through the Po
 
 See [*Deployment Requirements*](#deployment-requirements) for compatibility requirements.
 
-![](http://i.imgur.com/zZqgulz.png)
+![](http://i.imgur.com/OWOedkS.png)
 
 Storage volumes are thinly provisioned, using capacity only as an application consumes it.  Volumes are replicated across the nodes within the cluster, per a volume’s configuration, to ensure high availability.
 
@@ -112,17 +112,16 @@ Here is a sample config.json file.
   
 In the configuration file, make the `clusterid` unique among clusters in your key-value store.  Point the `devices` to local unused block device on your system, for example /dev/sdb. 
 
-     Warning!!!: Any storage device that PX-Lite uses will be reformatted.
+      Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
-|  Field     |  Description | Example | Required |
-|-------------| ------------|--------| ----------|
+|  Field     |  Description                                                                                                    |  Example                          | Required
+|  ---------- ---------------------------------------------------------------------------------------------------------------- | --------------------------------- | ----------
 | clusterid  | A unique identifier for your cluster. Be sure to use the same identifier on all the nodes you want to cluster.  | 5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5                 | required
 | mgtiface   | The network interface for management data.                                                                      | eth0                              | optional
 | dataiface  | The network interface for data transfers.                                                                       | eth1                              | optional
 | kvdb       | The URI to your etcd server.                                                                                    | https://myetcd.example.com:4001   | required
 | required
 | devices    | The list of devices that PX-Lite will use. Any disks listed will be reformatted for PX use.                     | /dev/xvda                         | required
-
 
 
 To find local drives that are available for use on your system, you can issue this bash command:
