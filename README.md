@@ -11,7 +11,7 @@ PX-Lite aggregates the storage capacity of hard drives on your server and it clu
 
 Use our command-line tools to directly manage volumes, such as snapshotting a container’s storage.  We will add docs to our RESTful interface soon.
 
-	Stay tuned for updates on PX-Lite and our PX-Enterprise release.
+*Stay tuned for updates on PX-Lite and our PX-Enterprise release.*
 
 
 
@@ -195,7 +195,7 @@ Start the PX-Lite container with the following run command:
     -v /var/lib/osd:/var/lib/osd:shared
         > Location of the exported container mounts. This must be a shared mount.
         
-    -v /opt/pwx/bin:/export\bin:shared
+    -v /opt/pwx/bin:/export_bin:shared
         > Exports the PX command line (pxctl) tool from the container to the host.
 
 
@@ -207,7 +207,7 @@ Start the PX-Lite container with the following run command:
 Refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
 
 ```
-# docker volume create -d pxd --name <volume_name>;
+# docker volume create -d pxd --name <volume_name>
 ```
 Everything else is optional. Use --opt to specify optional parameters; use the same option keywords as pxctl.
 
@@ -224,7 +224,7 @@ For Example:
 ```
 
 ```
-# pxctl create volume --help
+# /opt/pwx/bin/pxctl create volume --help
 NAME:
    create volume - Create a volume
 
@@ -255,7 +255,7 @@ To create storage volumes for each instance, run the following command on each s
 
 
 ```
-# docker volume create -d pxd --opt name=cassandra_volume --opt size=20000 --opt block_size=64 --opt repl=1 --opt fs=ext4
+# docker volume create -d pxd --opt name=cassandra_volume --opt size=20000 --opt bs=64 --opt ha=1 --opt fs=ext4
 ```
 
 The output of the command is the volume identifier. Store this for later; you will need the identifier to start the containers.
