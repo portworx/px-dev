@@ -168,7 +168,7 @@ OR... If you want the container to auto-restart via docker, set `--restart=alway
                 gourao/px:dev
 ```
 
-run command options:
+Runtime command options:
 
     --privileged
         > Sets PX-Lite to be a privileged container. Required to export block  device and for other functions.
@@ -309,24 +309,3 @@ create command.
 ```
 
 Your Docker Registry is now available for Docker push and pull commands on port 5000.
-
-### Deployment Requirements
-
-  Requirement       Details or Version                                                                                                                          Comments
-  ----------------- ------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------
-  Docker Version    v1.10                                                                                                                                       requires volume plug-ins
-
-  Kernel            3.10+                                                                                                                                       temporary requirement.
-
-  key value store   etcd version 2.0                                                                                                                            
-
-  Memory            2 GB for PX-Lite                                                                                                                            temporary requirement for 2GB of overhead
-
-  OS                [*AWS Ubuntu 14.04 LTS (HVM)*](https://aws.amazon.com/marketplace/pp/B00JV9TBA6/ref=sp_mpg_product_title?ie=UTF8&sr=0-5)                    AWS is not required
-                                                                                                                                                                
-                    Ubuntu XXX                                                                                                                                  
-                                                                                                                                                                
-                    [*CentOS7 with Updates HVM*](https://aws.amazon.com/marketplace/pp/B00O7WM7QW/ref=srh_res_product_title?ie=UTF8&sr=0-2&qid=1453413879042)   
-
-  systemd           If using systemd, Docker should NOT be set to [*MountFlags*](https://github.com/docker/docker/issues/19625)=slave                           PX-Lite exports mount points and requires shared mount flags.
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
