@@ -150,7 +150,7 @@ Start the PX-Lite container with the following run command:
                  -v /var/run/docker.sock:/var/run/docker.sock                     \
                  -v /var/cores:/var/cores                                         \
                  --ipc=host                                                       \
-                gourao/px:dev
+                portworx/px-lite
 ```
 
 
@@ -165,7 +165,7 @@ OR... If you want the container to auto-restart via docker, set `--restart=alway
                  -v /var/run/docker.sock:/var/run/docker.sock                     \
                  -v /var/cores:/var/cores                                         \
                  --ipc=host                                                       \
-                gourao/px:dev
+                portworx/px-lite
 ```
 
 Runtime command options:
