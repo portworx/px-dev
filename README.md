@@ -25,7 +25,7 @@ Administrators and DevOps can alternatively pre-provision storage through the Po
 -   Servers join a cluster and share config through the key/value store, such as etcd.
 -   The PX-Lite container pools the capacity of the storage media residing on the server.  You easily select storage media through the config.json file.
 
-See [*Deployment Requirements*](#Requirements-and-Limitations) for compatibility requirements.
+See [*Deployment Requirements*](#requirements-and-limitations) for compatibility requirements.
 
 ![](http://i.imgur.com/OWOedkS.png)
 
