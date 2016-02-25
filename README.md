@@ -27,7 +27,7 @@ Administrators and DevOps can alternatively pre-provision storage through the Po
 
 See [*Deployment Requirements*](#deployment-requirements) for compatibility requirements.
 
-![](http://get.portworx.com/images/deployment.png)
+![](http://i.imgur.com/zZqgulz.png)
 
 Storage volumes are thinly provisioned, using capacity only as an application consumes it.  Volumes are replicated across the nodes within the cluster, per a volume’s configuration, to ensure high availability.
 
