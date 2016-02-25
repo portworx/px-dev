@@ -136,7 +136,7 @@ Download the PX-Lite container with the following command:
   docker pull portworx/px-lite:latest
   -------------------------------------
 
-#### Running PX-Lite
+## Running PX-Lite
 
 Start the PX-Lite container with the following run command:
 
@@ -177,237 +177,141 @@ run command options:
         > Sets communication to be on the host IP address over ports 9001 -9003. Future versions will support separate IP addressing for PX-Lite.
         
     --shm-size=384M
-        > PX-Lite advertises support for asynchronous I/O. It uses shared memory
-        > to sync across process restarts
+        > PX-Lite advertises support for asynchronous I/O. It uses shared memory to sync across process restarts
+        
+    -v /run/docker/plugins
+        > Specifies that the volume driver interface is enabled.
+        
+    -v /dev
+        > Specifies which host drives PX-Lite can see. Note that PX-Lite only uses drives specified in config.json. This volume flage is an alternate to --device=\[\].
+        
+    -v /etc/pwx/config.json:/etc/pwx/config.json
+        > the configuration file location.
+        
+    -v /var/run/docker.sock
+        > Used by Docker to export volume container mappings.
+        
+    -v /var/lib/osd:/var/lib/osd:shared
+        > Location of the exported container mounts. This must be a shared mount.
+        
+    -v /opt/pwx/bin:/export\_bin:shared
+        > Exports the PX command line (pxctl) tool from the container to the host.
 
-Volume flags:
+## Testing
 
-> Note: The format on the command line is
-> /\[host\_path\]/\[container\_path\]. For readability in this
-> description, we omit the second path when the two paths are identical.
+### Creating a volume with Docker:
 
--v /run/docker/plugins
+Refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
 
-> Specifies that the volume driver interface is enabled.
+```
+# docker volume create -d pxd --name <volume_name>;
+```
+Everything else is optional. Use --opt to specify optional parameters; use the same option keywords as pxctl.
 
--v /dev
+For Example: 
 
-> Specifies which host drives PX-Lite can see. Note that PX-Lite only
-> uses drives specified in config.json. This volume flage is an
-> alternate to --device=\[\].
+```
+  docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
+```
 
--v /etc/pwx/config.json:/etc/pwx/config.json
+### Creating a volume with pxctl:
+```
+# /opt/pwx/bin/pxctl volume create foobar
+3903386035533561360
+```
 
-> the configuration file location.
+```
+# pxctl create volume --help
+NAME:
+   create volume - Create a volume
 
--v /var/run/docker.sock
+USAGE:
+   command create volume [command options] [arguments...]
 
-> Used by Docker to export volume container mappings.
+OPTIONS:
+   --label, -l                  Comma separated name=value pairs, e.g name=sqlvolume,type=production
+   --size, -s "1000"            specify size in MB
+   --fs "ext4"                  filesystem to be laid out: none|xfs|ext4
+   --seed                       optional data that the volume should be seeded with
+   --block_size, -b "32"        block size in Kbytes
+   --repl, -r "1"               replication factor [1..2]
+   --cos "1"                    Class of Service: [1..9]
+   --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
 
--v /var/lib/osd:/var/lib/osd:shared
-
-> Location of the exported container mounts. This must be a shared
-> mount.
-
--v /opt/pwx/bin:/export\_bin:shared
-
-> Exports the PX command line (pxctl) tool from the container to the
-> host.
-
-#### Create volume
-
-With Docker:
-
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-  [*https://docs.docker.com/engine/reference/commandline/volume\_create/*](https://docs.docker.com/engine/reference/commandline/volume_create/)
-
-  docker volume create -d pxd --name &lt;volume\_name&gt;
-
-  Everything else is optional.
-
-  Use --opt to specify optional parameters; use the same option keywords as pxctl.
-
-  EXAMPLE:
-
-  docker volume create -d pxd --name &lt;volume\_name&gt; --opt fs=ext4 --opt size=10G
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-  -----------------------------------------------------------------------------------------------------------------------------------------------
-
-With pxctl:
-
-  -----------------------------------------------------------------------------
-  pxctl create volume -h
-
-  NAME:
-
-  create volume - Create a volume
-
-  USAGE:
-
-  command create volume \[command options\] \[arguments...\]
-
-  OPTIONS:
-
-  --label, -l
-
-  > Comma separated name=value pairs. Example: name=sqlvolume,type=production
-
-  --size, -s "10G"
-
-  > Volume size in GBs.
-
-  --fs "ext4"
-
-  > File system layout: none|xfs|ext4
-
-  --seed
-
-  > Optional. Data to seed the volume.
-
-  --block\_size, -b "32"
-
-  > Volume block size in KBs.
-
-  --repl, -r "1"
-
-  > Replication factor \[1..2\]
-
-  --cos "1"
-
-  > Class of Service: \[1..9\]
-
-  --snap\_interval, --si "0"
-
-  > Snapshot interval in minutes. 0 disables snapshots.
-  -----------------------------------------------------------------------------
-  -----------------------------------------------------------------------------
+```
 
 ### Walkthrough of Cassandra with PX-Lite
-
-Apache Cassandra is an open source distributed database management
-system designed to handle large amounts of data across commodity
+Apache Cassandra is an open source distributed database management system designed to handle large amounts of data across commodity
 servers.
 
-Setting up a Cassandra cluster with Portworx storage takes only a few
-commands. In this scenario we will create a three-node Cassandra
+Setting up a Cassandra cluster with Portworx storage takes only a few commands. In this scenario we will create a three-node Cassandra
 cluster.
 
 #### Step 1: Create storage volumes for each instance
+To create storage volumes for each instance, run the following command on each server.
 
-To create storage volumes for each instance, run the following command
-on each server.
 
-  -------------------------------------------------------------------
-  docker volume create -d pxd --opt name=cassandra\_volume --opt \\
+```
+# docker volume create -d pxd --opt name=cassandra_volume --opt size=20000 --opt block_size=64 --opt repl=1 --opt fs=ext4
+```
 
-  size=20000 --opt block\_size=64 --opt repl=1 --opt fs=ext4
-  -------------------------------------------------------------------
-  -------------------------------------------------------------------
+The output of the command is the volume identifier. Store this for later; you will need the identifier to start the containers.
 
-The output of the command is the volume identifier. Store this for
-later; you will need the identifier to start the containers.
-
-Before you start the Docker containers, you also need to tell Cassandra
-what IP address to advertise to other Cassandra nodes. In this scenario
-we will use 10.0.0.1 as the IP address for the first Cassandra node;
-10.0.0.2, for the second Cassandra node, and 10.0.0.3, for the third
-Cassandra node.
+Before you start the Docker containers, you also need to tell Cassandra what IP address to advertise to other Cassandra nodes. In this scenario we will use 10.0.0.1 as the IP address for the first Cassandra node;
+10.0.0.2, for the second Cassandra node, and 10.0.0.3, for the third Cassandra node.
 
 #### Step 2: Start the Cassandra Docker image on node 1
+We will use the docker -v option to assign the volume we created with docker volume create. Substitute the DOCKER\_CREATE\_VOLUME\_ID for the volume ID that was returned from docker volume create. You should also substitute your IP address for the 10.0.0.1 placeholder in the CASSANDRA_BROADCAST_ADDRESS parameter.
 
-We will use the docker -v option to assign the volume we created with
-docker volume create. Substitute the DOCKER\_CREATE\_VOLUME\_ID for the
-volume ID that was returned from docker volume create. You should also
-substitute your IP address for the 10.0.0.1 placeholder in the
-CASSANDRA\_BROADCAST\_ADDRESS parameter.
-
-  ---------------------------------------------------------------------------------------------------------------------
-  docker run --name cassandra1 -p 7000:7000 -p 9042:9042 -p \\ 9160:9160 -e CASSANDRA\_BROADCAST\_ADDRESS=10.0.0.1 \\
-
-  -v DOCKER\_CREATE\_VOLUME\_ID:/var/lib/cassandra cassandra:latest
-  ---------------------------------------------------------------------------------------------------------------------
-  ---------------------------------------------------------------------------------------------------------------------
+```
+# docker run --name cassandra1 -p 7000:7000 -p 9042:9042 -p  9160:9160 -e CASSANDRA_BROADCAST_ADDRESS=10.0.0.1 -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
+```
 
 ####  Step 3: Start Docker on the other nodes 
 
-The only difference from the previous docker run command is the addition
-of the -e CASSANDRA\_SEEDS=10.0.0.1 parameter. This is a pointer to the
-IP address of the first Cassandra node.
+The only difference from the previous docker run command is the addition of the -e CASSANDRA\_SEEDS=10.0.0.1 parameter. This is a pointer to the IP address of the first Cassandra node.
 
 On Cassandra node 2 run the following:
 
-  -------------------------------------------------------------------
-  docker run --name cassandra2 -d -p 7000:7000 -p 9042:9042 \\
-
-  -p 9160:9160 -e CASSANDRA\_BROADCAST\_ADDRESS=10.0.0.2 \\
-
-  -e CASSANDRA\_SEEDS=10.0.0.1 \\
-
-  -v DOCKER\_CREATE\_VOLUME\_ID:/var/lib/cassandra cassandra:latest
-  -------------------------------------------------------------------
-  -------------------------------------------------------------------
+```
+# docker run --name cassandra2 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA\_BROADCAST\_ADDRESS=10.0.0.2 -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
+```
 
 On Cassandra node 3 run the following:
 
-  -------------------------------------------------------------------
-  docker run --name cassandra3 -d -p 7000:7000 -p 9042:9042 \\
+```
+# docker run --name cassandra3 -d -p 7000:7000 -p 9042:9042 -p 9160:9160 -e CASSANDRA_BROADCAST_ADDRESS=10.0.0.3  -e CASSANDRA_SEEDS=10.0.0.1 -v DOCKER\_CREATE\_VOLUME\_ID:/var/lib/cassandra cassandra:latest
+```
 
-  -p 9160:9160 -e CASSANDRA\_BROADCAST\_ADDRESS=10.0.0.3 \\
-
-  -e CASSANDRA\_SEEDS=10.0.0.1 \\
-
-  -v DOCKER\_CREATE\_VOLUME\_ID:/var/lib/cassandra cassandra:latest
-  -------------------------------------------------------------------
-  -------------------------------------------------------------------
-
-Remember to change the IP addresses in our examples to the ones used by
-your instances. It can take up to 30 seconds for Cassandra to start up
-on each node. To determine when your cluster is ready for use, view the
-logs: You should see messages that each node is part of the cluster.
+Remember to change the IP addresses in our examples to the ones used by your instances. It can take up to 30 seconds for Cassandra to start up on each node. To determine when your cluster is ready for use, view the logs: You should see messages that each node is part of the cluster.
 
 ### Walkthrough of Docker Registry with PX-Lite
-
-The Docker Registry is a server-side application that stores and lets
-you distribute Docker images. The following instructions use Docker
+The Docker Registry is a server-side application that stores and lets you distribute Docker images. The following instructions use Docker
 Registry version 2.3.0.
 
 #### Step 1: Create a storage volume for the Docker registry
+To create a storage volume for the Docker registry, run the following command on each server and make a note of the returned volume ID. You will need the volume ID when you start the Cassandra container in the next step.
 
-To create a storage volume for the Docker registry, run the following
-command on each server and make a note of the returned volume ID. You
-will need the volume ID when you start the Cassandra container in the
-next step.
+```
+# docker volume create -d pxd --opt name=registry\_volume --opt \\ size=20000 --opt block\_size=64 --opt repl=3 --opt fs =ext4
+```
 
-  docker volume create -d pxd --opt name=registry\_volume --opt \\ size=20000 --opt block\_size=64 --opt repl=3 --opt fs =ext4
-  ------------------------------------------------------------------------------------------------------------------------------
+Now we have a volume to attach to our Docker Registry container. The Docker Registry stores its data in the /tmp/registry directory. We will use the Docker -v option to attach the Portworx volume to this directory.
 
-Now we have a volume to attach to our Docker Registry container. The
-Docker Registry stores its data in the /tmp/registry directory. We will
-use the Docker -v option to attach the Portworx volume to this
-directory.
-
-If you don't have the Registry image available locally, you can pull it
-with docker pull registry.
+If you don't have the Registry image available locally, you can pull it with docker pull registry.
 
 #### Step 2: Start the Docker Registry
-
-To start the Docker Registry, run the following command. Substitute
-DOCKER\_CREATE\_VOLUME\_ID for the volume id from the docker volume
+To start the Docker Registry, run the following command. Substitute DOCKER\_CREATE\_VOLUME\_ID for the volume id from the docker volume
 create command.
 
-  ------------------------------------------------------------
-  docker run -d -p 5000:5000 --name registry \\
+```
+# docker run -d -p 5000:5000 --name registry -v DOCKER\_CREATE\_VOLUME\_ID:/tmp/registry registry:2.3.0
+```
 
-  -v DOCKER\_CREATE\_VOLUME\_ID:/tmp/registry registry:2.3.0
-  ------------------------------------------------------------
-  ------------------------------------------------------------
-
-Your Docker Registry is now available for Docker push and pull commands
-on port 5000.
+Your Docker Registry is now available for Docker push and pull commands on port 5000.
 
 ### Deployment Requirements
 
-  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   Requirement       Details or Version                                                                                                                          Comments
   ----------------- ------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------
   Docker Version    v1.10                                                                                                                                       requires volume plug-ins
