@@ -211,7 +211,7 @@ Everything else is optional. Use --opt to specify optional parameters; use the s
 For Example: 
 
 ```
-  docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
+  docker volume create -d pxd --name foobar --opt fs=ext4 --opt size=10G
 ```
 
 ### Creating a volume with pxctl:
