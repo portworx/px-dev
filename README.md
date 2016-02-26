@@ -123,28 +123,7 @@ In the configuration file, make the `clusterid` unique among clusters in your ke
 
 To find local drives that are available for use on your system, you can issue this bash command:
 ```
-#!/bin/bash
-for d in `find /dev/disk/by-uuid/ -type l | \
-   xargs readlink -f | \
-   awk '{print $1}'`; do
-   is_mounted=0
-   for m in `find /dev/disk/by-uuid/ -type l | \
-       xargs readlink -f | \
-       xargs -i grep {} /proc/mounts | \
-       awk '{print $1}'`; do
-
-       if [ $d == $m ]; then
-           # echo "    Disk is mounted: $d"
-           is_mounted=1
-           break
-       fi
-       #echo "     $m"
-   done
-   if [ $is_mounted -eq 0 ]; then
-       echo "Disk is NOT mounted: $d"
-   fi
-   #echo $d
-done
+# fdisk -l
 ```
 
 *Warning: Please ensure that disks are empty, to avoid data loss!*                                                                                                                                                                 
