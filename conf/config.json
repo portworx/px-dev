@@ -1,10 +1,12 @@
 {
-  "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
-  "kvdb": "http://etcd.example.com:4001",
-  "storage": {
-   "devices": [
-    "/dev/xvdf",
-    "/dev/xvdg"
-   ]
+  "base": {
+    "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
+    "kvdb": "http://etcd.example.com:4001",
+    "storage": {
+      "devices": [
+        "/dev/xvdf",
+        "/dev/xvdg"
+     ]
+    }
   }
 }
