@@ -2,7 +2,7 @@
 
 # PX-Lite alpha
 
-PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.  For more information, visit our [GitHub](https://github.com/portworx/px-lite)
+PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
 ## Installation and Tutorials
 The following guides walk through setting up and using PX-Lite and maintaining storage. See the Deployment Requirements for details on the configuration.
