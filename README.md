@@ -59,15 +59,13 @@ Create a directory for the configuration file and move the file to that director
 Here is a sample config.json file.
 ```
 {
-  "base": {
-    "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
-    "kvdb": "http://etcd.example.com:4001",
-    "storage": {
-      "devices": [
-        "/dev/xvdf",
-        "/dev/xvdg"
-     ]
-    }
+  "clusterid": "5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5",
+  "kvdb": "http://etcd.example.com:4001",
+  "storage": {
+   "devices": [
+    "/dev/xvdf",
+    "/dev/xvdg"
+   ]
   }
 }
 ```  
@@ -93,6 +91,11 @@ To find local drives that are available for use on your system, you can issue th
 *Warning: Please ensure that disks are empty, to avoid data loss!*                                                                                                                                                                 
  
 ### Step 4: Running PX-Lite
+IMPORTANT: Remember to login to the Docker hub to access this private repository.  Please contact eric@portworx.com for account access.
+
+```
+# docker login -u user -p password
+```
 
 Start the PX-Lite container with the following run command:
 ```
@@ -139,6 +142,39 @@ Start the PX-Lite container with the following run command:
     -v /opt/pwx/bin:/export_bin:shared
         > Exports the PX command line (pxctl) tool from the container to the host.
 
+### Step 5: Access the PX CLI
+
+At this point, PX should be running on your system.  You can access the CLI at `/opt/pwx/bin/pxctl`:
+```
+# /opt/pwx/bin/pxctl help
+NAME:
+   px - px cli
+
+USAGE:
+   px [global options] command [command options] [arguments...]
+   
+VERSION:
+   7f1d25e1092c07226a344ab393f18edfbf2d6841
+   
+COMMANDS:
+   show, s      Show volumes and nodes
+   create, c    Create volumes
+   delete, d    Delete volumes
+   inspect, i   Inspect volumes and nodes
+   host         Access volumes directly from the host
+   service      Service mode utilities
+   status       Show status summary
+   version      Show version
+   help, h      Shows a list of commands or help for one command
+   
+GLOBAL OPTIONS:
+   --json, -j           output in json
+   --color              output with color coding
+   --raw, -r            raw CLI output for instrumentation
+   --help, -h           show help
+   --version, -v        print the version
+```
+
 ### Trouble?
 See if your issue has been posted at our [Google Groups](https://groups.google.com/forum/#!forum/portworx).
 
@@ -161,7 +197,7 @@ For Example:
 
 ### Creating a volume with pxctl:
 ```
-# /opt/pwx/bin/pxctl volume create foobar
+# /opt/pwx/bin/pxctl create volume foobar
 3903386035533561360
 ```
 
@@ -208,3 +244,4 @@ Other limitations:
 | Max local devices | 3 |
 
 For more information, visit our [GitHub](https://github.com/portworx/px-lite)
+
