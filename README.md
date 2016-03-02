@@ -1,8 +1,9 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 # PX-Lite alpha
+PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out, storage node. Storage runs converged on the same server as compute, giving bare metal performance. 
 
-PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
+As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
 ## Installation and Tutorials
 This guide walks through setting up PX-Lite. For the sake of illustration, our example uses Ubuntu on AWS, AWS Elastic Block Storage for storage devices, and a hosted etcd service from Compose.IO. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
@@ -95,13 +96,13 @@ Example output:
 The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
- * https://github.com/portworx/px-lite/blob/master/conf/config.json
+ * ```# wget https://github.com/portworx/px-lite/blob/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
 * Move the file to that directory. This directory later gets passed in on the Docker command line.
  * ```# sudo cp -p config.json /etc/pwx```
 * Edit the config.json to include
- * clusterid: this is a string that should be unique to your etcd
+ * clusterid: this string identified your cluster and  should be unique within your etcd k/v space
  * kvdb: this is the etcd connection string from the third step in Prerequisites
  * devices: these are the storage devices that will be pooled from the prior step
 
@@ -121,7 +122,8 @@ Example config.json:
       }
     }
 ```  
-  
+Before running the container, make sure you have saved off any data on the storage devices specified in the config.
+
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
 ## Run PX-Lite 
@@ -175,7 +177,9 @@ Explanation of the runtime command options:
 
 ### Step 2: See Global Capacity 
 
-At this point, PX-Lite should be running on your system.  You can access the CLI at `/opt/pwx/bin/pxctl`:
+At this point, PX-Lite should be running on your system. You can run ```Docker ps``` to verify.  
+
+The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools will let you control storage. 
 
 * View the global storage capacity by running
  * ```# /opt/pwx/bin/pxctl status```
@@ -197,7 +201,7 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
 To create more capacity, run the same steps on each of the remaining two servers. 
 
 
-## Creating Volumes 
+## Using Storage 
 
 ### Creating a volume with Docker:
 
@@ -240,7 +244,7 @@ OPTIONS:
 
 ```
 
-### Contact Us
+# Contact Us
 As you use PX-Lite, please share your feedback and ask questions. Find the team on [Google Groups](https://groups.google.com/forum/#!forum/portworx).
 
 # Reference
@@ -254,6 +258,7 @@ Find out your kernel version. For example:
 # uname -r
 3.19.3-1.el7.elrepo.x86_64
 ```
+To install pre-built kernel modules, download  and install per on your distro. 
 
 | **Distribution**   | **Kernel** | **Download URL and installation command**                                                                                                                                            |
 |  ----------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
