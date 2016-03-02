@@ -5,7 +5,7 @@
 PX-Lite aggregates the storage capacity of hard drives on your server and it clusters multiple servers for high availability. As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
 ## Installation and Tutorials
-This guide walks through setting up PX-Lite. For the sake of illustration, our example uses Ubuntu on AWS, AWS Elastic Block Storage (EBS) for storage devices, and a hosted etcd service from [Compose.IO](https://www.compose.io/etcd/). As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
+This guide walks through setting up PX-Lite. For the sake of illustration, our example uses Ubuntu on AWS, AWS Elastic Block Storage for storage devices, and a hosted etcd service from Compose.IO. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
 ## Prerequisites 
 PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. 
@@ -55,7 +55,7 @@ From the SSH window for the server:
  * ```# sudo docker pull portworx/px-lite```
 
 ### Step 2: Download and install the PX Kernel Module
-This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on each server. You can download and install pre-built packages for select Centos and Ubuntu Linux distributions. 
+This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on each server. You can get pre-built packages for select [Centos and Ubuntu Linux](https://github.com/portworx/px-lite#kernel-module-for-varios-distros-temporary-requirement) distributions. 
 
 From the SSH window for the server:
 * Download the kernel module for Ubuntu
@@ -71,7 +71,8 @@ Important: save off any data on storage devices that will be pooled by PX-Lite. 
 To enumerate the storage devices on your server, you can also list the disks by running ```# sudo fdisk -l```. 
 
 Example output:
-    ```
+
+  ```
     $ sudo fdisk -l
     
     Disk /dev/xvda: 8589 MB, 8589934592 bytes
@@ -88,7 +89,7 @@ Example output:
     Disk /dev/xvdb: 2147 MB, 2147483648 bytes
     255 heads, 63 sectors/track, 261 cylinders, total 4194304 sectors
         ...
-    ```
+  ```
 
 ### Step 4: Edit the JSON configuration
 The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
@@ -124,6 +125,9 @@ Example config.json:
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
 ## Run PX-Lite 
+Through Docker run with PX-Lite, your storage capacity will be aggregated and managed by PX-Lite. As you run PX-Lite on each server, new capacity will be added to the cluster.
+
+Once PX-Lite is up, storage volumes can be created and deleted through the Docker volume commands or pxctl command line tool. With pxctl, you can also inspect volumes, the volume relationships with containers, and nodes. 
 
 ### Step 1: Run PX-Lite
 Start the PX-Lite container with the following run command:
@@ -140,7 +144,7 @@ Start the PX-Lite container with the following run command:
                 portworx/px-lite
 ```
 
-##### Explanation of the runtime command options:
+Explanation of the runtime command options:
 
     --privileged
         > Sets PX-Lite to be a privileged container. Required to export block  device and for other functions.
