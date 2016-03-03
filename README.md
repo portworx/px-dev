@@ -8,6 +8,10 @@ As you develop and deploy your apps in containers, use PX-Lite for elastic stora
 ## Installation and Tutorials
 This guide walks through setting up PX-Lite. For the sake of illustration, our example uses Ubuntu on AWS, AWS Elastic Block Storage for storage devices, and a hosted etcd service from Compose.IO. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
+Once this installation is complete, you can continue with walk-throughs for
+* [Cassandra storage volumes on PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra-guide.md)
+* [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry-guide.md)
+
 ## Prerequisites 
 PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. 
 
@@ -51,7 +55,7 @@ IMPORTANT: login to the Docker Hub to access PX-Lite, during the limited release
 ### Step 1: Download the PX-Lite Container
 From the SSH window for the server:
 * Login to Docker Hub 
- * ```# sudo docker login -u user -p password```
+ * ```# sudo docker login -u [user] -p [password]```
 * Pull PX-Lite
  * ```# sudo docker pull portworx/px-lite```
 
@@ -62,7 +66,7 @@ From the SSH window for the server:
 * Download the kernel module for Ubuntu
  * ```# wget http://get.portworx.com/builds/Linux/ubuntu/14.04/px_3.13.0-74_amd64.deb``` 
 * Install the kernel module
- * ```# dpkg --install px_3.13.0-74_amd64.deb```
+ * ```# sudo dpkg --install px_3.13.0-74_amd64.deb```
 
 ### Step 3: View Disks on Servers (Optional)
 PX-Lite pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
@@ -70,8 +74,6 @@ PX-Lite pools the storage devices on your local server and creates a global capa
 Important: save off any data on storage devices that will be pooled by PX-Lite. Storage devices will be reformatted!
 
 To view the storage devices on your server: 
-* AWS Console: select the instance and scroll down to the Description tab
- * Note the Block devices
 * Command line: run ```# lsblk``` 
  * Note the devices without the part(ition)
 
@@ -79,11 +81,11 @@ Example output:
 
   ```
     $ lsblk
-    NAME                                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
-    xvda                                        202:0    0   8G   0 disk
-    └─xvda1                                     202:1    0   1G   0 part /
-    xvdb                                        202:96   0   2G   0 disk 
-    xvdc                                        202:80   0   43G  0 disk 
+    NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+    xvda                      202:0    0     8G  0 disk 
+    └─xvda1                   202:1    0     8G  0 part /
+    xvdb                      202:16   0     2G  0 disk 
+    xvdc                      202:32   0    40G  0 disk
   ```
 
 ### Step 4: Edit the JSON configuration
@@ -176,7 +178,7 @@ At this point, PX-Lite should be running on your system. You can run ```Docker p
 The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools will let you control storage. 
 
 * View the global storage capacity by running
- * ```# /opt/pwx/bin/pxctl status```
+ * ```# sudo /opt/pwx/bin/pxctl status```
  * See the example output below
 * Use pxctl to manage volumes, such as create, snapshot, and inspect
  * all pxctl options can be seen by running ```# /opt/pwx/bin/pxctl help```
