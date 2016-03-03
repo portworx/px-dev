@@ -69,27 +69,21 @@ PX-Lite pools the storage devices on your local server and creates a global capa
 
 Important: save off any data on storage devices that will be pooled by PX-Lite. Storage devices will be reformatted!
 
-To enumerate the storage devices on your server, you can also list the disks by running ```# sudo fdisk -l```. 
+To view the storage devices on your server: 
+* AWS Console: select the instance and scroll down to the Description tab
+ * Note the Block devices
+* Command line: run ```# lsblk``` 
+ * Note the devices without the part(ition)
 
 Example output:
 
   ```
-    $ sudo fdisk -l
-    
-    Disk /dev/xvda: 8589 MB, 8589934592 bytes
-    255 heads, 63 sectors/track, 1044 cylinders, total 16777216 sectors
-        ... 
-
-        Device Boot      Start         End      Blocks   Id  System
-    /dev/xvda1   *       16065    16771859     8377897+  83  Linux
-    
-    Disk /dev/xvdc: 42.9 GB, 42941284352 bytes
-    255 heads, 63 sectors/track, 5220 cylinders, total 83869696 sectors
-        ...
-
-    Disk /dev/xvdb: 2147 MB, 2147483648 bytes
-    255 heads, 63 sectors/track, 261 cylinders, total 4194304 sectors
-        ...
+    $ lsblk
+    NAME                                        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+    xvda                                        202:0    0   8G   0 disk
+    └─xvda1                                     202:1    0   1G   0 part /
+    xvdb                                        202:96   0   2G   0 disk 
+    xvdc                                        202:80   0   43G  0 disk 
   ```
 
 ### Step 4: Edit the JSON configuration
@@ -198,7 +192,7 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
     /dev/xvdc	true		39 GB	1.0 GB
     total		-		41 GB	3.0 GB
 ```
-To create more capacity, run the same steps on each of the remaining two servers. 
+To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. 
 
 
 ## Using Storage 
