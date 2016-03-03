@@ -42,3 +42,5 @@ On Cassandra node 3 run the following:
     -v DOCKER_CREATE_VOLUME_ID:/var/lib/cassandra cassandra:latest
 ```
 Remember to change the IP addresses in our examples to the ones used by your instances. It can take up to 30 seconds for Cassandra to start up on each node. To determine when your cluster is ready for use, view the logs: You should see messages that each node is part of the cluster.
+
+Back to [PX-Lite](https://github.com/portworx/px-lite/).
