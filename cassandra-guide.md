@@ -26,7 +26,7 @@ Now, run the  ```docker volume create ``` step on the other two servers.
 ### Step 2: Start the Cassandra Docker image on node 1
 We will use the docker -v option to assign the volume we created with docker volume create. You can pass into the -v option either the name given in step 1 (cassandra_volume) or the volumeID that is shown with a ```docker volume ls```. You should also substitute your IP address for the 10.0.0.1 placeholder in the CASSANDRA_BROADCAST_ADDRESS parameter. 
 
-Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/porx/blob/master/DOCKER-HUB.md#if-you-have-selinux-enabled-you-may-get-the-following-error-message-) parameter between 'run' and '--name'.
+>Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/porx/blob/master/DOCKER-HUB.md#if-you-have-selinux-enabled-you-may-get-the-following-error-message-) parameter between 'run' and '--name'.
 
 ```
     docker run --name cassandra1 -d \
@@ -46,7 +46,7 @@ The only difference from the previous docker run command is the addition of the 
     -e CASSANDRA_SEEDS=10.0.0.1 \
     -v cassandra_volume:/var/lib/cassandra cassandra:latest
 ```
-### Step 3b: On Cassandra node 3 run the following:
+#### Step 3b: On Cassandra node 3 run the following:
 ```
     docker run --name cassandra3 -d \
     -p 7000:7000 -p 7001:7001 -p 9042:9042 -p 9160:9160 \
