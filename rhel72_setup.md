@@ -25,3 +25,31 @@ Volumes used for container data can be magnetic or SSD. PX-Lite will apply diffe
  - restart Docker ```sudo systemctl restart docker```
 
 The shared mounts is required, as PX-Lite exports mount points. 
+
+### Step 3: Provision etcd
+You can use an existing etcd service or stand-up your own. In this example, we chose [Compose.IO](https://www.compose.io/etcd/) for its ease of use. 
+
+* Create a new etcd deployment in Compose.IO
+* Select 256MB RAM as the memory
+* Save the connection string, including your username & password
+ - example: https://[username]:[password]@[string].dblayer.com:[port]
+
+## Install Portworx PX-Lite 
+IMPORTANT: login to the Docker Hub to access PX-Lite, during the limited release period. Contact eric@portworx.com for account access.
+
+### Step 1: Download the PX-Lite Container
+From the SSH window for the server:
+* Login to Docker Hub 
+ * ```# sudo docker login -u [user] -p [password]```
+* Pull PX-Lite
+ * ```# sudo docker pull portworx/px-lite```
+
+### Step 2: Download and install the PX Kernel Module
+This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on each server. You can get pre-built packages for select [Centos and Ubuntu Linux](https://github.com/portworx/px-lite#kernel-module-for-varios-distros-temporary-requirement) distributions. 
+
+From the SSH window for the server:
+* Download the kernel module for Ubuntu
+ * ```curl -O http://get.portworx.com/builds/Linux/centos/7-3.10.0-327/px-3.10.0-327.10.1.el7.x86_64.rpm``` 
+* Install the kernel module
+ * ```sudo rpm -ivh px-3.10.0-327.10.1.el7.x86_64.rpm```
+
