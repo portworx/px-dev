@@ -13,13 +13,15 @@ Volumes used for container data can be magnetic or SSD. PX-Lite will apply diffe
 
 ### Step 2: Install and Configure Docker 
 * SSH into your first server
-* Following the [Docker install guide](https://docs.docker.com/engine/installation/linux/ubuntulinux/)
- * Update your apt sources for Ubuntu Trusty 14.04 (LTS)
-  - make sure you use the Trusty 14.04 as the deb entry in step 7
+* Following the [Docker install guide for RedHat](https://docs.docker.com/engine/installation/linux/rhel/)
  * Install Docker and start the Docker service
-* Verify that your Docker version is 1.10 or later
- - run ```docker -v ``` in your SSH window
-* Configure Docker to use shared mounts
- - run ```sudo mount --make-shared / ``` in your SSH window
+ * Verify that your Docker version is 1.10 or later
+  - run ```docker -v ``` in your SSH window
+* Configure Docker to use shared mounts 
+ - edit the service file for systemd 
+  - ```sudo vi /lib/systemd/system/docker.service ``` in your SSH window
+  - removed the MountFlags line
+ - reload the daemon ```sudo systemctl daemon-reload```
+ - restart Docker ```sudo systemctl restart docker```
 
-The shared mounts is required, as PX-Lite exports mount points. If you are using systemd, you would remove the ```MountFlags=slave``` line in your ```docker.service``` file. The Ubuntu image in this example is not using systemd. 
+The shared mounts is required, as PX-Lite exports mount points. 
