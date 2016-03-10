@@ -1,3 +1,5 @@
+This guide provides steps specific to RedHat, as an augment to the [server prerequisite](https://github.com/portworx/px-lite#prerequisites) steps.
+
 ### Step 1: Launch Servers
 First, we create three servers in AWS, using: 
 * Image: [Red Hat 7.2 (HVM)](https://aws.amazon.com/marketplace/pp/B019NS7T5I/ref=srh_res_product_title?ie=UTF8&sr=0-2&qid=1457648418090)
@@ -53,3 +55,4 @@ From the SSH window for the server:
 * Install the kernel module
  * ```sudo rpm -ivh px-3.10.0-327.10.1.el7.x86_64.rpm```
 
+Continue with the [next steps](https://github.com/portworx/px-lite#step-3-view-disks-on-servers-optional) for configuring your server.
