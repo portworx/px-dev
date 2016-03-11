@@ -6,14 +6,14 @@ PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server w
 As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
 ## Installation and Tutorials
-This guide walks through setting up PX-Lite. For the sake of illustration, our example uses Ubuntu on AWS, AWS Elastic Block Storage for storage devices, and a hosted etcd service from Compose.IO. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
+This guide walks through setting up PX-Lite. For the sake of illustration, our example uses AWS EC2 for servers in the cluster, AWS Elastic Block Storage for storage devices, and Compose.IO for a hosted etcd service. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
 Once this installation is complete, you can continue with walk-throughs for
 * [Cassandra storage volumes on PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra-guide.md)
 * [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry-guide.md)
 
 ## Prerequisites 
-PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. 
+PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-lite/blob/master/rhel72_setup.md) for Docker setup with RedHat, including configuring systemd.
 
 ### Step 1: Launch Servers
 First, we create three servers in AWS, using: 
@@ -47,7 +47,8 @@ You can use an existing etcd service or stand-up your own. In this example, we c
 * Create a new etcd deployment in Compose.IO
 * Select 256MB RAM as the memory
 * Save the connection string, including your username & password
- - example: https://[username]:[password]@[string].dblayer.com:[port]/v2/keys
+ - example: https://[username]:[password]@[string].dblayer.com:[port]
+  - if you are using Compose.IO, the connection string might end with [port]/v2/keys. Please omit the /v2/keys for the time being. 
 
 ## Install Portworx PX-Lite 
 IMPORTANT: login to the Docker Hub to access PX-Lite, during the limited release period. Contact eric@portworx.com for account access.
@@ -92,7 +93,7 @@ Example output:
 The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
- * ```# wget https://github.com/portworx/px-lite/blob/master/conf/config.json```
+ * ```https://github.com/portworx/px-lite/blob/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
 * Move the file to that directory. This directory later gets passed in on the Docker command line.
