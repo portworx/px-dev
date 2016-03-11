@@ -106,15 +106,13 @@ Example config.json:
 
 ```
     {
-    "base": {
-        "clusterid": "make this unique in your k/v store",
-        "kvdb": "https://[username]:[password]@[string].dblayer.com:[port]",
-        "storage": {
-          "devices": [
-            "/dev/xvdb",
-            "/dev/xvdc"
-         ]
-        }
+      "clusterid": "make this unique in your k/v store",
+      "kvdb": "https://[username]:[password]@[string].dblayer.com:[port]",
+      "storage": {
+        "devices": [
+          "/dev/xvdb",
+          "/dev/xvdc"
+        ]
       }
     }
 ```  
