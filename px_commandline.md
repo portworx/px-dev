@@ -30,28 +30,6 @@ To be able to access the pxctl from any working directory, you can add pxctl to 
 export PATH=/opt/pwx/bin:$PATH
 ```
 
-## Show: View Status State
-You can see the overall state of your cluster. XXX
-```
-pxctl show
-NAME:
-   px show - Show volumes and nodes
-
-USAGE:
-   px show command [command options] [arguments...]
-
-COMMANDS:
-   cluster	Show cluster details
-   disks	Show available disks on this node
-   containers	Show volume usage by containers
-   volumes, v	Show volumes in the cluster
-   snaps	Show volume snapshots in the cluster
-   help, h	Shows a list of commands or help for one command
-   
-OPTIONS:
-   --help, -h	show help
-```
-
 ## Status: View overall node and cluster status
 You can see the total storage capacity through pxctl status. As servers join the cluster, pxctl will report show the increased global capacity. 
 
@@ -72,6 +50,56 @@ Example of capacity from one server:
 	Total Capacity	:  20 GB
 	Total Used    	:  4.0 GB
 ```
+
+## Show: Show volumes and nodes.
+You can see the overall state of your volumes and cluster nodes.
+```
+pxctl show
+NAME:
+   px show - Show volumes and nodes
+
+USAGE:
+   px show command [command options] [arguments...]
+
+COMMANDS:
+   cluster	Show cluster details
+   disks	Show available disks on this node
+   containers	Show volume usage by containers
+   volumes, v	Show volumes in the cluster
+   snaps	Show volume snapshots in the cluster
+   help, h	Shows a list of commands or help for one command
+   
+OPTIONS:
+   --help, -h	show help
+```
+
+### Show cluster: Show the nodes in the cluster.
+```
+# pxctl show cluster
+Cluster Information:
+Cluster ID: b6f76c07-7725-4451-9704-1867bca3a0b8 Status: STATUS_OK
+
+Nodes in the cluster:
+ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE CONTAINERS STATUS
+485a9a8e-4811-4399-a8d0-ec65c7dfafbd 102.21.25.218 0.250627  7.8 GB    7.2 GB   5          ok
+993a79e2-3597-4f4e-b3f3-f808036e0677 102.21.25.219 N/A       N/A       N/A      N/A        offline
+685324a3-21ef-40cf-92cf-60d605f45d65 102.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
+```
+
+### Show containers: Show the containers in the cluster and the volumes they are using.
+```
+# pxctl show containers
+```
+# pxctl show containers
+ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
+4b01b7d9ec4b mysql        /clonesql   788684553346073923 485a9a8e-4811-4399-a8d0-ec65c7dfafbd	Up 39 seconds
+1557f4d9a605 gourao/px-li /px-lite    N/A                										Up 3 minutes
+a2aa17b4edcf google/cadvi /cadvisor   N/A                										Up 8 minutes
+e5a00a52e276 mysql        /jeff-mysql 211470040694089666 685324a3-21ef-40cf-92cf-60d605f45d65	Up 15 minutes
+d84fc4caf344 gourao/px-li /px-lite    N/A                										Up 2 minutes
+81a3f4b95cdf google/cadvi /cadvisor   N/A                										Up 8 minutes
+```
+
 ## Create a volume
 ```
 # pxctl create volume foobar
