@@ -10,8 +10,8 @@ As you develop and deploy your apps in containers, use PX-Lite for elastic stora
 
  * See our quick start guides on installing and using PX-Lite:
   * [installing and running PX-Lite](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md)
-  * [scaling a Cassandra database](https://github.com/portworx/px-lite/blob/master/cassandra-guide.md) 
-  * [running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry-guide.md) 
+  * [scaling a Cassandra database](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md) 
+  * [running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry_guide.md) 
  * Use our [command-line tools](https://github.com/portworx/px-lite/blob/master/px_commandline.md) to directly manage volumes, such as snapshotting a container’s storage. We will add docs to our RESTful interface soon.
   
 
