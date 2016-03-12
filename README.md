@@ -325,7 +325,7 @@ Other limitations:
 | Resource | Limit |
 |------------|-------|
 | Cluster Size | 3 |
-| Per Volume Limit | 100GB |
+| Per Volume Limit | 1TB |
 | Max Volumes | 256 |
 | Max local devices | 3 |
 
