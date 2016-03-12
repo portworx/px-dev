@@ -1,4 +1,3 @@
-
 # Using Portworx Storage 
 Portworx is elastic block storage for containers. It spans from a server’s hardware, across servers to form a cluster, and up to the application stack to integrate with schedulers and containers. Accordingly, the toolchain operates at each aspect of the stack and integrates with other toolchains. 
 
@@ -53,7 +52,7 @@ OPTIONS:
    --help, -h	show help
 ```
 
-## Status: View Cluster Capacity
+## Status: View overall node and cluster status
 You can see the total storage capacity through pxctl status. As servers join the cluster, pxctl will report show the increased global capacity. 
 
 Example of capacity from one server:
@@ -63,9 +62,9 @@ Example of capacity from one server:
 	IP:  172.31.17.65 
  	Local Storage Pool:
 	Device		Caching Tier	Size	  Used
-	/dev/xvdb	true  8.0 GB	2.0 GB
-	/dev/xvdc	true	12 GB	  2.0 GB
-	total		-		     20 GB	  4.0 GB
+	/dev/xvdb	true  			8.0 GB    2.0 GB
+	/dev/xvdc	true			12 GB	  2.0 GB
+	total		-		 		20 GB	  4.0 GB
  Cluster Summary
 	ID:  cluster 2
 	IP: 172.31.17.65	Capacity:    20 GB/  4.0 GB OK (This node)
@@ -96,7 +95,6 @@ OPTIONS:
    --repl, -r "3"               replication factor [1..3]
    --cos "1"                    Class of Service: [1..9]
    --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
-
 ```
 
 ### Seed option: volume with initial data
@@ -106,11 +104,6 @@ XXXX
 
 ### Priortization option: Class of Service
 As container run, their IOPs will be priorted based on the level set on the volume. The level can be changed on a running container. A higher number has greater priority. 
-XXXX
-
-## Seed a volume with initial data:
-A useful pattern is to be able to provide initial data in newly created volumes. In pxctl, you can do so with the seed command. 
-
 XXXX
 
 ## PX Command Line (pxctl) Help
