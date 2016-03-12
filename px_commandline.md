@@ -89,8 +89,6 @@ ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE 
 ### Show containers: Show the containers in the cluster and the volumes they are using.
 ```
 # pxctl show containers
-```
-# pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
 4b01b7d9ec4b mysql        /clonesql   788684553346073923 485a9a8e-4811-4399-a8d0-ec65c7dfafbd	Up 39 seconds
 1557f4d9a605 gourao/px-li /px-lite    N/A                										Up 3 minutes
