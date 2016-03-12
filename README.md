@@ -185,13 +185,21 @@ The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools will l
 Output of pxctl status shows the global capacity for Docker containers is now 41 GB. 
 ```
     # /opt/pwx/bin/pxctl status
-    Node ID:  [guid]
-    IP:  [ip-address] 
-    Local Storage Pool:
-    Device		Caching Tier	Size	Used
-    /dev/xvdb	true		2.0 GB	2.0 GB
-    /dev/xvdc	true		39 GB	1.0 GB
-    total		-		41 GB	3.0 GB
+    Status: PX is operational
+    Node ID:  c553a764-9565-4f6b-b70c-10d963096b76
+     	IP:  172.31.23.134 
+     	Local Storage Pool:
+     	Device		Caching Tier	Size	Used
+     	/dev/xvdf	true            64 GB 19 GB
+     	total		-               64 GB 19 GB
+    Cluster Summary
+     	ID:  86428a61-a22a-4a7a-a79a-1cfbbb846f7e
+     	IP: 172.31.23.132 - Capacity: 60 GiB/17 GiB OK
+     	IP: 172.31.23.134 - Capacity: 60 GiB/18 GiB OK (This node)
+     	IP: 172.31.23.133 - Capacity: 60 GiB/17 GiB OK
+    Global Storage Pool
+     	Total Capacity	:  179 GiB
+     	Total Used    	:  51 GiB
 ```
 To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. 
 
