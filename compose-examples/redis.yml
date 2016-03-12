@@ -1,0 +1,9 @@
+web:
+  image: binocarlos/moby-counter
+  links:
+    - redis:redis
+redis:
+  image: redis
+  volume_driver: pxd
+  volumes:
+     - 'demo:/data'
