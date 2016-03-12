@@ -280,23 +280,23 @@ To install pre-built kernel modules, download  and install per on your distro.
 ```
 # /opt/pwx/bin/pxctl help
 NAME:
-   px - px cli
+   pxctl - px cli
 
 USAGE:
-   px [global options] command [command options] [arguments...]
+   pxctl [global options] command [command options] [arguments...]
    
 VERSION:
-   7f1d25e1092c07226a344ab393f18edfbf2d6841
+   0.4.2-1c7f1f9
    
 COMMANDS:
-   show, s      Show volumes and nodes
+   show, s      Show volumes and cluster nodes
    create, c    Create volumes
-   delete, d    Delete volumes
-   inspect, i   Inspect volumes and nodes
+   delete, d    Delete volumes or cluster nodes
+   inspect, i   Inspect volumes and cluster nodes
    host         Access volumes directly from the host
    service      Service mode utilities
    status       Show status summary
-   version      Show version
+   eula         Show license agreement
    help, h      Shows a list of commands or help for one command
    
 GLOBAL OPTIONS:
