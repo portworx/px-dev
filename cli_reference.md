@@ -11,7 +11,7 @@ The pxctl tool lets you directly provision and manage storage. All operations fr
 * Shows the connection between containers and their storage volumes
 * Let you control the Portworx storage cluster (such as adding nodes to the cluster)
 
-The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). 
+The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/cli_reference.md#px-command-line-help). 
 
 This current release of the pxctl tools requires privilege. To run as a privileged user, you can sudo as follows:
 ```

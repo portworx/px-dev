@@ -3,8 +3,8 @@
 This guide takes you through an install from prerequisites through the PX-Lite setup steps. For the sake of illustration, our example uses AWS EC2 for servers in the cluster, AWS Elastic Block Storage for storage devices, and Compose.IO for a hosted etcd service. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
 Once this installation is complete, you can continue with walk-throughs for:
-* [Cassandra storage volumes on PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md)
-* [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry_guide.md)
+* [Cassandra storage volumes on PX-Lite](https://github.com/portworx/px-lite/blob/master/examples/cassandra_guide.md)
+* [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/examples/registry_guide.md)
 
 ## Prerequisites 
 PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md) for Docker setup with RedHat, including configuring systemd.
@@ -129,7 +129,7 @@ To add  nodes to increase capacity and enable high availability, complete the fo
  * If you have the same device configuration on every node, then copy the  config.json you created the first time in Step 4 to all the nodes. 
  * If you have different device configurations on the nodes, then repeat Steps 3 and 4 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
 
-Afterwards, continue with [Using PX-Lite storage](https://github.com/portworx/px-lite/blob/master/px_commandline.md).
+Afterwards, continue with [Using PX-Lite storage](https://github.com/portworx/px-lite/blob/master/cli_reference.md).
 
 ## Run PX-Lite 
 When you run Docker and PX-Lite, your storage capacity is aggregated and managed by PX-Lite. As you run PX-Lite on each server, new capacity is added to the cluster.
@@ -184,7 +184,7 @@ Explanation of the runtime command options:
 
 At this point, PX-Lite should be running on your system. You can run ```Docker ps``` to verify.  
 
-The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let you control storage. For more on using pxctl, see [Using Portworx storage](https://github.com/portworx/px-lite/blob/master/px_commandline.md).
+The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let you control storage. For more on using pxctl, see [Using Portworx storage](https://github.com/portworx/px-lite/blob/master/cli_reference.md).
 
 * View the global storage capacity by running
  * ```# sudo /opt/pwx/bin/pxctl status```

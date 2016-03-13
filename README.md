@@ -21,7 +21,7 @@ As you develop and deploy your apps in containers, use PX-Lite for elastic stora
   * [Installing and Running PX-Lite on Ubuntu](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) or [Red Hat](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md)
   * [Scaling a Cassandra database with PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md) 
   * [Running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry_guide.md) 
- * Use our [pxctl control tool](https://github.com/portworx/px-lite/blob/master/px_commandline.md) to directly: 
+ * Use our [pxctl control tool](https://github.com/portworx/px-lite/blob/master/cli_reference.md) to directly: 
   * View the cluster global capacity and health
   * Create, inspect, and delete storage volumes
   * Attach policies for IOPs prioritization, maximum volume size, and enable storage replication
