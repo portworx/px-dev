@@ -1,11 +1,11 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 # TL;DR
-1. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement)
-2. docker login with username: pxliteuser  Password: password
-3. git clone https://github.com/portworx/px-lite/blob/master/conf/config.json.
-4. Copy the config.json to /etc/pwx/ and edit the needed fields.
-5. git clone https://github.com/portworx/px-lite/blob/master/compose/px/docker-compose.yml
+1. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement).  If you can't find a pre-built module, follow the instructions to build one for your kernel.
+2. docker login with the username and password provided by email.
+3. git clone https://github.com/portworx/px-lite
+4. cd px-lite
+5. Copy the config.json to /etc/pwx/ and edit the needed fields (cluster ID, etcd URL and storage devices)
 6. docker-compose up
 
 # PX-Lite alpha
