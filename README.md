@@ -26,7 +26,7 @@ First, we create three servers in AWS, using:
   - /dev/xvdc: 42.9GB for container storage
 * (optional) Tag: add value 'px-cluster1' as the name
 
-Volumes used for container data can be magnetic or SSD. PX-Lite will apply different policies based on storage capabilities.
+Volumes used for container data can be magnetic or SSD. PX-Lite will apply different policies based on storage disks capabilities.
 
 ### Step 2: Install and Configure Docker 
 * SSH into your first server
@@ -93,7 +93,7 @@ Example output:
 The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
- * ```https://github.com/portworx/px-lite/blob/master/conf/config.json```
+ * ```https://raw.githubusercontent.com/portworx/px-lite/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
 * Move the file to that directory. This directory later gets passed in on the Docker command line.
@@ -190,16 +190,15 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
      	IP:  172.31.23.134 
      	Local Storage Pool:
      	Device		Caching Tier	Size	Used
-     	/dev/xvdf	true            64 GB 19 GB
-     	total		-               64 GB 19 GB
+     	/dev/xvdf	true            64 GB 2.0 GB
+     	/dev/xvdg	true            64 GB 2.0 GB
+     	total		-               128 GB 4.0 GB
     Cluster Summary
      	ID:  86428a61-a22a-4a7a-a79a-1cfbbb846f7e
-     	IP: 172.31.23.132 - Capacity: 60 GiB/17 GiB OK
-     	IP: 172.31.23.134 - Capacity: 60 GiB/18 GiB OK (This node)
-     	IP: 172.31.23.133 - Capacity: 60 GiB/17 GiB OK
+     	IP: 172.31.23.134 - Capacity: 119 GiB/3.7 GiB OK (This node)
     Global Storage Pool
-     	Total Capacity	:  179 GiB
-     	Total Used    	:  51 GiB
+     	Total Capacity	:  119 GiB
+     	Total Used    	:  3.7 GiB
 ```
 To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. 
 
