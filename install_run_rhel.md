@@ -6,7 +6,7 @@ Once this installation is complete, you can continue with walk-throughs for
 * [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry-guide.md)
 
 ## Prerequisites 
-PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses RHEL 7.2 as the OS. For Ubuntu, see [this guide](https://github.com/portworx/px-lite/edit/master/install_run_ubuntu.md) for Docker setup with Ubnutu.
+PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses RHEL 7.2 as the OS. For Ubuntu, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) for Docker setup with Ubnutu.
 
 
 ### Step 1: Launch Servers
