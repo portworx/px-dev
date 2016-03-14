@@ -76,37 +76,6 @@ To install pre-built kernel modules, download  and install per on your distro.
 | kvdb      | The URI to your etcd server.                                                                                   | https://myetcd.example.com:4001      | required |
 | devices   | The list of devices that PX-Lite will use. Any disks listed will be reformatted for PX use.                    | /dev/xvda                            | required |
 
-## PX Command Line (pxctl) Help
-
-```
-# /opt/pwx/bin/pxctl help
-NAME:
-   pxctl - px cli
-
-USAGE:
-   pxctl [global options] command [command options] [arguments...]
-   
-VERSION:
-   0.4.2-1c7f1f9
-   
-COMMANDS:
-   show, s      Show volumes and cluster nodes
-   create, c    Create volumes
-   delete, d    Delete volumes or cluster nodes
-   inspect, i   Inspect volumes and cluster nodes
-   host         Access volumes directly from the host
-   service      Service mode utilities
-   status       Show status summary
-   eula         Show license agreement
-   help, h      Shows a list of commands or help for one command
-   
-GLOBAL OPTIONS:
-   --json, -j           output in json
-   --color              output with color coding
-   --raw, -r            raw CLI output for instrumentation
-   --help, -h           show help
-   --version, -v        print the version
-```
 
 ## Requirements and Limitations
 It is highly recommended that you run PX-Lite on a system with at least 4GB RAM.
