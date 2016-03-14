@@ -3,15 +3,17 @@
 # PX-Lite alpha
 PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out, storage node. Storage runs converged on the same server as compute, giving bare metal performance. 
 
+PX-Lite aims to improve the storage experience for DevOps teams using containers. This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-lite#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release. 
+
+## Install  and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
- * See our quick-start guides on installing and using PX-Lite:
+ * See our quick start guides on installing and using PX-Lite:
   * [installing and running PX-Lite](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md)
   * [scaling a Cassandra database](https://github.com/portworx/px-lite/blob/master/cassandra-guide.md) 
   * [running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry-guide.md) 
  * Use our command-line tools to directly manage volumes, such as snapshotting a container’s storage. We will add docs to our RESTful interface soon.
   
-PX-Lite aims to improve the storage experience for DevOps teams using containers. This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-lite#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release. 
 
 ## Architecture and Storage
 Portworx storage is deployed as a container and runs on a cluster of servers. Application containers provision storage directly through the Docker [volume plugins](https://docs.docker.com/engine/extend/plugins_volume/#command-line-changes:be52bcf493d28afffae069f235814e9f) API or the Docker [command-line](https://docs.docker.com/engine/extend/plugins_volume/#command-line-changes:be52bcf493d28afffae069f235814e9f). Administrators and DevOps can alternatively pre-provision storage through the Portworx command-line tool (pxctl) and then set storage policies using the Portworx administrative interface.
