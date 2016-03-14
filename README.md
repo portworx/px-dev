@@ -13,7 +13,7 @@ Once this installation is complete, you can continue with walk-throughs for
 * [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry-guide.md)
 
 ## Prerequisites 
-PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-lite/blob/master/rhel72_setup.md) for Docker setup with RedHat, including configuring systemd.
+PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md) for Docker setup with RedHat, including configuring systemd.
 
 ### Step 1: Launch Servers
 First, we create three servers in AWS, using: 
