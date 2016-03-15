@@ -209,3 +209,4 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
      	Total Used    	:  3.7 GiB
 ```
 
+You have now just completed setup of PX-Lite on your first server. To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-lite/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Lite.
