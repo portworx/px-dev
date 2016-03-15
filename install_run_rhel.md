@@ -116,6 +116,20 @@ Before running the container, make sure you have saved off any data on the stora
 
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
+### Step 5: Adding additional nodes
+
+If you want to add additional nodes to increase capacity and enable high-availability, complete the following steps for each server.
+
+* Repeat Steps 1 & 2 in the Prequisites sections. 
+ * launch each server with your Operating System and install Docker.
+* Repeat Steps 1 & 2 in the Install Portworx PX-Lite section. 
+ * download the PX-Lite container and install the PX Kernel module on each node.
+* JSON configuration
+ * if you have the same devices configuration on every node, then copy the same config.json you created the first time in Step 4 to all the nodes. 
+ * if you have different devices configuration on the nodes, then repeat Steps 3 & 4 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
+
+Afterwards, continue on with [how to use PX-Lite storage](https://github.com/portworx/px-lite/blob/master/README.md#using-storage).
+
 ## Run PX-Lite 
 Through Docker run with PX-Lite, your storage capacity will be aggregated and managed by PX-Lite. As you run PX-Lite on each server, new capacity will be added to the cluster.
 
