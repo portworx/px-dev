@@ -35,7 +35,7 @@ Volumes used for container data can be magnetic or SSD. PX-Lite will apply diffe
 
 The shared mounts is required, as PX-Lite exports mount points. If you are using systemd, you would remove the ```MountFlags=slave``` line in your ```docker.service``` file. The Ubuntu image in this example is not using systemd. 
 
-### Step 3: Provision etcd
+## Provision etcd
 You can use an existing etcd service or stand-up your own. In this example, we chose [Compose.IO](https://www.compose.io/etcd/) for its ease of use. 
 
 * Create a new etcd deployment in Compose.IO
@@ -43,6 +43,8 @@ You can use an existing etcd service or stand-up your own. In this example, we c
 * Save the connection string, including your username & password
  - example: https://[username]:[password]@[string].dblayer.com:[port]
   - if you are using Compose.IO, the connection string might end with [port]/v2/keys. Please omit the /v2/keys for the time being. 
+
+N.B This etcd step only needs to be done once. The same etcd service can also be used for multiple PX-Lite clusters.  
 
 ## Install Portworx PX-Lite 
 IMPORTANT: login to the Docker Hub to access PX-Lite, during the limited release period. Contact eric@portworx.com for account access.
@@ -90,7 +92,7 @@ The PX-Lite `config.json` lets you select the storage devices and identifies the
  * ```https://github.com/portworx/px-lite/blob/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
-* Move the file to that directory. This directory later gets passed in on the Docker command line.
+* Copy the file to that directory. This directory later gets passed in on the Docker command line.
  * ```# sudo cp -p config.json /etc/pwx```
 * Edit the config.json to include
  * clusterid: this string identified your cluster and  should be unique within your etcd k/v space
@@ -114,6 +116,18 @@ Example config.json:
 Before running the container, make sure you have saved off any data on the storage devices specified in the config.
 
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
+
+### Step 4: Adding additional nodes
+
+If you want to add an additional node to increase capacity and enable high-availability complete the following steps for each server.
+
+Repeat Steps 1 & 2 in the Prequisites sections. Launch each server with your Operating System and install Docker.
+
+Repeat Steps 1 & 2 in the Install Portworx PX-Lite section. Download the PX-Lite container and install the PX Kernel module on each node.
+
+If you have the same disk configuration on every server you can use the config.json you created the first time in Step 4. If you don't have the same devices on each your servers it is recommended that you repeat Steps 3 & 4 in the Install Portworx PX-Lite section again.
+
+Afterwards, continue on with [how to use PX-Lite storage](https://github.com/portworx/px-lite/blob/master/README.md#using-storage).
 
 ## Run PX-Lite 
 Through Docker run with PX-Lite, your storage capacity will be aggregated and managed by PX-Lite. As you run PX-Lite on each server, new capacity will be added to the cluster.
@@ -194,6 +208,4 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
      	Total Capacity	:  119 GiB
      	Total Used    	:  3.7 GiB
 ```
-To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. 
 
-Afterwards, continue on with [how to use PX-Lite storage](https://github.com/portworx/px-lite/blob/master/README.md#using-storage).
