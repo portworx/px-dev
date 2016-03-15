@@ -119,13 +119,15 @@ Before running the container, make sure you have saved off any data on the stora
 
 ### Step 5: Adding additional nodes
 
-If you want to add an additional node to increase capacity and enable high-availability complete the following steps for each server.
+If you want to add additional nodes to increase capacity and enable high-availability, complete the following steps for each server.
 
-Repeat Steps 1 & 2 in the Prequisites sections. Launch each server with your Operating System and install Docker.
-
-Repeat Steps 1 & 2 in the Install Portworx PX-Lite section. Download the PX-Lite container and install the PX Kernel module on each node.
-
-If you have the same disk configuration on every server you can use the config.json you created the first time in Step 4. If you don't have the same devices on each your servers it is recommended that you repeat Steps 3 & 4 in the Install Portworx PX-Lite section again.
+* Repeat Steps 1 & 2 in the Prequisites sections. 
+ * launch each server with your Operating System and install Docker.
+* Repeat Steps 1 & 2 in the Install Portworx PX-Lite section. 
+ * download the PX-Lite container and install the PX Kernel module on each node.
+* JSON configuration
+ * if you have the same devices configuration on every node, then copy the same config.json you created the first time in Step 4 to all the nodes. 
+ * if you have different devices configuration on the nodes, then repeat Steps 3 & 4 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
 
 Afterwards, continue on with [how to use PX-Lite storage](https://github.com/portworx/px-lite/blob/master/README.md#using-storage).
 
@@ -209,4 +211,4 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
      	Total Used    	:  3.7 GiB
 ```
 
-You have now just completed setup of PX-Lite on your first server. To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-lite/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Lite.
+You have now completed setup of PX-Lite on your first server. To increase capacity and enable high-availability, repeat the same steps on each of the remaining two servers. Run pxctl status to view the cluster status. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-lite/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Lite.
