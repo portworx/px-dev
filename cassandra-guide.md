@@ -24,7 +24,7 @@ The output of the command is the volume identifier, which we refer to ```DOCKER_
 ### Step 2: Start the Cassandra Docker image on node 1
 We will use the docker -v option to assign the volume we created with docker volume create. Reminder: your DOCKER_CREATE_VOLUME_ID passed into the -v option can be retrievied by running ```docker volume ls```. You should also substitute your IP address for the 10.0.0.1 placeholder in the CASSANDRA_BROADCAST_ADDRESS parameter. 
 
->Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/porx/blob/master/DOCKER-HUB.md#if-you-have-selinux-enabled-you-may-get-the-following-error-message-) parameter between 'run' and '--name'.
+>Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/px-lite/blob/master/FAQ_technical.md) parameter between 'run' and '--name'.
 
 ```
     docker run --name cassandra1 -d \
