@@ -6,7 +6,7 @@ Once this installation is complete, you can continue with walk-throughs for
 * [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/registry-guide.md)
 
 ## Prerequisites 
-PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses RHEL 7.2 as the OS. For Ubuntu, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) for Docker setup with Ubnutu.
+PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses RHEL 7.2 as the OS. For Ubuntu, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) for Docker setup with Ubuntu.
 
 
 ### Step 1: Launch Servers
@@ -196,7 +196,4 @@ Output of pxctl status shows the global capacity for Docker containers is now 41
      	Total Capacity	:  119 GiB
      	Total Used    	:  3.7 GiB
 ```
-To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. 
-
-Afterwards, continue on with [how to use PX-Lite storage](https://github.com/portworx/px-lite/blob/master/README.md#using-storage).
-
+You have now just completed setup of PX-Lite on your first server. To increase capacity and enable high-availability, run the same steps on each of the remaining two servers. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-lite/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Lite.
