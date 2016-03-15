@@ -64,7 +64,6 @@ From the SSH window for the server:
 * Install the kernel module
  * ```sudo rpm -ivh px-3.10.0-327.10.1.el7.x86_64.rpm```
 
-Continue with the [next steps](https://github.com/portworx/px-lite#step-3-view-disks-on-servers-optional) for configuring 
 ### Step 3: View Disks on Servers (Optional)
 PX-Lite pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
 
