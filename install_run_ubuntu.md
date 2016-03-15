@@ -117,7 +117,7 @@ Before running the container, make sure you have saved off any data on the stora
 
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
-### Step 4: Adding additional nodes
+### Step 5: Adding additional nodes
 
 If you want to add an additional node to increase capacity and enable high-availability complete the following steps for each server.
 
