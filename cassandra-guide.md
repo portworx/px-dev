@@ -20,8 +20,6 @@ To create storage volumes for each instance, run the following command on each s
 
 The output of the command is the volume identifier, which we refer to ```DOCKER_CREATE_VOLUME_ID``` in the command-line examples in this guide. This volume identifier can be later retrived by running  ```docker volume ls ```. 
 
-Now, run the  ```docker volume create ``` step on the other two servers. 
-
 
 ### Step 2: Start the Cassandra Docker image on node 1
 We will use the docker -v option to assign the volume we created with docker volume create. Reminder: your DOCKER_CREATE_VOLUME_ID passed into the -v option can be retrievied by running ```docker volume ls```. You should also substitute your IP address for the 10.0.0.1 placeholder in the CASSANDRA_BROADCAST_ADDRESS parameter. 
@@ -36,7 +34,7 @@ We will use the docker -v option to assign the volume we created with docker vol
 ```
 
 ### Step 3: Start Docker on the other nodes 
-The only difference from the previous docker run command is the addition of the -e CASSANDRA_SEEDS=10.0.0.1 parameter. This is a pointer to the IP address of the first Cassandra node.  
+Create a new volume for the Cassandra instance on node 2 by running the ``docker volume create ``, as shown in step 1. Afterwards, the only difference from the previous docker run command is the addition of the -e CASSANDRA_SEEDS=10.0.0.1 parameter. This is a pointer to the IP address of the first Cassandra node.  
   
 #### Step 3a: On Cassandra node 2 run the following:
  ```
@@ -46,6 +44,9 @@ The only difference from the previous docker run command is the addition of the 
     -e CASSANDRA_SEEDS=10.0.0.1 \
     -v [DOCKER_CREATE_VOLUME_ID]:/var/lib/cassandra cassandra:latest
 ```
+
+As in the above, create a new volume for the Cassandra instance on node 3 by running the ``docker volume create ``, shown in step 1.
+
 #### Step 3b: On Cassandra node 3 run the following:
 ```
     docker run --name cassandra3 -d \
