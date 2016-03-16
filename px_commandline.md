@@ -3,34 +3,17 @@ Portworx is elastic block storage for containers. It manages a server's storage 
 
 Applications can provision and consume storage through the Docker API. Administrators can pre-provision storage and manage through the Portworx or Docker CLI. 
 
-This guide links to, the already very good, Docker documentation for how manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. The Portworx tools refer to servers managed by Portworx storage as 'nodes'. A separate document will describe the Portworx RESTful API and management portal. 
-
-## Volumes with Docker
-All Docker volume commands are reflected into Portworx storage. For example, a ```Docker volume create``` command will provision a storage volume in a Portworx storage cluster.  
-
-```
-# docker volume create -d pxd --name <volume_name>
-```
-As part of the volume command, you can add optional parameters through the --opt flag. The option parameters are the same, whether you use Portworx storage through the Docker volume or the pxctl commands. 
-
-Example of options for selecting the container's filesystem and volume size: 
-
-```
-  docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
-```
-For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
+This guide links to, the already very good, Docker documentation for how to manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. The Portworx tools refer to servers managed by Portworx storage as 'nodes'. A separate document will describe the Portworx RESTful API and management portal. 
 
 # PX command line tool: pxctl
 The pxctl command line tool lets you directly provision and manage storage. All operations from pxctl are reflected back into the  containers that use Portworx storage. In addition what is exposed in Docker volumes, the pxctl tool: 
 * gives access to Portworx storage-specific features (like cloning a running container's storage)
 * shows the connection between containers and their storage volumes, and
-* let's you control the Portworx storage cluster (such as adding servers to the cluster).
+* let's you control the Portworx storage cluster (such as adding nodes to the cluster).
 
 The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. 
 
-All Portworx commands can be shown through running ```pxctl help``` as shown [below](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help).
-
-To be able to access the pxctl from any working directory, you can add pxctl to your PATH as follows:
+All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). To be able to access the pxctl from any working directory, you can add pxctl to your PATH as follows:
 ```
 export PATH=/opt/pwx/bin:$PATH
 ```
@@ -112,30 +95,35 @@ d84fc4caf344 portworx/px-li /px-lite    N/A                										Up 2 minute
 ```
 
 # Volume create and options
-Portworx storage volumes are created from the cluster's global capacity. Capacity and throughput can be expanded by adding a node to the cluster. Storage volumes are protected from hardware and node failures through automatic replication. Throughput is controlled per container and can be shared. 
+Storage is durable, elastic, and has fine-grained controls. Volumes are created from the global capacity of a cluster. Capacity and throughput can be expanded by adding a node to the cluster. Storage volumes are protected from hardware and node failures through automatic replication. 
 
-A volume can be created before use by its container or by the container directly at runtime. Polices can also be applied to a running container's volume. Creating a volume returns the volume's ID. This same volume ID will be returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
+* Durability: replication is set through policy, using the High-Avalability setting
+ * Each write is synchronously replicated to a quorum set of nodes
+ * Any hardware failure means that the replicated volume has the latest acknowledged writes
+* Elastic: capacity and throughput can be added at each level, at any time
+ * Volumes are thinly provisioned, only using capacity as needed by the container
+  * the volume's maxium size can be expanded and contracted, even after data has been written to the volume
+
+A volume can be created before use by its container or by the container directly at runtime. Creating a volume returns the volume's ID. This same volume ID will be returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
 
 Example of creating a volume through pxctl, where the volume ID is returned:
 ```
 # pxctl create volume foobar
 3903386035533561360
 ```
-Each volume creation can apply fine-grained policies that control that volume. Policies enforce how the volume is replicated across the cluster, IOPs priority, filesystem, blocksize, and additional parameters described below. Policies are specified as options on the command line or through a Docker Compose file. Using a Kubernetes Pod spec is upcoming in a future release.
+Throughput is controlled per container and can be shared. Volumes have fine-grained control, set through policy.
 
-Examples:
-* Replication is set on the policy through the High-Avalability setting
- * Each write is synchronously replicated to a quorum set of nodes
- * Any hardware failure means that the replicated volume has the latest acknowledged writes
-* Throughput is set on a policy by the Class of Service setting and shared
- * Adding a node to the cluster expands the available throughput for reads and writes
- * Any node in the cluster can access the volume, whether that volume is local or on another node
- * The best node is selected to service reads, whether that read is from a local storage device or another node's
- * Throughput is aggregated on reads, where multiple nodes can service one read request in parallel streams
+ * Throughput is set by the Class of Service setting and throughput capacity is pooled
+  * Adding a node to the cluster expands the available throughput for reads and writes
+  * The best node is selected to service reads, whether that read is from a local storage device or another node's
+  * Read throughput is aggregated, where multiple nodes can service one read request in parallel streams
+* Fine-grained controls: policies are specified per volume and give full control to storage
+ * Policies enforce how the volume is replicated across the cluster, IOPs priority, filesystem, blocksize, and additional parameters described below. 
+ * Policies are specified at create time and can be applied to existing volumes. 
+ 
+Policies are set on the volume through the options parameter. They can also be set through a Docker Compose file. Using a Kubernetes Pod spec is upcoming in a future release.
 
-Policies are set on the volume through the options parameter. 
-
-The available options are shown through the create volume --help command, as shown below:
+The available options are shown through the --help command, as shown below:
 ```
 # pxctl create volume --help
 NAME:
@@ -186,3 +174,17 @@ GLOBAL OPTIONS:
    --help, -h           show help
    --version, -v        print the version
 ```
+## Volumes with Docker
+All Docker volume commands are reflected into Portworx storage. For example, a ```Docker volume create``` command will provision a storage volume in a Portworx storage cluster.  
+
+```
+# docker volume create -d pxd --name <volume_name>
+```
+As part of the volume command, you can add optional parameters through the --opt flag. The option parameters are the same, whether you use Portworx storage through the Docker volume or the pxctl commands. 
+
+Example of options for selecting the container's filesystem and volume size: 
+
+```
+  docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
+```
+For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
