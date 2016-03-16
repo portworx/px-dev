@@ -13,12 +13,15 @@ The pxctl command line tool lets you directly provision and manage storage. All 
 
 The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). 
 
-
-This current release of the pxctl tools requires privilege. To allow access from any working directory and set root privilege, you can sudo add pxctl to your PATH as follows:
+This current release of the pxctl tools requires privilege. To run as a privileged user, you can sudo as follows:
 ```
 sudo su
+```
+The pxctl tool is available in the ```/opt/pwx/bin/``` directory. To let you run pxctl without typing the full directory path each time, you can add pxctl to your PATH as follows:
+```
 export PATH=/opt/pwx/bin:$PATH
 ```
+Now you can just type ```pxctl``` and we're ready to start.
 
 ## Status: overall node and cluster status
 You can see the total storage capacity through pxctl status. In the example below, a three node cluster has a global capacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
