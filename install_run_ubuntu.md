@@ -15,9 +15,9 @@ First, we create three servers in AWS, using:
 * Instance Type: c3.xlarge
 * Number of instances: 3
 * Storage: 
-  - /dev/xvda: 8GB boot device
-  - /dev/xvdb: 2GB for container storage
-  - /dev/xvdc: 42.9GB for container storage
+  - /dev/xvda: 8 GB boot device
+  - /dev/xvdb: 2 GB for container storage
+  - /dev/xvdc: 42.9 GB for container storage
 * (optional) Tag: add value 'px-cluster1' as the name
 
 Volumes used for container data can be magnetic or SSD. PX-Lite will apply different policies based on storage devices capabilities.
