@@ -30,7 +30,7 @@ To be able to access the pxctl from any working directory, you can add pxctl to 
 export PATH=/opt/pwx/bin:$PATH
 ```
 
-## Status: View overall node and cluster status
+# Status: View overall node and cluster status
 You can see the total storage capacity through pxctl status. As servers join the cluster, pxctl will report show the increased global capacity. 
 
 Example of the status summary from one server:
@@ -53,8 +53,10 @@ Global Storage Pool
         Total Capacity  :  413 GiB
         Total Used      :  3.7 GiB
 ```
+# Show: View Details of Resources
+Resources are containers, storage volumes, as well as objects that host and connect containers to storage. The Show command can be used to see the details of these resources.
 
-## Show: Show volumes and nodes.
+## Show: Show volumes and nodes
 You can see the overall state of your volumes and cluster nodes.
 ```
 pxctl show
@@ -76,7 +78,7 @@ OPTIONS:
    --help, -h	show help
 ```
 
-### Show cluster: Show the nodes in the cluster.
+### Show cluster: Show the nodes in the cluster
 ```
 # pxctl show cluster
 Cluster Information:
@@ -89,7 +91,7 @@ ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE 
 685324a3-21ef-40cf-92cf-60d605f45d65 102.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
 ```
 
-### Show containers: Show the containers in the cluster and the volumes they are using.
+### Show containers: Show the containers in the cluster and the volumes they are using
 ```
 # pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
@@ -135,7 +137,7 @@ XXXX
 As container run, their IOPs will be priorted based on the level set on the volume. The level can be changed on a running container. A higher number has greater priority. 
 XXXX
 
-## PX Command Line (pxctl) Help
+## PX Command Line Help
 
 ```
 # pxctl help
