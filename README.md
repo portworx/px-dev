@@ -1,7 +1,7 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 # PX-Lite alpha
-PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out, storage node. Storage runs converged on the same server as compute, giving bare metal performance. 
+PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out storage node. Storage runs converged on the same server as compute, giving bare-metal performance. 
 
 PX-Lite aims to improve the storage experience for DevOps teams using containers. This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-lite#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release. 
 
@@ -9,14 +9,14 @@ PX-Lite aims to improve the storage experience for DevOps teams using containers
 As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
  * See our quick start guides on installing and using PX-Lite:
-  * [installing and running PX-Lite](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md)
-  * [scaling a Cassandra database](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md) 
-  * [running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry_guide.md) 
- * Use our [pxctl control tool](https://github.com/portworx/px-lite/blob/master/px_commandline.md) to directly 
-  * view the cluster global capacity and health
-  * create, inspect, and delete storage volumes
-  * attach policies for IOPs priortiziation, maximum volume size, and enable storage replication
- * Refer to the [FAQ and Troubleshooting guide](https://github.com/portworx/px-lite/blob/master/faq.md) if you run into issue and please also feel free to [Contact us](https://github.com/portworx/px-lite#contact-us) as well. 
+  * [Installing and Running PX-Lite on Ubuntu](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) or [Red Hat](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md)
+  * [Scaling a Cassandra database with PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md) 
+  * [Running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry_guide.md) 
+ * Use our [pxctl control tool](https://github.com/portworx/px-lite/blob/master/px_commandline.md) to directly: 
+  * View the cluster global capacity and health
+  * Create, inspect, and delete storage volumes
+  * Attach policies for IOPs prioritization, maximum volume size, and enable storage replication
+ * Refer to the [Technical FAQ and Troubleshooting guide](https://github.com/portworx/px-lite/blob/master/faq.md) if you run into an issue. Please also feel free to [Contact us](https://github.com/portworx/px-lite#contact-us) as well. 
   
 
 ## Architecture and Storage
@@ -24,7 +24,7 @@ Portworx storage is deployed as a container and runs on a cluster of servers. Ap
 
 Portworx storage runs in a cluster of server nodes. 
  * Each server has the PX-Lite container and the Docker daemon.
- * Servers join a cluster and share config through the key/value store, such as etcd.
+ * Servers join a cluster and share configuration through the key/value store, such as etcd.
  * The PX-Lite container pools the capacity of the storage media residing on the server. You easily select storage media through the config.json file.
 
 See [Deployment Requirements](https://github.com/portworx/px-lite#requirements-and-limitations) for compatibility requirements.
@@ -49,7 +49,7 @@ As you use PX-Lite, please share your feedback and ask questions. Find the team 
 
 # Reference
 
-## Kernel Module for Varios Distros (Temporary Requirement)
+## Kernel module for distros (Temporary Requirement)
 If your kernel version is not listed in the table below, you can build the kernel module by following the instructions here: http://github.com/portworx/px-fuse
 
 Find out your kernel version. For example:
@@ -103,5 +103,4 @@ Other limitations:
 | Max Volumes | 256 |
 | Max local devices | 3 |
 
-For more information, visit our [GitHub](https://github.com/portworx/px-lite)
 
