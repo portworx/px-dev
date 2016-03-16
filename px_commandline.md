@@ -28,7 +28,7 @@ All Portworx commands can be shown through running ```pxctl help``` as shown bel
 
 To be able to access the pxctl from any working directory, you can add pxctl to your PATH as follows:
 ```
-export PATH=$PATH:/opt/pwx/bin
+export PATH=/opt/pwx/bin:$PATH
 ```
 
 ## Show: View Status State
