@@ -1,12 +1,12 @@
 # Using Portworx Storage 
-Portworx is elastic block storage for containers. It spans from a server’s hardware, across servers to form a cluster, and up to the application stack to integrate with schedulers and containers. Accordingly, the toolchain operates at each aspect of the stack and integrates with other toolchains. 
+Portworx is elastic block storage for containers. It manages a server's storage devices, joins servers together to form a storage cluster, and integrates up  the application stack with schedulers and containers. Accordingly, the Portworx toolchain operates at each level of hardware and ties the experience together with other toolchains. 
 
 Applications can provision and consume storage through the Docker API. Administrators can pre-provision storage and manage through the Portworx or Docker CLI. 
 
-This guide links to, the already very good, Docker documentation for how manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. A separate document will describe the Portworx RESTful API and management portal. 
+This guide links to, the already very good, Docker documentation for how manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. The Portworx tools refer to servers managed by Portworx storage as 'nodes'. A separate document will describe the Portworx RESTful API and management portal. 
 
 ## Volumes with Docker
-All Docker volume commands are reflected into Portworx storage. For example, a ```Docker volume create``` command will provision a storage volume in Portworx.  
+All Docker volume commands are reflected into Portworx storage. For example, a ```Docker volume create``` command will provision a storage volume in a Portworx storage cluster.  
 
 ```
 # docker volume create -d pxd --name <volume_name>
@@ -20,44 +20,49 @@ Example of options for selecting the container's filesystem and volume size:
 ```
 For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
 
-# PX command line tool pxctl
-The pxctl command line tool lets you directly provision and manage storage. All operations from pxctl are reflected back into the  containers that use Portworx storage. In addition what is exposed in Docker volumes, the pxctl gives access to Portworx storage-specific features (like cloning a running container's storage) and let's you control  the Portworx storage cluster (such as adding servers to the cluster).
+# PX command line tool: pxctl
+The pxctl command line tool lets you directly provision and manage storage. All operations from pxctl are reflected back into the  containers that use Portworx storage. In addition what is exposed in Docker volumes, the pxctl tool: 
+* gives access to Portworx storage-specific features (like cloning a running container's storage)
+* shows the connection between containers and their storage volumes, and
+* let's you control the Portworx storage cluster (such as adding servers to the cluster).
 
-All Portworx commands can be shown through running ```pxctl help``` as shown below.
+The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. 
+
+All Portworx commands can be shown through running ```pxctl help``` as shown [below](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help).
 
 To be able to access the pxctl from any working directory, you can add pxctl to your PATH as follows:
 ```
 export PATH=/opt/pwx/bin:$PATH
 ```
 
-# Status: View overall node and cluster status
-You can see the total storage capacity through pxctl status. As servers join the cluster, pxctl will report show the increased global capacity. 
+## Status: overall node and cluster status
+You can see the total storage capacity through pxctl status. In the example below, a three node cluster has a global cpacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
 
-Example of the status summary from one server:
+As nodes join the cluster, pxctl will report the updated global capacity. 
+
+Example of the status summary from the first node:
 ```
 # pxctl status
 Status: PX is operational
 Node ID:  2ecf6b47-c461-4f80-b334-55954eb229fb
-        IP:  102.21.25.218 
+        IP:  10.21.25.218 
         Local Storage Pool:
         Device          Caching Tier    Size    Used
         /dev/xvdj       true            128 GB  4.0 GB
         /dev/xvdi       true            128 GB  4.0 GB
         total           -               256 GB  4.0 GB
 Cluster Summary
-        ID:  zeroconfigalex11
-        IP: 102.21.25.218 - Capacity: 256 GiB/1.9 GiB OK (This node)
-        IP: 102.21.25.219 - Capacity: 186 GiB/1.9 GiB OK
-        IP: 102.21.25.220 - Capacity: 186 GiB/1.9 GiB OFFLINE
+        ID:  px_cluster_1
+        IP: 10.21.25.218 - Capacity: 256 GiB/1.9 GiB OK (This node)
+        IP: 10.21.25.219 - Capacity: 186 GiB/1.9 GiB OK
+        IP: 10.21.25.220 - Capacity: 186 GiB/1.9 GiB OFFLINE
 Global Storage Pool
         Total Capacity  :  413 GiB
         Total Used      :  3.7 GiB
 ```
-# Show: View Details of Resources
-Resources are containers, storage volumes, as well as objects that host and connect containers to storage. The Show command can be used to see the details of these resources.
+## Show: details of resources
+Resources are containers, storage volumes, as well as objects that host and connect containers to storage. The show command can be used to see the details of these resources.
 
-## Show: Show volumes and nodes
-You can see the overall state of your volumes and cluster nodes.
 ```
 pxctl show
 NAME:
@@ -77,8 +82,9 @@ COMMANDS:
 OPTIONS:
    --help, -h	show help
 ```
+Running ```show cluster``` returns the current global state of the cluster, including utilization, the number of containers running per node, and the status of the node within the cluster. 
 
-### Show cluster: Show the nodes in the cluster
+Example of ```show cluster``` for the same three node cluster:
 ```
 # pxctl show cluster
 Cluster Information:
@@ -86,12 +92,14 @@ Cluster ID: b6f76c07-7725-4451-9704-1867bca3a0b8 Status: STATUS_OK
 
 Nodes in the cluster:
 ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE CONTAINERS STATUS
-485a9a8e-4811-4399-a8d0-ec65c7dfafbd 102.21.25.218 0.250627  7.8 GB    7.2 GB   5          ok
-993a79e2-3597-4f4e-b3f3-f808036e0677 102.21.25.219 N/A       N/A       N/A      N/A        offline
-685324a3-21ef-40cf-92cf-60d605f45d65 102.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
+485a9a8e-4811-4399-a8d0-ec65c7dfafbd 10.21.25.218 0.250627  7.8 GB    7.2 GB   5          ok
+993a79e2-3597-4f4e-b3f3-f808036e0677 10.21.25.219 N/A       N/A       N/A      N/A        offline
+685324a3-21ef-40cf-92cf-60d605f45d65 10.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
 ```
 
-### Show containers: Show the containers in the cluster and the volumes they are using
+In order to view the cluster from a container centric perspective, run ```show containers```. The output lists the running containers by container ID, the container image/name, and the mounted Portworx storage volume. 
+
+Example of ```show containers``` for the same three node cluster:
 ```
 # pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
@@ -99,16 +107,35 @@ ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
 1557f4d9a605 gourao/px-li /px-lite    N/A                										Up 3 minutes
 a2aa17b4edcf google/cadvi /cadvisor   N/A                										Up 8 minutes
 e5a00a52e276 mysql        /jeff-mysql 211470040694089666 685324a3-21ef-40cf-92cf-60d605f45d65	Up 15 minutes
-d84fc4caf344 gourao/px-li /px-lite    N/A                										Up 2 minutes
+d84fc4caf344 portworx/px-li /px-lite    N/A                										Up 2 minutes
 81a3f4b95cdf google/cadvi /cadvisor   N/A                										Up 8 minutes
 ```
 
-## Create a volume
+# Volume create and options
+Portworx storage volumes are created from the cluster's global capacity. Capacity and throughput can be expanded by adding a node to the cluster. Storage volumes are protected from hardware and node failures through automatic replication. Throughput is controlled per container and can be shared. 
+
+A volume can be created before use by its container or by the container directly at runtime. Polices can also be applied to a running container's volume. Creating a volume returns the volume's ID. This same volume ID will be returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
+
+Example of creating a volume through pxctl, where the volume ID is returned:
 ```
 # pxctl create volume foobar
 3903386035533561360
 ```
+Each volume creation can apply fine-grained policies that control that volume. Policies enforce how the volume is replicated across the cluster, IOPs priority, filesystem, blocksize, and additional parameters described below. Policies are specified as options on the command line or through a Docker Compose file. Using a Kubernetes Pod spec is upcoming in a future release.
 
+Examples:
+* Replication is set on the policy through the High-Avalability setting
+ * Each write is synchronously replicated to a quorum set of nodes
+ * Any hardware failure means that the replicated volume has the latest acknowledged writes
+* Throughput is set on a policy by the Class of Service setting and shared
+ * Adding a node to the cluster expands the available throughput for reads and writes
+ * Any node in the cluster can access the volume, whether that volume is local or on another node
+ * The best node is selected to service reads, whether that read is from a local storage device or another node's
+ * Throughput is aggregated on reads, where multiple nodes can service one read request in parallel streams
+
+Policies are set on the volume through the options parameter. 
+
+The available options are shown through the create volume --help command, as shown below:
 ```
 # pxctl create volume --help
 NAME:
@@ -127,15 +154,6 @@ OPTIONS:
    --cos "1"                    Class of Service: [1..9]
    --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
 ```
-
-### Seed option: volume with initial data
-A useful pattern is to be able to provide initial data in newly created volumes. In pxctl, you can do so with the seed command. 
-
-XXXX
-
-### Priortization option: Class of Service
-As container run, their IOPs will be priorted based on the level set on the volume. The level can be changed on a running container. A higher number has greater priority. 
-XXXX
 
 ## PX Command Line Help
 
