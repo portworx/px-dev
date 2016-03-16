@@ -33,22 +33,25 @@ export PATH=/opt/pwx/bin:$PATH
 ## Status: View overall node and cluster status
 You can see the total storage capacity through pxctl status. As servers join the cluster, pxctl will report show the increased global capacity. 
 
-Example of capacity from one server:
+Example of the status summary from one server:
 ```
- pxctl status
- Node ID:  [guid]
-	IP:  172.31.17.65 
- 	Local Storage Pool:
-	Device		Caching Tier	Size	  Used
-	/dev/xvdb	true  			8.0 GB    2.0 GB
-	/dev/xvdc	true			12 GB	  2.0 GB
-	total		-		 		20 GB	  4.0 GB
- Cluster Summary
-	ID:  cluster 2
-	IP: 172.31.17.65	Capacity:    20 GB/  4.0 GB OK (This node)
- Global Storage Pool
-	Total Capacity	:  20 GB
-	Total Used    	:  4.0 GB
+# pxctl status
+Status: PX is operational
+Node ID:  2ecf6b47-c461-4f80-b334-55954eb229fb
+        IP:  102.21.25.218 
+        Local Storage Pool:
+        Device          Caching Tier    Size    Used
+        /dev/xvdj       true            128 GB  4.0 GB
+        /dev/xvdi       true            128 GB  4.0 GB
+        total           -               256 GB  4.0 GB
+Cluster Summary
+        ID:  zeroconfigalex11
+        IP: 102.21.25.218 - Capacity: 256 GiB/1.9 GiB OK (This node)
+        IP: 102.21.25.219 - Capacity: 186 GiB/1.9 GiB OK
+        IP: 102.21.25.220 - Capacity: 186 GiB/1.9 GiB OFFLINE
+Global Storage Pool
+        Total Capacity  :  413 GiB
+        Total Used      :  3.7 GiB
 ```
 
 ## Show: Show volumes and nodes.
