@@ -11,15 +11,17 @@ The pxctl command line tool lets you directly provision and manage storage. All 
 * shows the connection between containers and their storage volumes, and
 * let's you control the Portworx storage cluster (such as adding nodes to the cluster).
 
-The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. 
+The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). 
 
-All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). To be able to access the pxctl from any working directory, you can add pxctl to your PATH as follows:
+
+This current release of the pxctl tools requires privilege. To allow access from any working directory and set root privilege, you can sudo add pxctl to your PATH as follows:
 ```
+sudo su
 export PATH=/opt/pwx/bin:$PATH
 ```
 
 ## Status: overall node and cluster status
-You can see the total storage capacity through pxctl status. In the example below, a three node cluster has a global cpacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
+You can see the total storage capacity through pxctl status. In the example below, a three node cluster has a global capacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
 
 As nodes join the cluster, pxctl will report the updated global capacity. 
 
@@ -97,12 +99,12 @@ d84fc4caf344 portworx/px-li /px-lite    N/A                										Up 2 minute
 # Volume create and options
 Storage is durable, elastic, and has fine-grained controls. Volumes are created from the global capacity of a cluster. Capacity and throughput can be expanded by adding a node to the cluster. Storage volumes are protected from hardware and node failures through automatic replication. 
 
-* Durability: replication is set through policy, using the High-Avalability setting
+* Durability: replication is set through policy, using the High-Availability setting
  * Each write is synchronously replicated to a quorum set of nodes
  * Any hardware failure means that the replicated volume has the latest acknowledged writes
 * Elastic: capacity and throughput can be added at each level, at any time
  * Volumes are thinly provisioned, only using capacity as needed by the container
-  * the volume's maxium size can be expanded and contracted, even after data has been written to the volume
+  * the volume's maximum size can be expanded and contracted, even after data has been written to the volume
 
 A volume can be created before use by its container or by the container directly at runtime. Creating a volume returns the volume's ID. This same volume ID will be returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
 
