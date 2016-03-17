@@ -6,7 +6,6 @@ portworx:
      - /dev:/dev
      - /run/docker/plugins:/run/docker/plugins
      - /var/lib/osd:/var/lib/osd:shared
-     - /dev:/dev
      - /etc/pwx:/etc/pwx
      - /opt/pwx/bin:/export_bin:shared
      - /var/run/docker.sock:/var/run/docker.sock
