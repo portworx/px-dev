@@ -1,24 +1,17 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
-# TL;DR
-1. Make sure you are running Docker 1.10 or later.  It must be set to [allow shared mounts](https://github.com/docker/docker/issues/19625).  For example: `# mount --make-shared /`
-2. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement).  If you can't find a pre-built module, follow the instructions to build one for your kernel.
-3. Docker login with the username and password provided by email.
-4. `# git clone https://github.com/portworx/px-lite`
-5. `# cd px-lite`
-6. Copy the config.json to /etc/pwx/ and edit the needed fields (cluster ID, etcd URL and storage devices)
-7. `# docker-compose up`
-
 # PX-Lite alpha
 PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out storage node. Storage runs converged on the same server as compute, giving bare-metal performance. 
 
 PX-Lite aims to improve the storage experience for DevOps teams using containers. This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-lite#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Lite and our PX-Enterprise release. 
 
-## Install  and Quick Start Guides
+## Install and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Lite for elastic storage capacity, managed performance, and high availability.
 
- * See our quick start guides on installing and using PX-Lite:
+ * See our quick start guides on installing PX-Lite:
+  * [Launching PX-Lite in three steps with Docker Compose](https://github.com/portworx/px-lite/blob/master/compose_install.md)  
   * [Installing and Running PX-Lite on Ubuntu](https://github.com/portworx/px-lite/blob/master/install_run_ubuntu.md) or [Red Hat](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md)
+ * Run stateful containers with Docker volumes:
   * [Scaling a Cassandra database with PX-Lite](https://github.com/portworx/px-lite/blob/master/cassandra_guide.md) 
   * [Running the Docker registry with high availability](https://github.com/portworx/px-lite/blob/master/registry_guide.md) 
  * Use our [pxctl control tool](https://github.com/portworx/px-lite/blob/master/cli_reference.md) to directly: 
