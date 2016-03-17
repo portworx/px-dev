@@ -1,7 +1,7 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 # TL;DR
-1. Make sure you are running Docker 1.10 or later.  It must be set to [allow shared mounts](https://github.com/docker/docker/issues/19625).
+1. Make sure you are running Docker 1.10 or later.  It must be set to [allow shared mounts](https://github.com/docker/docker/issues/19625).  For example: `# mount --make-shared /`
 2. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement).  If you can't find a pre-built module, follow the instructions to build one for your kernel.
 3. docker login with the username and password provided by email.
 4. git clone https://github.com/portworx/px-lite
