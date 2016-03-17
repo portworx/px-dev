@@ -1,6 +1,8 @@
 portworx:
   image: portworx/px-lite
+  container_name: px-lite
   ipc: host
+  net: host
   privileged: true
   volumes:
      - /dev:/dev
