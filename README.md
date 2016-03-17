@@ -1,5 +1,14 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
+# TL;DR
+Steps:
+1. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement)
+2. docker login with username: pxliteuser  Password: password
+3. git clone https://github.com/portworx/px-lite/blob/master/conf/config.json.
+4. Copy the config.json to /etc/pwx/ and edit the needed fields.
+5. git clone https://github.com/portworx/px-lite/blob/master/compose/px/docker-compose.yml
+6. docker-compose up
+
 # PX-Lite alpha
 PX-Lite is elastic block storage for containers. Deploying PX-Lite on a server with Docker turns that server into a scale-out storage node. Storage runs converged on the same server as compute, giving bare-metal performance. 
 
