@@ -1,7 +1,6 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 # TL;DR
-Steps:
 1. Get the kernel module for your distro: [Kernel Module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement)
 2. docker login with username: pxliteuser  Password: password
 3. git clone https://github.com/portworx/px-lite/blob/master/conf/config.json.
