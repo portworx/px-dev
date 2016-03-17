@@ -3,13 +3,13 @@ Portworx is elastic block storage for containers. It manages a server's storage 
 
 Applications can provision and consume storage through the Docker API. Administrators can pre-provision storage and manage through the Portworx or Docker CLI. 
 
-This guide links to, the already very good, Docker documentation for how to manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. The Portworx tools refer to servers managed by Portworx storage as 'nodes'. A separate document will describe the Portworx RESTful API and management portal. 
+This guide links to the already very good Docker documentation for how to manage Docker volumes. The rest of this guide is dedicated to the Portworx pxctl command line tool. The Portworx tools refer to servers managed by Portworx storage as nodes. A separate document will describe the Portworx RESTful API and management portal. 
 
-# PX command line tool: pxctl
-The pxctl command line tool lets you directly provision and manage storage. All operations from pxctl are reflected back into the  containers that use Portworx storage. In addition what is exposed in Docker volumes, the pxctl tool: 
-* gives access to Portworx storage-specific features (like cloning a running container's storage)
-* shows the connection between containers and their storage volumes, and
-* let's you control the Portworx storage cluster (such as adding nodes to the cluster).
+# PX Control Tool: pxctl
+The pxctl tool lets you directly provision and manage storage. All operations from pxctl are reflected back into the  containers that use Portworx storage. In addition to what is exposed in Docker volumes, the pxctl tool: 
+* Gives access to Portworx storage-specific features (like cloning a running container's storage)
+* Shows the connection between containers and their storage volumes
+* Let you control the Portworx storage cluster (such as adding nodes to the cluster)
 
 The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/px_commandline.md#px-command-line-help). 
 
@@ -21,12 +21,12 @@ The pxctl tool is available in the ```/opt/pwx/bin/``` directory. To let you run
 ```
 export PATH=/opt/pwx/bin:$PATH
 ```
-Now you can just type ```pxctl``` and we're ready to start.
+Now you can just type ```pxctl``` and you're ready to start.
 
-## Status: overall node and cluster status
-You can see the total storage capacity through pxctl status. In the example below, a three node cluster has a global capacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
+## Status: Overall Node and Cluster Status
+You can see the total storage capacity through pxctl status. In the example below, a three-node cluster has a global capacity of 413 GiB. The node on which we ran the pxctl command contributes 256 GiB to that global capacity.
 
-As nodes join the cluster, pxctl will report the updated global capacity. 
+As nodes join the cluster, pxctl reports the updated global capacity. 
 
 Example of the status summary from the first node:
 ```
@@ -48,8 +48,8 @@ Global Storage Pool
         Total Capacity  :  413 GiB
         Total Used      :  3.7 GiB
 ```
-## Show: details of resources
-Resources are containers, storage volumes, as well as objects that host and connect containers to storage. The show command can be used to see the details of these resources.
+## Show: Details of Resources
+Resources are containers, storage volumes, and objects that host and connect containers to storage. You can use the show command to see the details of these resources.
 
 ```
 pxctl show
@@ -72,7 +72,7 @@ OPTIONS:
 ```
 Running ```show cluster``` returns the current global state of the cluster, including utilization, the number of containers running per node, and the status of the node within the cluster. 
 
-Example of ```show cluster``` for the same three node cluster:
+Example of ```show cluster``` for the same three-node cluster:
 ```
 # pxctl show cluster
 Cluster Information:
@@ -85,9 +85,9 @@ ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE 
 685324a3-21ef-40cf-92cf-60d605f45d65 10.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
 ```
 
-In order to view the cluster from a container centric perspective, run ```show containers```. The output lists the running containers by container ID, the container image/name, and the mounted Portworx storage volume. 
+To view the cluster from a container-centric perspective, run ```show containers```. The output lists the running containers by container ID, the container image/name, and the mounted Portworx storage volume. 
 
-Example of ```show containers``` for the same three node cluster:
+Example of ```show containers``` for the same three-node cluster:
 ```
 # pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
@@ -99,36 +99,36 @@ d84fc4caf344 portworx/px-li /px-lite    N/A                										Up 2 minute
 81a3f4b95cdf google/cadvi /cadvisor   N/A                										Up 8 minutes
 ```
 
-# Volume create and options
-Storage is durable, elastic, and has fine-grained controls. Volumes are created from the global capacity of a cluster. Capacity and throughput can be expanded by adding a node to the cluster. Storage volumes are protected from hardware and node failures through automatic replication. 
+# Volume Create and Options
+Storage is durable, elastic, and has fine-grained controls. Portworx creates volumes from the global capacity of a cluster. You can expand capacity and throughput by adding a node to the cluster. Portworx protects storage volumes from hardware and node failures through automatic replication. 
 
-* Durability: replication is set through policy, using the High-Availability setting
- * Each write is synchronously replicated to a quorum set of nodes
- * Any hardware failure means that the replicated volume has the latest acknowledged writes
-* Elastic: capacity and throughput can be added at each level, at any time
- * Volumes are thinly provisioned, only using capacity as needed by the container
-  * the volume's maximum size can be expanded and contracted, even after data has been written to the volume
+* Durability: Set replication through policy, using the High Availability setting.
+ * Each write is synchronously replicated to a quorum set of nodes.
+ * Any hardware failure means that the replicated volume has the latest acknowledged writes.
+* Elastic: Add capacity and throughput at each layer, at any time.
+ * Volumes are thinly provisioned, only using capacity as needed by the container.
+  * You can expand and contract the volume's maximum size, even after data has been written to the volume.
 
-A volume can be created before use by its container or by the container directly at runtime. Creating a volume returns the volume's ID. This same volume ID will be returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
+A volume can be created before use by its container or by the container directly at runtime. Creating a volume returns the volume's ID. This same volume ID is returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
 
 Example of creating a volume through pxctl, where the volume ID is returned:
-```
-# pxctl create volume foobar
-3903386035533561360
-```
+ ```
+ # pxctl create volume foobar
+  3903386035533561360
+ ```
 Throughput is controlled per container and can be shared. Volumes have fine-grained control, set through policy.
 
- * Throughput is set by the Class of Service setting and throughput capacity is pooled
-  * Adding a node to the cluster expands the available throughput for reads and writes
-  * The best node is selected to service reads, whether that read is from a local storage device or another node's
-  * Read throughput is aggregated, where multiple nodes can service one read request in parallel streams
-* Fine-grained controls: policies are specified per volume and give full control to storage
+ * Throughput is set by the Class of Service setting and throughput capacity is pooled.
+  * Adding a node to the cluster expands the available throughput for reads and writes.
+  * The best node is selected to service reads, whether that read is from a local storage devices or another node's storage devices.
+  * Read throughput is aggregated, where multiple nodes can service one read request in parallel streams.
+* Fine-grained controls: policies are specified per volume and give full control to storage.
  * Policies enforce how the volume is replicated across the cluster, IOPs priority, filesystem, blocksize, and additional parameters described below. 
  * Policies are specified at create time and can be applied to existing volumes. 
  
-Policies are set on the volume through the options parameter. They can also be set through a Docker Compose file. Using a Kubernetes Pod spec is upcoming in a future release.
+Set policies on a volume through the options parameter. Or, set policies through a Docker Compose file. Using a Kubernetes Pod spec is slated for a future release.
 
-The available options are shown through the --help command, as shown below:
+Show the available options through the --help command, as shown below:
 ```
 # pxctl create volume --help
 NAME:
@@ -192,4 +192,4 @@ Example of options for selecting the container's filesystem and volume size:
 ```
   docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
 ```
-For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/)
+For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/).
