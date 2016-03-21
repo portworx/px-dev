@@ -149,6 +149,7 @@ Start the PX-Lite container with the following run command:
                  -v /opt/pwx/bin:/export_bin:shared                               \
                  -v /var/run/docker.sock:/var/run/docker.sock                     \
                  -v /var/cores:/var/cores                                         \
+                 -v /usr/src:/usr/src                                             \
                  --ipc=host                                                       \
                 portworx/px-lite
 ```
