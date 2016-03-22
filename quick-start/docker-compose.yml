@@ -6,6 +6,7 @@ portworx:
   privileged: true
   volumes:
      - /dev:/dev
+     - /usr/src:/usr/src
      - /run/docker/plugins:/run/docker/plugins
      - /var/lib/osd:/var/lib/osd:shared
      - /etc/pwx:/etc/pwx
