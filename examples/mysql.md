@@ -4,7 +4,7 @@ These instructions demonstrate running the official `mysql` container from https
 To create a storage volume for mysql, run the following command on each server and make a note of the returned volume ID. You will need the volume ID when you start the mysql container in the next step.
 
 ```
-    docker volume create -d pxd --opt name=registry_volume --opt \ 
+    docker volume create -d pxd --opt name=mysql_volume --opt \ 
     size=4 --opt block_size=64 --opt repl=1 --opt fs =ext4
 ```
 
