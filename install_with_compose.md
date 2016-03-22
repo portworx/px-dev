@@ -5,7 +5,7 @@ If you are using Docker Compose, you can get PX-Lite running by:
  1. Get Docker 1.10 or later. 
    * Set to [allow shared mounts](https://github.com/docker/docker/issues/19625). For example: `# mount --make-shared /`.
  2. Docker pull portworx/px-lite. [Request access](https://docs.google.com/a/portworx.com/forms/d/1iAhxyIvcDQW7tdrX6UkpjXd5KN9LnWA8UE25n70C-RQ/) during the limited preview.
-   * Get the [kernel module](https://github.com/portworx/px-lite/blob/master/README.md#kernel-module-for-distros-temporary-requirement) for your distro. 
+ 
  3. Get and specify the config for your cluster.
    * `# git clone https://github.com/portworx/px-lite` 
    * `cd px-lite` 
