@@ -115,6 +115,7 @@ Example config.json:
       }
     }
 ```  
+IMPORTANT: If you are using Compose.IO, the kvdb string might end with [port]/v2/keys. Please omit the /v2/keys for now.
 Before running the container, make sure you have saved off any data on the storage devices specified in the config.
 
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
