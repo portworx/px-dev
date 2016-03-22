@@ -48,23 +48,23 @@ Global Storage Pool
         Total Capacity  :  413 GiB
         Total Used      :  3.7 GiB
 ```
-## Show: Details of Resources
-Resources are containers, storage volumes, and objects that host and connect containers to storage. You can use the show command to see the details of these resources.
+## Volumes: Manage storage volumes
+Use this command to create and manage volumes.  These volumes can directly be used with Docker with the `-v` option.
 
 ```
-pxctl show
 NAME:
-   px show - Show volumes and nodes
+   pxctl volume - Manage volumes
 
 USAGE:
-   px show command [command options] [arguments...]
+   pxctl volume command [command options] [arguments...]
 
 COMMANDS:
-   cluster	Show cluster details
-   disks	Show available disks on this node
-   containers	Show volume usage by containers
-   volumes, v	Show volumes in the cluster
-   snaps	Show volume snapshots in the cluster
+   create, c	Create a volume
+   list, l	List volumes in the cluster
+   inspect, i	Inspect a volume
+   delete, d	Delete a volume
+   stats, st	Volume Statistics
+   alerts, a	Show volume related alerts
    help, h	Shows a list of commands or help for one command
    
 OPTIONS:
@@ -113,7 +113,7 @@ A volume can be created before use by its container or by the container directly
 
 Example of creating a volume through pxctl, where the volume ID is returned:
  ```
- # pxctl create volume foobar
+ # pxctl volume create foobar
   3903386035533561360
  ```
 Throughput is controlled per container and can be shared. Volumes have fine-grained control, set through policy.
@@ -130,7 +130,7 @@ Set policies on a volume through the options parameter. Or, set policies through
 
 Show the available options through the --help command, as shown below:
 ```
-# pxctl create volume --help
+# pxctl volume create --help
 NAME:
    create volume - Create a volume
 
