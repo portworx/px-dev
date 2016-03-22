@@ -15,7 +15,7 @@ To start the mysql container, run the following command. Substitute DOCKER_CREAT
 
 ```
 docker run -p 3306:3306 --volume-driver=pxd                 \
-                        --name snapnbsql                    \
+                        --name pxmysql                      \
                         -e MYSQL_ROOT_PASSWORD=password     \
                         -v DOCKER_CREATE_VOLUME_ID:/var/lib/mysql -d mysql
 ```
