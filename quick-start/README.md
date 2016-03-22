@@ -1,4 +1,4 @@
-# Running px-lite with Docker-compose
+# Running px-lite with Docker Compose
 
 You can start `px-lite` with `docker-compose` as follows:
 
