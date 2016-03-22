@@ -159,16 +159,16 @@ USAGE:
    pxctl [global options] command [command options] [arguments...]
    
 VERSION:
-   0.4.2-1c7f1f9
+   0.4.3-9da1bcd
    
 COMMANDS:
-   show, s      Show volumes and cluster nodes
-   create, c    Create volumes
-   delete, d    Delete volumes or cluster nodes
-   inspect, i   Inspect volumes and cluster nodes
-   host         Access volumes directly from the host
-   service      Service mode utilities
    status       Show status summary
+   volume, v    Manage volumes
+   snap, s      Manage volume snapshots
+   cluster, c   Manage the cluster
+   container    Display containers in the cluster
+   service, sv  Service mode utilities
+   host         Attach volumes to the host
    eula         Show license agreement
    help, h      Shows a list of commands or help for one command
    
