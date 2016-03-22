@@ -16,7 +16,7 @@
 2. Pxctl show persmission denied
  If you run a pxctl command and get the error like the below, the issue is that you need to run as *root* to use the pxctl tools. 
  ```
- pxctl show cluster
+ pxctl cluster list
  show cluster: Get http://unix.sock/v1/cluster/enumerate: dial unix /var/lib/osd/cluster/osd.sock: connect: permission denied
   ```
  To enable root, you can run  ```sudo su ```. 
