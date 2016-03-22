@@ -1,7 +1,7 @@
 The Docker Registry is a server-side application that stores and lets you distribute Docker images. The following instructions use Docker Registry version 2.3.0.
 
 ### Step 1: Create a storage volume for the Docker registry
-To create a storage volume for the Docker registry, run the following command on each server and make a note of the returned volume ID. You will need the volume ID when you start the Cassandra container in the next step.
+To create a storage volume for the Docker registry, run the following command on each server and make a note of the returned volume ID. You will need the volume ID when you start the registry container in the next step.
 
 ```
     docker volume create -d pxd --opt name=registry_volume --opt \ 
