@@ -70,24 +70,24 @@ COMMANDS:
 OPTIONS:
    --help, -h	show help
 ```
-Running ```show cluster``` returns the current global state of the cluster, including utilization, the number of containers running per node, and the status of the node within the cluster. 
+Running ```cluster list``` returns the current global state of the cluster, including utilization, the number of containers running per node, and the status of the node within the cluster. 
 
-Example of ```show cluster``` for the same three-node cluster:
+Example of ```cluster list``` for the same three-node cluster:
 ```
 # pxctl show cluster
-Cluster Information:
-Cluster ID: b6f76c07-7725-4451-9704-1867bca3a0b8 Status: STATUS_OK
+Cluster ID: cluster-xxx-yyy-zzz
+Status: OK
 
 Nodes in the cluster:
-ID                                   MGMT IP       CPU       MEM TOTAL MEM FREE CONTAINERS STATUS
-485a9a8e-4811-4399-a8d0-ec65c7dfafbd 10.21.25.218 0.250627  7.8 GB    7.2 GB   5          ok
-993a79e2-3597-4f4e-b3f3-f808036e0677 10.21.25.219 N/A       N/A       N/A      N/A        offline
-685324a3-21ef-40cf-92cf-60d605f45d65 10.21.25.220 24.937343 7.8 GB    7.3 GB   10         ok
+ID                                      MGMT IP         CPU             MEM TOTAL       MEM FREE        CONTAINERS      STATUS
+8018cc5a-8293-49ef-904c-600b3f562ef2    172.31.25.219   1.754386        7.8 GB          6.6 GB          N/A             ok
+75b37f58-7ef1-4b2d-acc4-37d3ceb5b30a    172.31.25.218   0.375           7.8 GB          7.2 GB          N/A             ok
+7707a0cb-eda0-4f9a-921a-c778e2d722df    172.31.25.220   0               7.8 GB          6.4 GB          N/A             ok
 ```
 
-To view the cluster from a container-centric perspective, run ```show containers```. The output lists the running containers by container ID, the container image/name, and the mounted Portworx storage volume. 
+To view the cluster from a container-centric perspective, run ```container show```. The output lists the running containers by container ID, the container image/name, and the mounted Portworx storage volume. 
 
-Example of ```show containers``` for the same three-node cluster:
+Example of ```container show``` for the same three-node cluster:
 ```
 # pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
