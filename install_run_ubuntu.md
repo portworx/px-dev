@@ -47,7 +47,7 @@ You can use an existing etcd service or stand-up your own. In this example, we c
 You only need to do this etcd step once. You can use the same etcd service for multiple PX-Lite clusters.  
 
 ## Install Portworx PX-Lite 
-IMPORTANT: Log in to the Docker Hub to access PX-Lite, during the limited release period. Contact eric@portworx.com for account access.
+
 
 ### Step 1: Download the PX-Lite Container
 From the SSH window for the server:
@@ -56,16 +56,7 @@ From the SSH window for the server:
 * Pull PX-Lite.
  * ```# sudo docker pull portworx/px-lite```
 
-### Step 2: Download and install the PX kernel module
-This initial version of PX-Lite has a dependency on the [*lightweight*](http://github.com/portworx/px-fuse) kernel module, which must be installed on each server. You can get pre-built packages for select [Centos and Ubuntu Linux](https://github.com/portworx/px-lite#kernel-module-for-varios-distros-temporary-requirement) distributions. 
-
-From the SSH window for the server:
-* Download the kernel module for Ubuntu.
- * ```# wget http://get.portworx.com/builds/Linux/ubuntu/14.04/px_3.13.0-74_amd64.deb``` 
-* Install the kernel module.
- * ```# sudo dpkg --install px_3.13.0-74_amd64.deb```
-
-### Step 3: View disks on servers (optional)
+### Step 2: View disks on servers (optional)
 PX-Lite pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
 
 Important: Back up any data on storage devices that will be pooled by PX-Lite. Storage devices will be reformatted!
@@ -85,7 +76,7 @@ Example output:
     xvdc                      202:32   0    40G  0 disk
   ```
 
-### Step 4: Edit the JSON configuration
+### Step 3: Edit the JSON configuration
 The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
@@ -118,7 +109,7 @@ Example config.json:
 
       Warning!!!: Any storage device that PX-Lite uses will be reformatted.
 
-### Step 5: Add nodes
+### Step 4: Add nodes
 
 To add  nodes to increase capacity and enable high availability, complete the following steps for each server.
 
@@ -128,7 +119,7 @@ To add  nodes to increase capacity and enable high availability, complete the fo
  * Download the PX-Lite container and install the PX Kernel module on each node.
 * JSON configuration:
  * If you have the same device configuration on every node, then copy the  config.json you created the first time in Step 4 to all the nodes. 
- * If you have different device configurations on the nodes, then repeat Steps 3 and 4 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
+ * If you have different device configurations on the nodes, then repeat Steps 2 and 3 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
 
 Afterwards, continue with [Using PX-Lite storage](https://github.com/portworx/px-lite/blob/master/cli_reference.md).
 
