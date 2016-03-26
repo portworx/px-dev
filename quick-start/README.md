@@ -3,8 +3,6 @@
 You can start `px-lite` with `docker-compose` as follows:
 
 ```
-# docker login
-pxliteuser
 
 # git clone https://github.com/portworx/px-lite.git
 # cd quick-start
