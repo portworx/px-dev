@@ -31,7 +31,7 @@ Portworx storage runs in a cluster of server nodes.
 
 See [Deployment Requirements](https://github.com/portworx/px-dev#requirements-and-limitations) for compatibility requirements.
 
-![fig1: storage devices](https://github.com/portworx/px-dev/blob/master/images/cluster.png)
+![fig1: storage devices](https://raw.githubusercontent.com/portworx/px-dev/master/images/cluster.png)
 
 Storage volumes are thinly provisioned, using capacity only as an application consumes it. Volumes are replicated across the nodes within the cluster, per a volume’s configuration, to ensure high availability. 
 
@@ -40,7 +40,7 @@ Using MySQL as an example, a PX-Dev storage cluster has the following characteri
  * This data gets stored in the container’s volume, managed by PX-Dev. 
  * PX-Dev synchronously and automatically replicates writes to the volume across the cluster.
 
-![fig2: MySQL volumes](https://github.com/portworx/px-dev/blob/master/images/mysql.png)
+![fig2: MySQL volumes](https://raw.githubusercontent.com/portworx/px-dev/master/images/mysql.png)
 
 Each volume specifies its request of resources (such as its max capacity and IOPS) and its individual requirements (such as ext4 as the file system and block size). 
 
