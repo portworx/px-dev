@@ -1,6 +1,6 @@
 portworx:
-  image: portworx/px-lite
-  container_name: px-lite
+  image: portworx/px-dev
+  container_name: px-dev
   ipc: host
   net: host
   privileged: true
