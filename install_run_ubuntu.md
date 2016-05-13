@@ -1,13 +1,13 @@
 
-## Installing and Running PX-Lite on Ubuntu
-This guide takes you through an install from prerequisites through the PX-Lite setup steps. For the sake of illustration, our example uses AWS EC2 for servers in the cluster, AWS Elastic Block Storage for storage devices, and Compose.IO for a hosted etcd service. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-lite/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
+## Installing and Running PX-Dev on Ubuntu
+This guide takes you through an install from prerequisites through the PX-Dev setup steps. For the sake of illustration, our example uses AWS EC2 for servers in the cluster, AWS Elastic Block Storage for storage devices, and Compose.IO for a hosted etcd service. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-dev/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
 Once this installation is complete, you can continue with walk-throughs for:
-* [Cassandra storage volumes on PX-Lite](https://github.com/portworx/px-lite/blob/master/examples/cassandra_guide.md)
-* [Registry high-availability on PX-Lite](https://github.com/portworx/px-lite/blob/master/examples/registry_guide.md)
+* [Cassandra storage volumes on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra_guide.md)
+* [Registry high-availability on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/registry_guide.md)
 
 ## Prerequisites 
-PX-Lite requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-lite/blob/master/install_run_rhel.md) for Docker setup with RedHat, including configuring systemd.
+PX-Dev requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-dev/blob/master/install_run_rhel.md) for Docker setup with RedHat, including configuring systemd.
 
 ### Step 1: Launch servers
 First, we create three servers in AWS, using: 
@@ -20,7 +20,7 @@ First, we create three servers in AWS, using:
   - /dev/xvdc: 42.9 GB for container storage
 * (optional) Tag: add value 'px-cluster1' as the name
 
-Volumes used for container data can be magnetic or SSD. PX-Lite will apply different policies based on storage devices capabilities.
+Volumes used for container data can be magnetic or SSD. PX-Dev will apply different policies based on storage devices capabilities.
 
 ### Step 2: Install and configure Docker 
 * SSH into your first server
@@ -33,7 +33,7 @@ Volumes used for container data can be magnetic or SSD. PX-Lite will apply diffe
 * Configure Docker to use shared mounts
  - Run ```sudo mount --make-shared / ``` in your SSH window
 
-The shared mounts configuration is required, as PX-Lite exports mount points. If you are using systemd, remove the ```MountFlags=slave``` line in your ```docker.service``` file. The Ubuntu image in this example is not using systemd. 
+The shared mounts configuration is required, as PX-Dev exports mount points. If you are using systemd, remove the ```MountFlags=slave``` line in your ```docker.service``` file. The Ubuntu image in this example is not using systemd. 
 
 ## Provision etcd
 You can use an existing etcd service or stand-up your own. In this example, we chose [Compose.IO](https://www.compose.io/etcd/) for its ease of use. 
@@ -44,22 +44,22 @@ You can use an existing etcd service or stand-up your own. In this example, we c
  - Example: https://[username]:[password]@[string].dblayer.com:[port]
   - If you are using Compose.IO, the connection string might end with [port]/v2/keys. Please omit the /v2/keys for now. 
 
-You only need to do this etcd step once. You can use the same etcd service for multiple PX-Lite clusters.  
+You only need to do this etcd step once. You can use the same etcd service for multiple PX-Dev clusters.  
 
-## Install Portworx PX-Lite 
+## Install Portworx PX-Dev 
 
 
-### Step 1: Download the PX-Lite Container
+### Step 1: Download the PX-Dev Container
 From the SSH window for the server:
 * Log in to Docker Hub.
  * ```# sudo docker login -u [user] -p [password]```
-* Pull PX-Lite.
- * ```# sudo docker pull portworx/px-lite```
+* Pull PX-Dev.
+ * ```# sudo docker pull portworx/px-dev```
 
 ### Step 2: View disks on servers (optional)
-PX-Lite pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
+PX-Dev pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
 
-Important: Back up any data on storage devices that will be pooled by PX-Lite. Storage devices will be reformatted!
+Important: Back up any data on storage devices that will be pooled by PX-Dev. Storage devices will be reformatted!
 
 To view the storage devices on your server: 
 * Command line: run ```# lsblk``` 
@@ -77,10 +77,10 @@ Example output:
   ```
 
 ### Step 3: Edit the JSON configuration
-The PX-Lite `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
+The PX-Dev `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
- * ```https://github.com/portworx/px-lite/blob/master/conf/config.json```
+ * ```https://github.com/portworx/px-dev/blob/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
 * Copy the file to that directory. This directory later gets passed in on the Docker command line.
@@ -107,7 +107,7 @@ Example config.json:
  IMPORTANT: If you are using Compose.IO, the kvdb string might end with [port]/v2/keys. Please omit the /v2/keys for now.
  Before running the container, make sure you have saved off any data on the storage devices specified in the config.
 
-      Warning!!!: Any storage device that PX-Lite uses will be reformatted.
+      Warning!!!: Any storage device that PX-Dev uses will be reformatted.
 
 ### Step 4: Add nodes
 
@@ -115,23 +115,23 @@ To add  nodes to increase capacity and enable high availability, complete the fo
 
 * Repeat Steps 1 and 2 in the Prerequisites section.
  * Launch each server with your Operating System and install Docker.
-* Repeat Steps 1 and 2 in the Install Portworx PX-Lite section. 
- * Download the PX-Lite container and install the PX Kernel module on each node.
+* Repeat Steps 1 and 2 in the Install Portworx PX-Dev section. 
+ * Download the PX-Dev container and install the PX Kernel module on each node.
 * JSON configuration:
  * If you have the same device configuration on every node, then copy the  config.json you created the first time in Step 4 to all the nodes. 
- * If you have different device configurations on the nodes, then repeat Steps 2 and 3 in the Install Portworx PX-Lite section. Use the same clusterid and kvdb on all the nodes. 
+ * If you have different device configurations on the nodes, then repeat Steps 2 and 3 in the Install Portworx PX-Dev section. Use the same clusterid and kvdb on all the nodes. 
 
-Afterwards, continue with [Using PX-Lite storage](https://github.com/portworx/px-lite/blob/master/cli_reference.md).
+Afterwards, continue with [Using PX-Dev storage](https://github.com/portworx/px-dev/blob/master/cli_reference.md).
 
-## Run PX-Lite 
-When you run Docker and PX-Lite, your storage capacity is aggregated and managed by PX-Lite. As you run PX-Lite on each server, new capacity is added to the cluster.
+## Run PX-Dev 
+When you run Docker and PX-Dev, your storage capacity is aggregated and managed by PX-Dev. As you run PX-Dev on each server, new capacity is added to the cluster.
 
-Once PX-Lite is running, you can create and delete storage volumes through the Docker volume commands or the pxctl command line tool. With pxctl, you can also inspect volumes, the volume relationships with containers, and nodes. 
+Once PX-Dev is running, you can create and delete storage volumes through the Docker volume commands or the pxctl command line tool. With pxctl, you can also inspect volumes, the volume relationships with containers, and nodes. 
 
-### Step 1: Run PX-Lite
-Start the PX-Lite container with the following run command:
+### Step 1: Run PX-Dev
+Start the PX-Dev container with the following run command:
 ```
-# sudo docker run --restart=always --name px-lite -d --net=host --privileged=true \
+# sudo docker run --restart=always --name px-dev -d --net=host --privileged=true \
                  -v /run/docker/plugins:/run/docker/plugins                       \
                  -v /var/lib/osd:/var/lib/osd:shared                              \
                  -v /dev:/dev                                                     \
@@ -141,25 +141,25 @@ Start the PX-Lite container with the following run command:
                  -v /var/cores:/var/cores                                         \
                  -v /usr/src:/usr/src                                             \
                  --ipc=host                                                       \
-                portworx/px-lite
+                portworx/px-dev
 ```
 
 Explanation of the runtime command options:
 
     --privileged
-        > Sets PX-Lite to be a privileged container. Required to export block  device and for other functions.
+        > Sets PX-Dev to be a privileged container. Required to export block  device and for other functions.
         
     --net=host
-        > Sets communication to be on the host IP address over ports 9001 -9003. Future versions will support separate IP addressing for PX-Lite.
+        > Sets communication to be on the host IP address over ports 9001 -9003. Future versions will support separate IP addressing for PX-Dev.
         
     --shm-size=384M
-        > PX-Lite advertises support for asynchronous I/O. It uses shared memory to sync across process restarts
+        > PX-Dev advertises support for asynchronous I/O. It uses shared memory to sync across process restarts
         
     -v /run/docker/plugins
         > Specifies that the volume driver interface is enabled.
         
     -v /dev
-        > Specifies which host drives PX-Lite can see. Note that PX-Lite only uses drives specified in config.json. This volume flage is an alternate to --device=\[\].
+        > Specifies which host drives PX-Dev can see. Note that PX-Dev only uses drives specified in config.json. This volume flage is an alternate to --device=\[\].
         
     -v /etc/pwx/config.json:/etc/pwx/config.json
         > the configuration file location.
@@ -175,9 +175,9 @@ Explanation of the runtime command options:
 
 ### Step 2: View global capacity 
 
-At this point, PX-Lite should be running on your system. You can run ```Docker ps``` to verify.  
+At this point, PX-Dev should be running on your system. You can run ```Docker ps``` to verify.  
 
-The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let you control storage. For more on using pxctl, see [Using Portworx storage](https://github.com/portworx/px-lite/blob/master/cli_reference.md).
+The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let you control storage. For more on using pxctl, see [Using Portworx storage](https://github.com/portworx/px-dev/blob/master/cli_reference.md).
 
 * View the global storage capacity by running
  * ```# sudo /opt/pwx/bin/pxctl status```
@@ -204,4 +204,4 @@ The following output of pxctl status shows that the global capacity for Docker c
      	Total Used    	:  3.7 GiB
 ```
 
-You have now completed setup of PX-Lite on your first server. To increase capacity and enable high availability, repeat the same steps on each of the remaining two servers. Run pxctl status to view the cluster status. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-lite/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Lite.
+You have now completed setup of PX-Dev on your first server. To increase capacity and enable high availability, repeat the same steps on each of the remaining two servers. Run pxctl status to view the cluster status. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-dev/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Dev.
