@@ -11,7 +11,7 @@ The pxctl tool lets you directly provision and manage storage. All operations fr
 * Shows the connection between containers and their storage volumes
 * Let you control the Portworx storage cluster (such as adding nodes to the cluster)
 
-The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-lite/blob/master/cli_reference.md#px-command-line-help). 
+The scope of the pxctl command is global to the cluster. Running pxctl from any node within the cluster will therefore show the same global details. The tool also identifies details specific to that node. All Portworx commands can be shown through running [```pxctl help```](https://github.com/portworx/px-dev/blob/master/cli_reference.md#px-command-line-help). 
 
 This current release of the pxctl tools requires privilege. To run as a privileged user, you can sudo as follows:
 ```
@@ -92,10 +92,10 @@ Example of ```container show``` for the same three-node cluster:
 # pxctl show containers
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
 4b01b7d9ec4b mysql        /clonesql   788684553346073923 485a9a8e-4811-4399-a8d0-ec65c7dfafbd	Up 39 seconds
-1557f4d9a605 gourao/px-li /px-lite    N/A                										Up 3 minutes
+1557f4d9a605 gourao/px-li /px-dev    N/A                										Up 3 minutes
 a2aa17b4edcf google/cadvi /cadvisor   N/A                										Up 8 minutes
 e5a00a52e276 mysql        /jeff-mysql 211470040694089666 685324a3-21ef-40cf-92cf-60d605f45d65	Up 15 minutes
-d84fc4caf344 portworx/px-li /px-lite    N/A                										Up 2 minutes
+d84fc4caf344 portworx/px-li /px-dev    N/A                										Up 2 minutes
 81a3f4b95cdf google/cadvi /cadvisor   N/A                										Up 8 minutes
 ```
 
@@ -193,3 +193,5 @@ Example of options for selecting the container's filesystem and volume size:
   docker volume create -d pxd --name <volume_name> --opt fs=ext4 --opt size=10G
 ```
 For more on Docker volumes, refer to  [https://docs.docker.com/engine/reference/commandline/volume_create/](https://docs.docker.com/engine/reference/commandline/volume_create/).
+
+
