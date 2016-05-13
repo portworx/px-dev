@@ -1,4 +1,4 @@
-#Walkthrough of Cassandra with PX-Lite
+#Walkthrough of Cassandra with PX-Dev
 Apache Cassandra is an open source distributed database management system designed to handle large amounts of data across commodity servers. 
 
 Setting up a Cassandra cluster with Portworx storage takes only a few commands. In this scenario we will create a three-node Cassandra cluster. 
@@ -24,7 +24,7 @@ The output of the command is the volume identifier, which we refer to ```DOCKER_
 ### Step 2: Start the Cassandra Docker image on node 1
 We will use the docker -v option to assign the volume we created with docker volume create. Reminder: your DOCKER_CREATE_VOLUME_ID passed into the -v option can be retrievied by running ```docker volume ls```. You should also substitute your IP address for the 10.0.0.1 placeholder in the CASSANDRA_BROADCAST_ADDRESS parameter. 
 
->Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/px-lite/blob/master/faq.md) parameter between 'run' and '--name'.
+>Important: if you are running an OS with SELinux enabled, a workaround to issue [20834](https://github.com/docker/docker/pull/20834) is to pass [security-opt] (https://github.com/portworx/px-dev/blob/master/faq.md) parameter between 'run' and '--name'.
 
 ```
     docker run --name cassandra1 -d \
@@ -57,4 +57,6 @@ As in the above, create a new volume for the Cassandra instance on node 3 by run
 ```
 Remember to change the IP addresses in our examples to the ones used by your instances. It can take up to 30 seconds for Cassandra to start up on each node. To determine when your cluster is ready for use, view the logs: You should see messages that each node is part of the cluster.
 
-Back to [PX-Lite](https://github.com/portworx/px-lite/).
+Back to [PX-Dev](https://github.com/portworx/px-dev/).
+
+
