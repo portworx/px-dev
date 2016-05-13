@@ -1,9 +1,9 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
-# PX-Dev alpha
-PX-Dev is elastic block storage for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. Storage runs converged on the same server as compute, giving bare-metal performance. 
+# PX-Developer Beta
+PX-Developer is scale-out storage for containers. Run with container-granular controls for capacity, performance, and availability. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
 
-PX-Dev aims to improve the storage experience for DevOps teams using containers. This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Dev and our PX-Enterprise release. 
+PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. This release is an open beta and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. 
 
 ## Install and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Dev for elastic storage capacity, managed performance, and high availability.
@@ -50,29 +50,6 @@ Using IOPS as an example, a team can chose to set the MySQL container to have a 
 As you use PX-Dev, please share your feedback and ask questions. Find the team on [Google Groups](https://groups.google.com/forum/#!forum/portworx).
 
 # Reference
-
-## Kernel module for distros (Temporary Requirement)
-If your kernel version is not listed in the table below, you can build the kernel module by following the instructions here: http://github.com/portworx/px-fuse
-
-Find out your kernel version. For example:
-
-```
-# uname -r
-3.19.3-1.el7.elrepo.x86_64
-```
-To install pre-built kernel modules, download  and install per on your distro. 
-
-| **Distribution**   | **Kernel** | **Download URL and installation command**                                                                                                                                            |
-|  ----------------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Centos 7.0         | 3.10.0-229       | [*http://get.portworx.com/builds/Linux/centos/7-3.10.0-229/px-3.10.0-229.14.1.el7.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.10.0-229/px-3.10.0-229.14.1.el7.x86_64.rpm) rpm -ivh px-3.10.0-229.14.1.el7.x86\_64.rpm |
-| Centos 7.0         | 3.10.0-327       | [*http://get.portworx.com/builds/Linux/centos/7-3.10.0-327/px-3.10.0-327.10.1.el7.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.10.0-327/px-3.10.0-327.10.1.el7.x86_64.rpm) rpm -ivh px-3.10.0-327.10.1.el7.x86\_64.rpm |
-| Centos 7.0         | 3.19.3     | [*http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86\_64.rpm*](http://get.portworx.com/builds/Linux/centos/7-3.19.3/px-3.19.3-1.el7.elrepo.x86_64.rpm) rpm -ivh px-3.19.3-1.el7.elrepo.x86\_64.rpm |
-| Ubuntu 14.04       | 3.13       | [*http://get.portworx.com/builds/Linux/ubuntu/14.04/px\_3.13.0-74\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/14.04/px_3.13.0-74_amd64.deb)                     dpkg --install px\_3.13.0-74\_amd64.deb |
-| Ubuntu 14.04       | 3.13.0-79 | [*http://get.portworx.com/builds/Linux/ubuntu/14.04/px\_3.13.0-79\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/14.04-3.13.0-79/px_3.13.0-79_amd64.deb) dpkg --install px_3.13.0-79_amd64.deb |
-| Ubuntu 14.04       | 3.19 (GCE) | [*http://get.portworx.com/builds/Linux/ubuntu/14.04/px\_3.19.0-51\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/14.04-3.19.0-51/px_3.19.0-51_amd64.deb) dpkg --install px_3.19.0-51_amd64.deb |
-| Ubuntu 15.04       | 3.19       | [*http://get.portworx.com/builds/Linux/ubuntu/15.04/px\_3.19.0-43\_amd64.deb*](http://get.portworx.com/builds/Linux/ubuntu/15.04/px_3.19.0-43_amd64.deb) dpkg --install px\_3.19.0-43\_amd64.deb |
-                                  
-
 ## Description of Config.json 
 
 | Field     | Description                                                                                                    | Example                              | Required |
