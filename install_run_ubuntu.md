@@ -51,8 +51,6 @@ You only need to do this etcd step once. You can use the same etcd service for m
 
 ### Step 1: Download the PX-Dev Container
 From the SSH window for the server:
-* Log in to Docker Hub.
- * ```# sudo docker login -u [user] -p [password]```
 * Pull PX-Dev.
  * ```# sudo docker pull portworx/px-dev```
 
