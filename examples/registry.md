@@ -21,4 +21,4 @@ To start the Docker Registry, run the following command. Substitute DOCKER_CREAT
 ```
 Your Docker Registry is now available for Docker push and pull commands on port 5000.
 
-Back to [PX-Lite](https://github.com/portworx/px-lite/).
+Back to [PX-Dev](https://github.com/portworx/px-dev/).
