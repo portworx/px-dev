@@ -21,4 +21,4 @@ docker run -p 3306:3306 --volume-driver=pxd                 \
 ```
 Your mysql container is now available for for use at port 3306.
 
-Back to [PX-Lite](https://github.com/portworx/px-lite/).
+Back to [PX-Dev](https://github.com/portworx/px-dev/).
