@@ -35,7 +35,7 @@ Volumes used for container data can be magnetic or SSD. PX-Dev will apply differ
 
 The shared mounts configuration is required, as PX-Dev exports mount points. If you are using systemd, remove the ```MountFlags=slave``` line in your ```docker.service``` file. The Ubuntu image in this example is not using systemd. 
 
-## Provision etcd
+### Step3: Provision etcd
 You can use an existing etcd service or stand-up your own. In this example, we chose [Compose.IO](https://www.compose.io/etcd/) for its ease of use. 
 
 * Create a new etcd deployment in Compose.IO.
