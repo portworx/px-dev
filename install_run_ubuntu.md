@@ -46,15 +46,8 @@ You can use an existing etcd service or stand-up your own. In this example, we c
 
 You only need to do this etcd step once. You can use the same etcd service for multiple PX-Dev clusters.  
 
-## Install Portworx PX-Dev 
-
-
-### Step 1: Download the PX-Dev Container
-From the SSH window for the server:
-* Pull PX-Dev.
- * ```# sudo docker pull portworx/px-dev```
-
-### Step 2: View disks on servers (optional)
+## Specify Storage
+### Step 1: View disks on servers 
 PX-Dev pools the storage devices on your local server and creates a global capacity for containers. We will use the two non-root storage devices (```/dev/xvdb```, ```/dev/xvdc```) from our first step in Prerequisites. 
 
 Important: Back up any data on storage devices that will be pooled by PX-Dev. Storage devices will be reformatted!
@@ -74,7 +67,7 @@ Example output:
     xvdc                      202:32   0    40G  0 disk
   ```
 
-### Step 3: Edit the JSON configuration
+### Step 2: Edit the JSON configuration
 The PX-Dev `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
@@ -106,20 +99,6 @@ Example config.json:
  Before running the container, make sure you have saved off any data on the storage devices specified in the config.
 
       Warning!!!: Any storage device that PX-Dev uses will be reformatted.
-
-### Step 4: Add nodes
-
-To add  nodes to increase capacity and enable high availability, complete the following steps for each server.
-
-* Repeat Steps 1 and 2 in the Prerequisites section.
- * Launch each server with your Operating System and install Docker.
-* Repeat Steps 1 and 2 in the Install Portworx PX-Dev section. 
- * Download the PX-Dev container and install the PX Kernel module on each node.
-* JSON configuration:
- * If you have the same device configuration on every node, then copy the  config.json you created the first time in Step 4 to all the nodes. 
- * If you have different device configurations on the nodes, then repeat Steps 2 and 3 in the Install Portworx PX-Dev section. Use the same clusterid and kvdb on all the nodes. 
-
-Afterwards, continue with [Using PX-Dev storage](https://github.com/portworx/px-dev/blob/master/cli_reference.md).
 
 ## Run PX-Dev 
 When you run Docker and PX-Dev, your storage capacity is aggregated and managed by PX-Dev. As you run PX-Dev on each server, new capacity is added to the cluster.
@@ -203,3 +182,14 @@ The following output of pxctl status shows that the global capacity for Docker c
 ```
 
 You have now completed setup of PX-Dev on your first server. To increase capacity and enable high availability, repeat the same steps on each of the remaining two servers. Run pxctl status to view the cluster status. Afterwards, continue  with [Quick Start Guides](https://github.com/portworx/px-dev/blob/master/README.md#install--and-quick-start-guides) for application scenarios that use PX-Dev.
+
+
+### Step 3: Add nodes
+To add nodes to increase capacity and enable high availability, complete the same steps on each server.
+
+* JSON configuration:
+ * If you have the same storage device configuration on every node, then copy the  config.json you created the first time to all the nodes. 
+ * If you have different storage device configurations on the nodes, make sure to use the same clusterid and kvdb on all the nodes. 
+
+Afterwards, continue with [Using PX-Dev storage](https://github.com/portworx/px-dev/blob/master/cli_reference.md).
+
