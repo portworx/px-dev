@@ -21,4 +21,8 @@
   ```
  To enable root, you can run  ```sudo su ```. 
 
-
+3. Invalid value: mode shared mode shown on PX-Dev run
+The error below is when your Docker version is not 1.10 or greater. Example, running with v1.9.1 will report this error.
+ ```
+invalid value "/var/lib/osd:/var/lib/osd:shared" for flag -v: bad mode specified: shared
+ ```
