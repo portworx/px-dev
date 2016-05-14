@@ -17,4 +17,4 @@ If you have a custom [px configuration file] (https://github.com/portworx/px-dev
 
 You now have a scale-out storage cluster for containers. Continue with more examples and [Quick Start Guides](https://github.com/portworx/px-dev/blob/master/README.md#install-and-quick-start-guides). 
 
-This release is an alpha and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Dev and our PX-Enterprise release. 
+This release is an beta and we want to develop this solution with the community. [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Dev and our PX-Enterprise release. 
