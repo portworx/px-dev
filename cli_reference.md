@@ -74,7 +74,7 @@ Running ```cluster list``` returns the current global state of the cluster, incl
 
 Example of ```cluster list``` for the same three-node cluster:
 ```
-# pxctl show cluster
+# pxctl cluster list
 Cluster ID: cluster-xxx-yyy-zzz
 Status: OK
 
@@ -89,7 +89,7 @@ To view the cluster from a container-centric perspective, run ```container show`
 
 Example of ```container show``` for the same three-node cluster:
 ```
-# pxctl show containers
+# pxctl container show
 ID           IMAGE        NAMES       VOLUMES            NODE 									STATUS
 4b01b7d9ec4b mysql        /clonesql   788684553346073923 485a9a8e-4811-4399-a8d0-ec65c7dfafbd	Up 39 seconds
 1557f4d9a605 gourao/px-li /px-dev    N/A                										Up 3 minutes
