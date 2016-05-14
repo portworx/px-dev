@@ -1,6 +1,10 @@
 ## Technical FAQ and Troubleshooting
+1. Getting logs for PX-Dev
+  Access logs like any other Docker container. Example:
+    * ```docker ps ``` and get the CONTAINER ID for px-dev
+    * ```docker logs [CONTAINER_ID] ```
 
-1. No such file or directory, when running on SELinux 
+2. No such file or directory, when running on SELinux 
  If you have `SELinux` enabled, you may get the following error message: 
  ```
  # docker run --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw  --volume-driver=pxd -v sql_vol:/var/lib/mysql -d mysql
@@ -13,7 +17,7 @@
  ```
  You will not need to workaround this after [20834](https://github.com/docker/docker/pull/20834) is merged
 
-2. Pxctl show persmission denied
+3. Pxctl show persmission denied
  If you run a pxctl command and get the error like the below, the issue is that you need to run as *root* to use the pxctl tools. 
  ```
  pxctl cluster list
@@ -21,8 +25,9 @@
   ```
  To enable root, you can run  ```sudo su ```. 
 
-3. Invalid value: mode shared mode shown on PX-Dev run
-The error below is when your Docker version is not 1.10 or greater. Example, running with v1.9.1 will report this error.
- ```
-invalid value "/var/lib/osd:/var/lib/osd:shared" for flag -v: bad mode specified: shared
- ```
+4. Invalid value: mode shared mode shown on PX-Dev run
+
+ The error below is when your Docker version is not 1.10 or greater. Example, running with v1.9.1 will report this error.
+  ```
+ invalid value "/var/lib/osd:/var/lib/osd:shared" for flag -v: bad mode specified: shared
+  ```
