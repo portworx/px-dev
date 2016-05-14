@@ -1,11 +1,11 @@
 # Running PX-Dev with Docker Compose
 
-You can start `PX-Dev` with `docker-compose` as follows:
+You can start `PX-Dev` with [docker-compose](https://docs.docker.com/compose/install/) as follows:
 
 ```
 
 # git clone https://github.com/portworx/px-dev.git
-# cd quick-start
+# cd px-dev/quick-start
 # docker-compose run portworx -daemon --kvdb=http://myetcd.example.com:4001 --clusterid=YOUR_CLUSTER_ID --devices=/dev/xvdi
 ```
 
