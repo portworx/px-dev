@@ -24,7 +24,7 @@ To start the mysql container, run the following command. Substitute DOCKER_CREAT
 Your mysql container is now available for for use at port 3306.
 
 ### Using the `pxctl` CLI to create snaps of your mysql volume
-To demonsrate the capabilities of the SAN like functionality offered by px-lite, try creating a snapshot of a mysql volume.
+To demonsrate the capabilities of the SAN like functionality offered by px-dev, try creating a snapshot of a mysql volume.
 
 First create a database and a demo table in your mysql container.
 
