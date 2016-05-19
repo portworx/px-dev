@@ -172,8 +172,8 @@ The following output of pxctl status shows that the global capacity for Docker c
      	IP:  172.31.23.134 
      	Local Storage Pool:
      	Device		Caching Tier	Size	Used
-     	/dev/xvdf	true            64 GB   2.0 GB
-     	/dev/xvdg	true            64 GB   2.0 GB
+     	/dev/xvdb	true            64 GB   2.0 GB
+     	/dev/xvdc	true            64 GB   2.0 GB
      	total		-               128 GB  4.0 GB
     Cluster Summary
      	ID:  86428a61-a22a-4a7a-a79a-1cfbbb846f7e
