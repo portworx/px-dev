@@ -84,4 +84,3 @@ Other limitations:
 | Max Volumes | 256 |
 | Max local devices | 3 |
 
-
