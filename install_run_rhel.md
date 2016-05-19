@@ -16,8 +16,8 @@ First, we create three servers in AWS, using:
 * Number of instances: 3
 * Storage: 
   - /dev/xvda: 8 GB boot device
-  - /dev/xvdb: 2 GB for container storage
-  - /dev/xvdc: 42.9 GB for container storage
+  - /dev/xvdb: 64 GB for container storage
+  - /dev/xvdc: 64 GB for container storage
 * (optional) Tag: add value 'px-cluster1' as the name
 
 Volumes used for container data can be magnetic or SSD. PX-Dev will apply different policies based on storage devices capabilities.
@@ -65,8 +65,8 @@ Example output:
     NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
     xvda                      202:0    0     8G  0 disk 
     └─xvda1                   202:1    0     8G  0 part /
-    xvdb                      202:16   0     2G  0 disk 
-    xvdc                      202:32   0    40G  0 disk
+    xvdb                      202:16   0    64G  0 disk 
+    xvdc                      202:32   0    64G  0 disk
   ```
 
 ### Step 2: Edit the JSON configuration
