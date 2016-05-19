@@ -164,7 +164,7 @@ The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let y
 * Use pxctl to manage volumes, for example to create, snapshot, and inspect.
  * View all pxctl options by running ```# /opt/pwx/bin/pxctl help```
 
-The following output of pxctl status shows that the global capacity for Docker containers is now 41 GB. 
+The following output of pxctl status shows that the global capacity for Docker containers is now 128 GB. 
 ```
     # /opt/pwx/bin/pxctl status
     Status: PX is operational
