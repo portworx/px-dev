@@ -16,8 +16,8 @@ First, we create three servers in AWS, using:
 * Number of instances: 3
 * Storage: 
   - /dev/xvda: 8 GB boot device
-  - /dev/xvdb: 2 GB for container storage
-  - /dev/xvdc: 42.9 GB for container storage
+  - /dev/xvdb: 64 GB for container storage
+  - /dev/xvdc: 64 GB for container storage
 * (optional) Tag: add value 'px-cluster1' as the name
 
 Volumes used for container data can be magnetic or SSD. PX-Dev will apply different policies based on storage devices capabilities.
@@ -162,7 +162,7 @@ The pxctl control tools are exported to `/opt/pwx/bin/pxctl`. These tools  let y
 * Use pxctl to manage volumes, for example to create, snapshot, and inspect.
  * View all pxctl options by running ```# /opt/pwx/bin/pxctl help```
 
-The following output of pxctl status shows that the global capacity for Docker containers is now 41 GB. 
+The following output of pxctl status shows that the global capacity for Docker containers is now 128 GB. 
 ```
     # /opt/pwx/bin/pxctl status
     Status: PX is operational
