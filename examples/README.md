@@ -5,4 +5,4 @@ The following examples illustrate managing data volumes with stateful databases 
  * [Scaling a Cassandra database with PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md) 
  * [Running the Docker registry with high availability](https://github.com/portworx/px-dev/blob/master/examples/registry.md) 
  * [Running GlusterFS with px-dev](https://gist.github.com/rodriguise/2c7de2de1e6781e30f51)
- * [Running Reds with px-dev](https://github.com/portworx/px-dev/blob/master/examples/redis.md)
+ * [Running Redis with px-dev](https://github.com/portworx/px-dev/blob/master/examples/redis.md)
