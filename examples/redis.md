@@ -1,16 +1,16 @@
 
 ### Create a storage volume for redis
-To create a storage volume for redis, run the following command and note the returned volume ID. You will need the volume ID when you start the mysql container in the next step.
+To create a storage volume for redis, run the following command.
 
 ```
-#    docker volume create -d pxd --opt name=redis_vol --opt \
+# docker volume create -d pxd --opt name=redis_vol --opt \
      			size=4 --opt block_size=64 --opt repl=1 --opt fs=ext4
 ```
 
-Now we have a volume to attach to our redis-server container. The redis-server container stores its data in the /data directory. We will use the Docker -v option to attach the Portworx volume to this directory.  
+Now we have a volume to attach to our redis-server container. The redis-server container stores its data in the /data directory. We will use the 'docker -v' option to attach the Portworx volume to this directory.  
 
 ### Start the redis container
-To start the redis container, run the following command. Substitute DOCKER_CREATE_VOLUME_ID for the volume id from the docker volume create command.
+To start the redis container, run the following command, using the 'redis_vol' volume created above. 
 
 ```
 # docker run --name some-redis  -v redis_vol:/data --volume-driver=pxd  -d redis redis-server --appendonly yes
@@ -36,28 +36,30 @@ redis:6379> get foo
 redis:6379>
 ```
 
-### Kill the redis-server instance
+### Kill the 'some-redis' instance
 ```
 docker kill some-redis
 ```
 
-### Start a new redis-server instance using the original 'redis_vol' to show persistance
+### Start a new redis-server instance with volume persistance
+Start another redis-server container called "other-redis using the original 'redis_vol' to show data persistance
 ```
 docker run --name other-redis  -v redis_vol:/data --volume-driver=pxd  -d redis redis-server --appendonly yes
 ```
 
-### Start a redis CLI container to connect with the new redis-server
+### Start a redis CLI container
+Connect to the new "other-redis" container with the following command
 ```
 docker run -it --link other-redis:redis --rm redis redis-cli -h redis -p 6379
 ```
 
-### Show that the original data has persisted
+### See that the original data has persisted
 ```
 redis:6379> get foo
 "101abcxxx"
 ```
 
-### Create snapshot of your redis_vol volume
+### Create snapshot of your volume
 To demonsrate the capabilities of the SAN like functionality offered by px-dev, try creating a snapshot of the redis_vol volume.
 
 Create a snapshot of this database using `pxctl`.
