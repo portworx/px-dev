@@ -1,6 +1,9 @@
+Redis can be used as a cache, database, or for messaging. Here is an example of durable storage for containers with container-granular controls. 
 
-### Create a storage volume for redis
-To create a storage volume for redis, run the following command.
+In this example, we create a volume for Redis, run and write to Redis, and then snapshot just that Redis volume's state. Portworx snapshots are thinly provisioned and copy-on-write. 
+
+### Create a storage volume for Redis
+To create a Portworx storage volume for Redis, use the Docker volume command.
 
 ```
 # docker volume create -d pxd --opt name=redis_vol --opt \
@@ -9,8 +12,8 @@ To create a storage volume for redis, run the following command.
 
 Now we have a volume to attach to our redis-server container. The redis-server container stores its data in the /data directory. We will use the 'docker -v' option to attach the Portworx volume to this directory.  
 
-### Start the redis container
-To start the redis container, run the following command, using the 'redis_vol' volume created above. 
+### Start the Redis container
+To start the Redis container, run the following command, using the 'redis_vol' volume created above. 
 
 ```
 # docker run --name some-redis  -v redis_vol:/data --volume-driver=pxd  -d redis redis-server --appendonly yes
@@ -60,9 +63,9 @@ redis:6379> get foo
 ```
 
 ### Create snapshot of your volume
-To demonsrate the capabilities of the SAN like functionality offered by px-dev, try creating a snapshot of the redis_vol volume.
+We can create container-granular snapshots, saving just this container's state. Snapshots are then immedidately available as a volume.  
 
-Create a snapshot of this database using `pxctl`.
+Create a snapshot of the redis_vol volume using `pxctl`.
 
 ```
 # pxctl volume list
