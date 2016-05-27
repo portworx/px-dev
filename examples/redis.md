@@ -6,7 +6,7 @@ In this example, we create a volume for Redis, run and write to Redis, and then 
 To create a Portworx storage volume for Redis, use the Docker volume command.
 
 ```
-# docker volume create -d pxd --opt name=redis_vol --opt \
+# docker volume create -d pxd --name=redis_vol --opt \
      			size=4 --opt block_size=64 --opt repl=1 --opt fs=ext4
 ```
 
