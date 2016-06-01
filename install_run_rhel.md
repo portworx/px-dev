@@ -73,7 +73,7 @@ Example output:
 The PX-Dev `config.json` lets you select the storage devices and identifies the key-value store for the cluster. 
 
 * Download the sample config.json file:
- * ```https://github.com/portworx/px-dev/blob/master/conf/config.json```
+ * ```https://raw.githubusercontent.com/portworx/px-dev/master/conf/config.json```
 * Create a directory for the configuration file.
  * ```# sudo mkdir -p /etc/pwx```
 * Move the file to that directory. This directory later gets passed in on the Docker command line.
