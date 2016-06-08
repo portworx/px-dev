@@ -1,6 +1,6 @@
 
 # Portworx and Mesosphere
-Portworx PX-Dev is elastic block storage for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Mesosphere and Marathon. 
+Portworx PX-Dev is elastic block storage for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Mesosphere and Marathon.  The following has been qualified using DC/OS 1.7.
 
 For installing PX-Dev, see our [quick start guides](https://github.com/portworx/px-dev#install-and-quick-start-guides). 
 
@@ -15,13 +15,23 @@ Follow the instructions for installing [Mesosphere DC/OS](https://dcos.io/instal
 
 Use the DC/OS CLI command 'dcos node' to identify which nodes in the Mesos cluster are the Agent nodes.
 
-### Step 1: Run the PX-Dev container on each Mesos Agent node
+### Step 2: Run the PX-Dev container on Mesos Agent nodes
 
 Depending on which base OS is used for the Mesos Agent nodes, launch the PX-Dev container, as per the [examples](https://github.com/portworx/px-dev)
 
-Go through the installation process of creating a PX cluster using each of the Mesos Agent nodes.
+Go through the installation process of creating a PX cluster using Mesos Agent nodes.
 
-### Step 2: Reference PX volumes through Marathon config file
+### Step 3: Add Mesos 'constraints'
+For each Mesos Agent node that is participating in the PX cluster, specify MESOS_ATTRIBUTES that allow for affinity of tasks to nodes that are part of the PX cluster
+
+- Add "MESOS_ATTRIBUTES=rack:px" to the file /var/lib/dcos/mesos-slave-common
+- Restart the slave service
+  - rm -f /var/lib/mesos/slave/meta/slaves/latest
+  - systemctl restart dcos-mesos-slave.service
+- Verify the slave service has started properly
+  - systemctl status dcos-mesos-slave.service
+
+### Step 4: Reference PX volumes through Marathon config file
 
 The 'pxd' docker volume driver and any associated volumes are passed in to Marathon as docker parameters.   The following example illustrates for 'mysql'.
 ```
@@ -55,8 +65,9 @@ The 'pxd' docker volume driver and any associated volumes are passed in to Marat
     },
     "constraints": [
             [
-              "hostname",
-              "UNIQUE"
+              "rack",
+              "CLUSTER",
+              "px"
             ]],
     "env": {
         "MYSQL_ROOT_PASSWORD": "password"
@@ -70,6 +81,8 @@ The 'pxd' docker volume driver and any associated volumes are passed in to Marat
 Note the docker 'parameters' clause as the way of referencing the 'pxd' volume driver as well as the volume itself.
 
 The referenced volume can be a volume name, a volume ID, or a snapshot ID.   If the volume name does not previously exist, then it will be created in-band with default settings.
+
+Note the 'constraints' clause, which restricts this task to running only on agent nodes that are part of the PX cluster.
 
 ### Step 3: Launch application through Marathon 
 
