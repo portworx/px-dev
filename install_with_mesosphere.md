@@ -24,7 +24,7 @@ Go through the installation process of creating a PX cluster using Mesos Agent n
 ### Step 3: Add Mesos 'constraints'
 For each Mesos Agent node that is participating in the PX cluster, specify MESOS_ATTRIBUTES that allow for affinity of tasks to nodes that are part of the PX cluster
 
-- Add "MESOS_ATTRIBUTES=rack:px" to the file /var/lib/dcos/mesos-slave-common
+- Add "MESOS_ATTRIBUTES=fabric:px" to the file /var/lib/dcos/mesos-slave-common
 - Restart the slave service
   - rm -f /var/lib/mesos/slave/meta/slaves/latest
   - systemctl restart dcos-mesos-slave.service
@@ -65,7 +65,7 @@ The 'pxd' docker volume driver and any associated volumes are passed in to Marat
     },
     "constraints": [
             [
-              "rack",
+              "fabric",
               "CLUSTER",
               "px"
             ]],
