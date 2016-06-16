@@ -87,7 +87,7 @@ Example config.json:
     {
       "clusterid": "make this unique in your k/v store",
       "kvdb": [
-          "https://[username]:[password]@[string].dblayer.com:[port]"
+          "etcd:https://[username]:[password]@[string].dblayer.com:[port]"
         ],
       "storage": {
         "devices": [
