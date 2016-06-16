@@ -58,7 +58,7 @@ As you use PX-Dev, please share your feedback and ask questions. Find the team o
 | ClusterID | A unique identifier for your cluster. Be sure to use the same identifier on all the nodes you want to cluster. | 5ac2ed6f-7e4e-4e1d-8e8c-3a6df1fb61a5 | required |
 | mgtiface  | The network interface for management data.                                                                     | eth0                                 | optional |
 | dataiface | The network interface for data transfers.                                                                      | eth1                                 | optional |
-| kvdb      | The URI to your etcd server.                                                                                   | https://myetcd.example.com:4001      | required |
+| kvdb      | The list of URIs to your etcd server cluster.                                                                                   | https://myetcd.example.com:4001      | required |
 | devices   | The list of devices that PX-Dev will use. Any disks listed will be reformatted for PX use.                    | /dev/xvda                            | required |
 
 
