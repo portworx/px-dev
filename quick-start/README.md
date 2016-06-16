@@ -6,7 +6,7 @@ You can start `PX-Dev` with [docker-compose](https://docs.docker.com/compose/ins
 
 # git clone https://github.com/portworx/px-dev.git
 # cd px-dev/quick-start
-# docker-compose run portworx -daemon --kvdb=http://myetcd.example.com:4001 --clusterid=YOUR_CLUSTER_ID --devices=/dev/xvdi
+# docker-compose run portworx -daemon --kvdb=etcd:http://myetcd.example.com:4001 --clusterid=YOUR_CLUSTER_ID --devices=/dev/xvdi
 ```
 
 If you have a custom [px configuration file] (https://github.com/portworx/px-dev/edit/master/quick-start/config.json) at `/etc/pwx/config.json`, you can simply start px-dev as follows:
