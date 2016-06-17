@@ -4,7 +4,7 @@ This guide takes you through an install from prerequisites through the PX-Dev se
 
 Once this installation is complete, you can continue with walk-throughs for:
 * [Cassandra storage volumes on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md)
-* [Registry high-availability on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/redis.md)
+* [Registry high-availability on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/registry.md)
 
 ## Prerequisites 
 PX-Dev requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses Ubuntu as the OS. For RedHat, see [this guide](https://github.com/portworx/px-dev/blob/master/install_run_rhel.md) for Docker setup with RedHat, including configuring systemd.
