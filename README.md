@@ -28,7 +28,7 @@ Portworx storage is deployed as a container and runs on a cluster of servers. Ap
 Portworx storage runs in a cluster of server nodes. 
  * Each server has the PX-Dev container and the Docker daemon.
  * Servers join a cluster and share configuration through the key/value store, such as etcd.
- * The PX-Dev container pools the capacity of the storage media residing on the server. You easily select storage media through the config.json file.
+ * The PX-Dev container pools the capacity of the storage media residing on the server. You easily select storage media through the [config.json](https://raw.githubusercontent.com/portworx/px-dev/master/conf/config.json) file.
 
 See [Deployment Requirements](https://github.com/portworx/px-dev#requirements-and-limitations) for compatibility requirements.
 
