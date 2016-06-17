@@ -2,8 +2,8 @@
 This guide takes you through an install from prerequisites through the PX-Dev setup steps. For the sake of illustration, our example uses AWS EC2 for servers in the cluster, AWS Elastic Block Storage for storage devices, and Compose.IO for a hosted etcd service. As long as your configuration meets the [Deployment Requirements](https://github.com/portworx/px-dev/#requirements-and-limitations), you can use physical servers, another favorite public cloud, or virtual machines. 
 
 Once this installation is complete, you can continue with walk-throughs for:
-* [Cassandra storage volumes on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra_guide.md)
-* [Registry high-availability on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/registry_guide.md)
+* [Cassandra storage volumes on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md)
+* [Registry high-availability on PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/registry.md)
 
 ## Prerequisites 
 PX-Dev requires a server with storage devices, Docker 1.10, and use of a key-value store for the cluster configuration. This guide uses RHEL 7.2 as the OS. For Ubuntu, see [this guide](https://github.com/portworx/px-dev/blob/master/install_run_ubuntu.md) for Docker setup with Ubuntu.
