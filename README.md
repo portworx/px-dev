@@ -50,6 +50,9 @@ Using IOPS as an example, a team can chose to set the MySQL container to have a 
 # Contact Us
 As you use PX-Dev, please share your feedback and ask questions. Find the team on [Google Groups](https://groups.google.com/forum/#!forum/portworx).
 
+If your requirements extend beyond the scope of PX-Dev, then please contact [Portworx](http://portworx.com/contact-us) for information on PX-Enterprise.
+
+
 # Reference
 ## Description of Config.json 
 
