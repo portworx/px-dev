@@ -9,7 +9,7 @@ To create a Portworx shared volume, use the pxctl command for now.  Shortly, sha
 # pxctl volume create my_shared_vol --shared --size=5 --repl=3
 # pxctl volume list
 ID			            NAME		        SIZE	   HA	  SHARED	STATUS
-944424689751331159	my_shared_vol	  5.0 GiB	 3	  yes	    up - detached
+944424689751331159	    my_shared_vol	    5.0 GiB	   3	  yes	    up - detached
 ```
 
 Note the "SHARED" status of the volume, in the above output
