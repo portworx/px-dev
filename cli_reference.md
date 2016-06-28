@@ -1,5 +1,5 @@
 # Using Portworx Storage 
-Portworx is elastic block storage for containers. It manages a server's storage devices, joins servers together to form a storage cluster, and integrates up  the application stack with schedulers and containers. Accordingly, the Portworx toolchain operates at each level of hardware and ties the experience together with other toolchains. 
+Portworx is elastic storage for containers. `px-dev` provides a distributed hyper-converged storage software for Docker.  It manages a server's storage devices, joins servers together to form a storage cluster, and integrates up the application stack with schedulers and containers. Accordingly, the Portworx toolchain operates at each level of hardware and ties the experience together with other toolchains.
 
 Applications can provision and consume storage through the Docker API. Administrators can pre-provision storage and manage through the Portworx or Docker CLI. 
 
