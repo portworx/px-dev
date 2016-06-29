@@ -148,6 +148,9 @@ OPTIONS:
    --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
 ```
 
+# Global Namespace (A.K.A Shared Volumes)
+To use PX volumes across nodes and multiple containers, please see [Shared Volumes with PX] (https://github.com/portworx/px-dev/blob/master/using_shared_volumes.md)
+
 ## PX Command Line Help
 
 ```
