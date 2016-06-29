@@ -1,4 +1,4 @@
-## Shared Volumes
+# Shared Volumes
 #### Note that this is an early access feature
 
 Through shared volumes, a single volume's filesystem is concurrently available to multiple containers running on multiple hosts. 
