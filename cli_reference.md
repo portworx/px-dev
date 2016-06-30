@@ -132,20 +132,22 @@ Show the available options through the --help command, as shown below:
 ```
 # pxctl volume create --help
 NAME:
-   create volume - Create a volume
+   pxctl volume create - Create a volume
 
 USAGE:
-   command create volume [command options] [arguments...]
+   pxctl volume create [command options] [arguments...]
 
 OPTIONS:
-   --label, -l                  Comma separated name=value pairs, e.g name=sqlvolume,type=production
-   --size, -s "1000"            specify size in MB
-   --fs "ext4"                  filesystem to be laid out: none|xfs|ext4
-   --seed                       optional data that the volume should be seeded with
-   --block_size, -b "32"        block size in Kbytes
-   --repl, -r "3"               replication factor [1..3]
-   --cos "1"                    Class of Service: [1..9]
-   --snap_interval, --si "0"    snapshot interval in minutes, 0 disables snaps
+   --shared                           Specify --shared to make this a globally shared namespace volume
+   --label value, -l value            Comma separated name=value pairs, e.g name=sqlvolume,type=production
+   --size value, -s value             specify size in GB (default: 1)
+   --fs value                         filesystem to be laid out: none|xfs|ext4 (default: "ext4")
+   --seed value                       optional data that the volume should be seeded with
+   --block_size value, -b value       block size in Kbytes (default: 32)
+   --repl value, -r value             replication factor [1..2] (default: 1)
+   --cos value                        Class of Service: [1..9] (default: 1)
+   --snap_interval value, --si value  snapshot interval in minutes, 0 disables snaps (default: 0)
+
 ```
 
 # Global Namespace (A.K.A Shared Volumes)
