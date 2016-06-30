@@ -7,12 +7,6 @@ This is the schema definition for a valid PX configuration file.  This file is e
  "description": "PX config json schema",
  "type": "object",
  "properties": {
-   "version": {
-     "type": "string"
-   },
-   "created": {
-     "type": "string"
-   },
    "clusterid": {
      "type": "string"
    },
@@ -56,13 +50,7 @@ This is the schema definition for a valid PX configuration file.  This file is e
    "raidlevelmd": {
      "type": "string"
    },
-   "driver": {
-     "type": "string"
-   },
    "debug_level": {
-     "type": "string"
-   },
-   "domain": {
      "type": "string"
    }
  }
