@@ -11,6 +11,7 @@ As you develop and deploy your apps in containers, use PX-Dev for elastic storag
 
  * See our quick start guides on installing PX-Dev:
   * [Launching PX-Dev with Docker Compose](https://github.com/portworx/px-dev/blob/master/quick-start/README.md)  
+  * [Running PX-Dev with Kubernetes](https://github.com/portworx/px-dev/blob/master/install_with_k8s.md)
   * Detailed instructions for PX-Dev on [Ubuntu](https://github.com/portworx/px-dev/blob/master/install_run_ubuntu.md) or [Red Hat](https://github.com/portworx/px-dev/blob/master/install_run_rhel.md)
  * Run stateful containers with Docker volumes:
   * [Scaling a Cassandra database with PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md) 
