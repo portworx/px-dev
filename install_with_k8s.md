@@ -19,6 +19,7 @@ $ docker run --restart=always --name px-dev -d --net=host
 -v /dev:/dev \
 -v /etc/pwx:/etc/pwx \
 -v /opt/pwx/bin:/export_bin \
+-v /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume:/export_flexvolume:shared \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v /var/cores:/var/cores \
 -v /var/lib/kubelet:/var/lib/kubelet:shared \
@@ -30,22 +31,8 @@ portworx/px-dev:latest
 Flexvolume allows other volume drivers outside of Kubernetes to
 attach/detach/mount/unmount custom volumes to pods/daemonsets/rcs
 
-You can download the flexvolume binary built for x86_64 arch from [S3](https://s3-us-west-1.amazonaws.com/kubernetes-portworx/flexvolume)
-
-OR
-
-Build the flexvolume binary in openstorage.
-```
-$ git clone git@github.com:libopenstorage/openstorage.git
-$ cd libopenstorage/openstorage
-$ make
-```
-
-Copy the compiled binary into the Kubernetes plugin path on all the k8s nodes
-```
-$ mkdir -p /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume/
-$ cp ../../../bin/flexvolume /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume/
-```
+When you run the Px-Dev container on a kubernetes node, it automatically
+installs the flexvolume binary at the required path and is ready to use.
 
 ### Step 3: Include PX Flexvolume as a VolumeSpec in Kubernetes spec file
 
@@ -63,8 +50,7 @@ spec:
           size: "1G"
           osdDriver: "pxd"
 ```
-* The driver name px/flexvolume should match the plugin directory
-(px~flexvolume) which was created in the previous step.
+* The driver name should be set to px/flexvolume.
 * Specify the unique ID for the volume create in px-dev container as
 the volumeID field.
 * Set the osdDriver to "pxd" always. It indicates that the flexvolume
@@ -128,6 +114,7 @@ $ docker run --restart=always --name px-dev -d --net=host
 -v /dev:/dev \
 -v /etc/pwx:/etc/pwx \
 -v /opt/pwx/bin:/export_bin \
+-v /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume:/export_flexvolume:shared \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v /var/cores:/var/cores \
 -v /var/lib/kubelet:/var/lib/kubelet:shared \
@@ -137,14 +124,6 @@ $ docker run --restart=always --name px-dev -d --net=host
 -p 9008:9008 \
 -p 2345:2345 \
 portworx/px-dev:latest
-```
-
-* Copy the flexvolume binary to the kubernetes plugin path on all
-  nodes
-
-```
-$ mkdir -p /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume/
-$ cp ../../../bin/flexvolume /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume/
 ```
 
 * Start your k8s cluster in privileged mode
