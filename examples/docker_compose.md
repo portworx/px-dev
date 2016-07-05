@@ -31,7 +31,6 @@ services:
     image: mysql
     container_name: mysql
     network_mode: "host"
-    volume_driver: pxd
     volumes:
       - sqlvol:/var/lib/mysql
     environment:
@@ -41,9 +40,13 @@ volumes:
   wpvol:
     driver: pxd
     external: false
+    driver_opts:
+       size: 7
   sqlvol:
     driver: pxd
     external: false
+    driver_opts:
+       size: 6
 ```
 
 After "docker-compose up -d", the following volumes are automatically created through docker-compose, by virtue of "external: false".
@@ -51,9 +54,9 @@ After "docker-compose up -d", the following volumes are automatically created th
 
 ```
 [root@PX-SM3 ~]# pxctl v l
-ID			NAME		SIZE	HA	SHARED	STATUS
-274113421587995748	wp_wpvol	1.0 GiB	1	no	up - attached on 93a68f30-edcf-4ef4-9122-1b4e0be6ce8b
-517652068653682856	wp_sqlvol	1.0 GiB	1	no	up - attached on 93a68f30-edcf-4ef4-9122-1b4e0be6ce8b
+ID			NAME		SIZE	HA	     SHARED	STATUS
+274113421587995748	wp_wpvol	7.0 GiB	1	no	up - attached on 93a68f30-edcf-4ef4-9122-1b4e0be6ce8b
+517652068653682856	wp_sqlvol	6.0 GiB	1	no	up - attached on 93a68f30-edcf-4ef4-9122-1b4e0be6ce8b
 ```
 
 To bring down the stack, use "docker-compose down --volumes" to remove any volumes that were automatically created.
