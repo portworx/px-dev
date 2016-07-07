@@ -111,6 +111,8 @@ Storage is durable, elastic, and has fine-grained controls. Portworx creates vol
 
 A volume can be created before use by its container or by the container directly at runtime. Creating a volume returns the volume's ID. This same volume ID is returned in Docker commands (such as ```Docker volume ls```) as is shown in pxctl commands. 
 
+++ Note:  Portworx recommends generally creating volumes "in-band" through "docker volume create".   Employing mixed modes for volume management, including creation, is not generally recommended.
+
 Example of creating a volume through pxctl, where the volume ID is returned:
  ```
  # pxctl volume create foobar
