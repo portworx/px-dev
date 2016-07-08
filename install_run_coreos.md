@@ -23,7 +23,7 @@ First, we create three servers in AWS, using:
 Volumes used for container data can be magnetic or SSD. PX-Dev will apply different policies based on storage devices capabilities.
 
 ### Step 2: Configure Docker 
-* SSH into your first server.   Docker should be installed by default
+* SSH into your first server.   Default user for CoreOS is "core".  Docker should be installed by default
 * Verify Docker is running at 1.10 or later  : ```docker -v```
 * Configure Docker to use shared mounts.
  - Copy docker.service file for editing
