@@ -9,10 +9,10 @@ PX-Developer aims to improve the storage experience for developer and DevOps tea
 ## Install and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Dev for elastic storage capacity, managed performance, and high availability.
 
- * See our quick start guides on installing PX-Dev:
+ * See our quick start guides on :
   * [Launching PX-Dev with Docker Compose](https://github.com/portworx/px-dev/blob/master/quick-start/README.md)  
   * [Running PX-Dev with Kubernetes](https://github.com/portworx/px-dev/blob/master/install_with_k8s.md)
-  * Detailed instructions for PX-Dev on [Ubuntu](https://github.com/portworx/px-dev/blob/master/install_run_ubuntu.md) or [Red Hat](https://github.com/portworx/px-dev/blob/master/install_run_rhel.md)
+  * Running PX-Dev on [Ubuntu](https://github.com/portworx/px-dev/blob/master/install_run_ubuntu.md),  [Red Hat](https://github.com/portworx/px-dev/blob/master/install_run_rhel.md), and [ CoreOS ] (https://github.com/portworx/px-dev/blob/master/install_run_coreos.md)
  * Run stateful containers with Docker volumes:
   * [Scaling a Cassandra database with PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md) 
   * [Running the Docker registry with high availability](https://github.com/portworx/px-dev/blob/master/examples/registry.md) 
