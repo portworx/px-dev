@@ -6,8 +6,8 @@ Here is a 3 minute video that shows setting up a 3 node cluster for mysql and ad
 To create a storage volume for mysql, run the following command and note the returned volume ID. You will need the volume ID when you start the mysql container in the next step.
 
 ```
-#    docker volume create -d pxd --opt name=mysql_volume --opt \
-     			size=4 --opt block_size=64 --opt repl=1 --opt fs=ext4
+#    docker volume create name=mysql_volume -d pxd --opt size=4 \
+     			--opt block_size=64 --opt repl=1 --opt fs=ext4
 ```
 
 Now we have a volume to attach to our mysql container. The mysql container stores its data in the /var/lib/mysql directory. We will use the Docker -v option to attach the Portworx volume to this directory.  
