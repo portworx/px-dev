@@ -1,7 +1,5 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
-![Imgur](http://i.imgur.com/Qq2YCJJ.png)
-
 [![Docker Pulls](https://img.shields.io/docker/pulls/portworx/px-dev.svg)](https://hub.docker.com/r/portworx/px-dev)
 # PX-Developer Beta
 PX-Developer is scale-out storage for containers. Run with container-granular controls for capacity, performance, and availability. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
