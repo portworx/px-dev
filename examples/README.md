@@ -7,3 +7,4 @@ The following examples illustrate managing data volumes with stateful databases 
  * [Running GlusterFS with px-dev](https://gist.github.com/rodriguise/2c7de2de1e6781e30f51)
  * [Running Redis with px-dev](https://github.com/portworx/px-dev/blob/master/examples/redis.md)
  * [Managing PX volumes through docker-compose](https://github.com/portworx/px-dev/blob/master/examples/docker_compose.md)
+ * [Running PostgreSQL from CrunchyData on PX volumes] (https://github.com/CrunchyData/crunchy-containers/tree/master/examples/portworx)
