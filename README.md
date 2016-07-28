@@ -16,6 +16,7 @@ As you develop and deploy your apps in containers, use PX-Dev for elastic storag
  * Run stateful containers with Docker volumes:
   * [Scaling a Cassandra database with PX-Dev](https://github.com/portworx/px-dev/blob/master/examples/cassandra.md) 
   * [Running the Docker registry with high availability](https://github.com/portworx/px-dev/blob/master/examples/registry.md) 
+  * [Running PostgreSQL from CrunchyData on PX volumes] (https://github.com/CrunchyData/crunchy-containers/tree/master/examples/portworx)
  * Use our [pxctl CLI ](https://github.com/portworx/px-dev/blob/master/cli_reference.md) to directly: 
   * View the cluster global capacity and health
   * Create, inspect, and delete storage volumes
