@@ -1,6 +1,6 @@
 
 # Portworx and Kubernetes
-Portworx PX-Dev is elastic block storage for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Kubernetes pods. 
+Portworx PX-Dev is elastic storage fabric for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Kubernetes pods. 
 
 Future versions will support launching PX-Dev through Kubernetes. For more on PX-Dev, see our [quick start guides](https://github.com/portworx/px-dev#install-and-quick-start-guides). 
 
