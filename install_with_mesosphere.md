@@ -1,6 +1,6 @@
 
 # Portworx and Mesosphere
-Portworx PX-Dev is elastic block storage for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Mesosphere and Marathon.  The following has been qualified using DC/OS 1.7.
+Portworx PX-Dev is elastic storage fabric for containers. Deploying PX-Dev on a server with Docker turns that server into a scale-out storage node. This quick guide shows how to use PX-Dev to implement storage for Mesosphere and Marathon.  The following has been qualified using DC/OS 1.7.
 
 For installing PX-Dev, see our [quick start guides](https://github.com/portworx/px-dev#install-and-quick-start-guides). 
 
