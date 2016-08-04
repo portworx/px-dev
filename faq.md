@@ -31,3 +31,14 @@
   ```
  invalid value "/var/lib/osd:/var/lib/osd:shared" for flag -v: bad mode specified: shared
   ```
+5.  Not enough free space in /dev/shm
+
+Example: 
+```
+"Invalid PX configuration: Configuration check failed: Not enough free space in /dev/shm, needs 258MB, available 224MB"
+```
+  To fix:
+```
+mount -o remount,size=1GB /dev/shm
+```
+
