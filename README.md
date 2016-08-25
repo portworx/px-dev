@@ -6,6 +6,8 @@ PX-Developer is scale-out storage for containers. Run with container-granular co
 
 PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. This release is an open beta and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. 
 
+>**Note:**<br/>The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
+
 ## Install and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Dev for elastic storage capacity, managed performance, and high availability.
 
