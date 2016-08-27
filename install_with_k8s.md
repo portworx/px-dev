@@ -18,6 +18,7 @@ $ docker run --restart=always --name px-dev -d --net=host
 -v /var/lib/osd:/var/lib/osd \
 -v /dev:/dev \
 -v /etc/pwx:/etc/pwx \
+-v /usr/src:/usr/src \
 -v /opt/pwx/bin:/export_bin \
 -v /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume:/export_flexvolume:shared \
 -v /var/run/docker.sock:/var/run/docker.sock \
@@ -113,6 +114,7 @@ $ docker run --restart=always --name px-dev -d --net=host
 -v /var/lib/osd:/var/lib/osd \
 -v /dev:/dev \
 -v /etc/pwx:/etc/pwx \
+-v /usr/src:/usr/src \
 -v /opt/pwx/bin:/export_bin \
 -v /usr/libexec/kubernetes/kubelet-plugins/volume/exec/px~flexvolume:/export_flexvolume:shared \
 -v /var/run/docker.sock:/var/run/docker.sock \
