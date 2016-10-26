@@ -1,10 +1,11 @@
 ![logo](http://i.imgur.com/l8JRhxg.jpg)
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/portworx/px-dev.svg)](https://hub.docker.com/r/portworx/px-dev)
-# PX-Developer Beta
+# PX-Developer 1.0
+
 PX-Developer is scale-out storage for containers. Run with container-granular controls for capacity, performance, and availability. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
 
-PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. This release is an open beta and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. 
+PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. PX-Developer is a limited version of the our flagship software PX-Enterprise for production container deployments and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. If you are looking for more information about PX-Enterprise for your production workloads, please follow this link to get started with PX-Enterprise. [Portworx](http://portworx.com/contact-us)
 
 >**Note:**<br/>The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
 
