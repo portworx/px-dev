@@ -17,7 +17,9 @@ PX-Dev offers container granular services such as:
 
 Please visit [our offical docs site for more information](http://docs.portworx.com)
 
->**Note:**<br/>This is now deprecated... The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
+>**Note:**<br/>This section below is now deprecated... The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
+
+# PX-Developer Documentation
 
 PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. PX-Developer is a limited version of the our flagship software PX-Enterprise for production container deployments and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. If you are looking for more information about PX-Enterprise for your production workloads, please follow this link to get started with PX-Enterprise. [Portworx](http://portworx.com/contact-us)
 
