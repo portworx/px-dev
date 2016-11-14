@@ -3,11 +3,23 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/portworx/px-dev.svg)](https://hub.docker.com/r/portworx/px-dev)
 # PX-Developer 1.0
 
-PX-Developer is scale-out storage for containers. Run with container-granular controls for capacity, performance, and availability. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
+PX-Developer (PX-Dev) is scale-out storage and data services for containers.  PX-Dev itself is deployed as a conytainer with your application stack.  By running PX-Dev with your application stack, you get container-granular controls for storage persistence, capacity management, performance, and availability in a scaleout environment. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
+
+PX-Dev offers container granular services such as:
+
+1. Data persistence in a multi node environment
+2. Synchronous data availability across multiple availability zones and automatic AZ detection
+3. Automatic tiering and class of service enforcement
+4. Bring-your-own-key Encryption
+5. Shared namespaces across containers running on different servers
+6. S3 interfaces and backup to S3
+7. Integration with schedulers to automate container placement
+
+Please visit [our offical docs site for more information](http://docs.portworx.com)
+
+>**Note:**<br/>This is now deprecated... The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
 
 PX-Developer aims to improve the storage experience for developer and DevOps teams using containers. PX-Developer is a limited version of the our flagship software PX-Enterprise for production container deployments and we want to develop this solution with the community, including for enterprises. (More on our [blog](http://portworx.com/px-dev-beta/).) [Contact us](https://github.com/portworx/px-dev#contact-us) to share your feedback, work with us, and to request features. Stay tuned for updates on PX-Developer (PX-Dev for short) and our PX-Enterprise release. If you are looking for more information about PX-Enterprise for your production workloads, please follow this link to get started with PX-Enterprise. [Portworx](http://portworx.com/contact-us)
-
->**Note:**<br/>The full Portworx Documentation site is now [online here](https://portworx.github.io/px-docs) 
 
 ## Install and Quick Start Guides
 As you develop and deploy your apps in containers, use PX-Dev for elastic storage capacity, managed performance, and high availability.
