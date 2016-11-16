@@ -3,7 +3,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/portworx/px-dev.svg)](https://hub.docker.com/r/portworx/px-dev)
 # PX-Developer 1.0
 
-PX-Developer (PX-Dev) is scale-out storage and data services for containers.  PX-Dev itself is deployed as a conytainer with your application stack.  By running PX-Dev with your application stack, you get container-granular controls for storage persistence, capacity management, performance, and availability in a scaleout environment. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
+PX-Developer (PX-Dev) is scale-out storage and data services for containers.  PX-Dev itself is deployed as a container with your application stack.  By running PX-Dev with your application stack, you get container-granular controls for storage persistence, capacity management, performance, and availability in a scaleout environment. Deploying the PX-Developer container on a server with Docker Engine turns that server into a scale-out storage node. Storage runs converged with compute and gives bare-metal drive performance. 
 
 PX-Dev offers container granular services such as:
 
