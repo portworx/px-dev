@@ -59,4 +59,9 @@ Remember to change the IP addresses in our examples to the ones used by your ins
 
 Back to [PX-Dev](https://github.com/portworx/px-dev/).
 
+Additional Cassandra resources:
+
+[Cassandra in Docker Container overview](https://docs.portworx.com/applications/cassandra.html)
+[Cassandra Production Ops Guide](https://portworx.com/use-case/cassandra-docker-container/)
+
 
