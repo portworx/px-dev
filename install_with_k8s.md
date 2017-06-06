@@ -12,7 +12,7 @@ PX-Dev pools your servers capacity and is deployed as a container. Here is how t
 Run PX-Dev container using docker with following command
 
 ```
-$ docker run --restart=always --name px-dev -d --net=host
+$ docker run --restart=always --name px-dev -d --net=host \
 --privileged=true \
 -v /run/docker/plugins:/run/docker/plugins \
 -v /var/lib/osd:/var/lib/osd \
