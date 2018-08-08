@@ -8,11 +8,11 @@
       "portMappings": [],
       "command": [
         "-c",
-        “[portworx-cluster-identifier]",
+        "[portworx-cluster-identifier]",
         "-a",
         "-f",
         "-k", 
-        “[key-store]”
+        "[key-store]"
       ],
       "linuxParameters": null,
       "cpu": 0,
