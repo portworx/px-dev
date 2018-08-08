@@ -1,0 +1,121 @@
+{
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": null,
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 9092,
+          "protocol": "tcp",
+          "containerPort": 9092
+        },
+        {
+          "hostPort": 2181,
+          "protocol": "tcp",
+          "containerPort": 2181
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "ADVERTISED_HOST",
+          "value": "0.0.0.0"
+        },
+        {
+          "name": "ADVERTISED_PORT",
+          "value": "9092"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/var/lib/kafka/data",
+          "sourceVolume": "kafkaVolume"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": 1024,
+      "volumesFrom": [],
+      "image": "spotify/kafka",
+      "disableNetworking": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": "kafka1",
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "kafka1"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": null,
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:...",
+  "family": "kafka-demo",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.docker-plugin.pxd"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": null,
+  "cpu": null,
+  "revision": 18,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "kafkaVolume",
+      "host": null,
+      "dockerVolumeConfiguration": {
+        "autoprovision": null,
+        "labels": null,
+        "scope": "task",
+        "driver": "pxd",
+        "driverOpts": {
+          "size": "10",
+          "io_profile": "db",
+          "scale": "3",
+          "repl": "3"
+        }
+      }
+    }
+  ]
+}
+

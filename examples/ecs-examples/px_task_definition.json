@@ -1,0 +1,182 @@
+{
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": null,
+      "entryPoint": null,
+      "portMappings": [],
+      "command": [
+        "-c",
+        “[portworx-cluster-identifier]",
+        "-a",
+        "-f",
+        "-k", 
+        “[key-store]”
+      ],
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/var/run/docker.sock",
+          "sourceVolume": "docker-sock"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/etc/pwx",
+          "sourceVolume": "etc-pwx"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/opt/pwx",
+          "sourceVolume": "opt-pwx"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/etc/systemd/system",
+          "sourceVolume": "systemd"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/host_proc/1/ns",
+          "sourceVolume": "proc-1"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/var/run/dbus",
+          "sourceVolume": "dbus"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/etc/init",
+          "sourceVolume": "etc-init"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/etc/logrotate.d",
+          "sourceVolume": "logrotate"
+        },
+        {
+          "readOnly": null,
+          "containerPath": "/dev",
+          "sourceVolume": "dev"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "portworx/oci-monitor:ecs-px1.4.3",
+      "disableNetworking": true,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": true,
+      "dockerLabels": null,
+      "privileged": true,
+      "name": "portworx-install"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "2048",
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:...",
+  "family": "pxdemo",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.privileged-container"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": null,
+  "cpu": null,
+  "revision": 18,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "docker-sock",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "etc-pwx",
+      "host": {
+        "sourcePath": "/etc/pwx"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "opt-pwx",
+      "host": {
+        "sourcePath": "/opt/pwx"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "systemd",
+      "host": {
+        "sourcePath": "/etc/systemd/system"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "proc-1",
+      "host": {
+        "sourcePath": "/proc/1/ns"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "dbus",
+      "host": {
+        "sourcePath": "/var/run/dbus"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "etc-init",
+      "host": {
+        "sourcePath": "/etc/init"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "logrotate",
+      "host": {
+        "sourcePath": "/etc/logrotate.d"
+      },
+      "dockerVolumeConfiguration": null
+    },
+    {
+      "name": "dev",
+      "host": {
+        "sourcePath": "/dev"
+      },
+      "dockerVolumeConfiguration": null
+    }
+  ]
+}
