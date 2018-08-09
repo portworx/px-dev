@@ -8,7 +8,7 @@
             "portMappings": [],
             "command": [
                 "-c",
-                "[cluster identifier Portworx",
+                "[cluster identifier Portworx]",
                 "-a",
                 "-f",
                 "-k",
