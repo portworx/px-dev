@@ -2,86 +2,151 @@
     "executionRoleArn": null,
     "containerDefinitions": [
         {
-            "dnsSearchDomains": null,
-            "logConfiguration": null,
-            "entryPoint": null,
-            "portMappings": [
-                {
-                    "hostPort": 9092,
-                    "protocol": "tcp",
-                    "containerPort": 9092
-                },
-                {
-                    "hostPort": 2181,
-                    "protocol": "tcp",
-                    "containerPort": 2181
-                }
-            ],
-            "command": null,
-            "linuxParameters": null,
-            "cpu": 0,
-            "environment": [
-                {
-                    "name": "ADVERTISED_HOST",
-                    "value": "0.0.0.0"
-                },
-                {
-                    "name": "ADVERTISED_PORT",
-                    "value": "9092"
-                }
-            ],
-            "ulimits": null,
-            "dnsServers": null,
-            "mountPoints": [
-                {
-                    "readOnly": null,
-                    "containerPath": "/var/lib/kafka/data",
-                    "sourceVolume": "kafkaVolume"
-                }
-            ],
-            "workingDirectory": null,
-            "dockerSecurityOptions": null,
-            "memory": null,
-            "memoryReservation": 1024,
-            "volumesFrom": [],
-            "image": "spotify/kafka",
-            "disableNetworking": null,
-            "healthCheck": null,
-            "essential": true,
-            "links": null,
-            "hostname": "kafka1",
-            "extraHosts": null,
-            "user": null,
-            "readonlyRootFilesystem": null,
-            "dockerLabels": null,
-            "privileged": null,
-            "name": "kafka1"
+          "hostPort": 2181,
+          "protocol": "tcp",
+          "containerPort": 2181
         }
-    ],
-    "memory": null,
-    "taskRoleArn": null,
-    "family": "kafka-demo",
-    "requiresCompatibilities": [
-        "EC2"
-    ],
-    "networkMode": null,
-    "cpu": null,
-    "volumes": [
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
         {
-            "name": "kafkaVolume",
-            "host": null,
-            "dockerVolumeConfiguration": {
-                "autoprovision": null,
-                "labels": null,
-                "scope": "task",
-                "driver": "pxd",
-                "driverOpts": {
-                    "size": "10",
-                    "io_profile": "db",
-                    "scale": "3",
-                    "repl": "3"
-                }
-            }
+          "name": "ZOOKEEPER_CLIENT_PORT",
+          "value": "2181"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 1024,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "confluentinc/cp-zookeeper:5.0.0",
+      "disableNetworking": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": "zookeeper",
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "zookeeper"
+    },
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": null,
+      "entryPoint": null,
+      "portMappings": [
+        {
+          "hostPort": 9092,
+          "protocol": "tcp",
+          "containerPort": 9092
+        }
+      ],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "KAFKA_ADVERTISED_LISTENERS",
+          "value": "PLAINTEXT://localhost:9092"
+        },
+        {
+          "name": "KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR",
+          "value": "1"
+        },
+        {
+          "name": "KAFKA_ZOOKEEPER_CONNECT",
+          "value": "localhost:2181"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/var/lib/kafka/data",
+          "sourceVolume": "kafka-volume"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": 1024,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "confluentinc/cp-kafka:5.0.0",
+      "disableNetworking": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": "kafka",
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "kafka"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "1024",
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "family": "confluent-kafka",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.docker-plugin.pxd"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": "host",
+  "cpu": null,
+  "revision": 1,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "kafka-volume",
+      "host": null,
+      "dockerVolumeConfiguration": {
+        "autoprovision": null,
+        "labels": null,
+        "scope": "task",
+        "driver": "pxd",
+        "driverOpts": {
+          "size": "10",
+          "io_profile": "db",
+          "scale": "3",
+          "repl": "3"
         }
     ],
     "placementConstraints": []
