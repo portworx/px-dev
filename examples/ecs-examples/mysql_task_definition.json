@@ -1,0 +1,93 @@
+{
+  "executionRoleArn": null,
+  "containerDefinitions": [
+    {
+      "dnsSearchDomains": null,
+      "logConfiguration": null,
+      "entryPoint": null,
+      "portMappings": [],
+      "command": null,
+      "linuxParameters": null,
+      "cpu": 0,
+      "environment": [
+        {
+          "name": "MYSQL_ROOT_PASSWORD",
+          "value": "password"
+        }
+      ],
+      "ulimits": null,
+      "dnsServers": null,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/var/lib/mysql",
+          "sourceVolume": "mysqlVolume"
+        }
+      ],
+      "workingDirectory": null,
+      "dockerSecurityOptions": null,
+      "memory": null,
+      "memoryReservation": null,
+      "volumesFrom": [],
+      "image": "mysql",
+      "disableNetworking": null,
+      "healthCheck": null,
+      "essential": true,
+      "links": null,
+      "hostname": null,
+      "extraHosts": null,
+      "user": null,
+      "readonlyRootFilesystem": null,
+      "dockerLabels": null,
+      "privileged": null,
+      "name": "mysql"
+    }
+  ],
+  "placementConstraints": [],
+  "memory": "2048",
+  "taskRoleArn": null,
+  "compatibilities": [
+    "EC2"
+  ],
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:649513742363:task-definition/mysql:1",
+  "family": "mysql",
+  "requiresAttributes": [
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.docker-plugin.pxd"
+    }
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "networkMode": null,
+  "cpu": null,
+  "revision": 1,
+  "status": "ACTIVE",
+  "volumes": [
+    {
+      "name": "mysqlVolume",
+      "host": null,
+      "dockerVolumeConfiguration": {
+        "autoprovision": null,
+        "labels": null,
+        "scope": "task",
+        "driver": "pxd",
+        "driverOpts": {
+          "size": "10",
+          "io_profile": "db",
+          "scale": "3",
+          "repl": "3"
+        }
+      }
+    }
+  ]
+}
